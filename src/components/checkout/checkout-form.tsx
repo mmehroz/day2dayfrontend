@@ -35,13 +35,26 @@ interface CheckoutInputType {
 }
 
 const CheckoutForm: React.FC = () => {
-  const { total } = useCart();
+  const { total, items } = useCart();
   const [clientSecret, setClientSecret] = useState<string>("");
   const [showStripe, setShowStripe] = useState<boolean>(false);
   const { price } = usePrice({
     amount: total,
     currencyCode: "USD",
   });
+  const [orders, setOrders] = useState({
+    firstName: "",
+    lastName: "",
+    address: "",
+    phone: "",
+    email: "",
+    city: "",
+    postCode: "",
+  });
+
+  const handleChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
+    setOrders({ ...orders, [name]: e.target.value });
+  };
 
   const { t } = useTranslation();
   const { mutate: updateUser, isLoading } = useCheckoutMutation();
@@ -50,14 +63,51 @@ const CheckoutForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<CheckoutInputType>();
-  function onSubmit(input: CheckoutInputType) {
+
+  async function onSubmit(input: CheckoutInputType) {
     updateUser(input);
+    await payWithCard();
+
+    console.log("error occured");
+    console.log("items", items);
+
+    const filteredArr = items.map((el, _i) => {
+      return {
+        product_id: el.id,
+        variant: null,
+        size: null,
+        qty: el.quantity,
+        unit_price: el.price,
+      };
+    });
+
+    const res = await axios("http://207.244.250.143/day2day/api/createorder", {
+      method: "POST",
+      data: {
+        item: filteredArr,
+        name: input.firstName + input.lastName,
+        email: input.email,
+        phone: input.phone,
+        address: input.address,
+        shipping_method: "null",
+        payment_method: "stripe",
+        amount: total,
+        shipping_fee: 0,
+        total_amount: total,
+      },
+    });
+
+    return;
     Router.push(ROUTES.ORDER);
   }
 
-  const payWithCard = async (e: any) => {
-    e.preventDefault();
+  const payWithCard = async () => {
     try {
+      console.log("im hrerer pressing the button");
+      console.log(errors);
+      if (errors.firstName) {
+        return;
+      }
       const res = await axios({
         url: "/api/checkout",
         method: "POST",
@@ -65,11 +115,12 @@ const CheckoutForm: React.FC = () => {
         data: JSON.stringify({ amount: parseFloat(total?.toString() + "00") }),
       });
 
-      console.log("Request Submitted");
       setClientSecret(res?.data?.clientSecret);
       setShowStripe(true);
-      console.log("Clicking Card");
-      console.log("Request Check out form done");
+
+      console.log(res);
+      console.log("stripe res: ", res);
+      console.log("pay with card completed");
     } catch (err) {
       //@ts-ignore
       console.log(err?.message);
@@ -100,6 +151,8 @@ const CheckoutForm: React.FC = () => {
               errorKey={errors.firstName?.message}
               variant="solid"
               className="w-full lg:w-1/2 "
+              onChange={handleChange("firstName")}
+              value={orders.firstName}
             />
             <Input
               labelKey="forms:label-last-name"
@@ -180,14 +233,7 @@ const CheckoutForm: React.FC = () => {
               className="w-full sm:w-auto bg-gradient-to-r from-orange-500  to-pink-500"
               loading={isLoading}
               disabled={isLoading}
-            >
-              {t("common:button-place-order")}
-            </Button>
-            <Button
-              className="w-full sm:w-auto bg-gradient-to-r from-orange-500  to-pink-500"
-              loading={isLoading}
-              disabled={isLoading}
-              onClick={payWithCard}
+              type="submit"
             >
               Pay With Card
             </Button>

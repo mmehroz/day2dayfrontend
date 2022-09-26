@@ -45,15 +45,18 @@ const CheckoutForm = ({ handleClose, price }: any): JSX.Element => {
       },
       redirect: "if_required",
     });
+
+    if (!error?.type) handleClose();
+
     //@ts-ignore
     if (error?.type === "card_error" || error?.type === "validation_error") {
       //@ts-ignore
       setMessage(error.message);
+      return;
     } else {
       setMessage("An unexpected error occurred.");
+      return;
     }
-
-    handleClose();
   };
 
   return (
