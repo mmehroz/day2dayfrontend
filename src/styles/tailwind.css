@@ -321,3 +321,6 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
   color: white;
 }
 
+.covert-white {
+  filter: brightness(0) invert(1);
+}

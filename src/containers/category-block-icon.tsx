@@ -73,7 +73,7 @@ const breakpointsCircle = {
 };
 
 const CategoryBlockIcon: React.FC<CategoriesProps> = ({
-  className = 'mb-12 md:mb-14 xl:mb-16',
+  className = 'mb-12 md:mb-14 xl:mb-16  ',
   sectionHeading,
   variant = 'default',
 }) => {
