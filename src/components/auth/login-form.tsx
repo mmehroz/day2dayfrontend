@@ -1,22 +1,31 @@
-import Input from '@components/ui/input';
-import PasswordInput from '@components/ui/password-input';
-import Button from '@components/ui/button';
-import { useForm } from 'react-hook-form';
-import { useLoginMutation, LoginInputType } from '@framework/auth/use-login';
-import { useUI } from '@contexts/ui.context';
-import Logo from '@components/ui/logo';
-import { ImGoogle2, ImFacebook2 } from 'react-icons/im';
-import { useTranslation } from 'next-i18next';
-import { useState, useEffect } from 'react';
-import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script';
-import { SignUpInputType, useSignUpMutation } from '@framework/auth/use-signup';
+import Input from "@components/ui/input";
+import PasswordInput from "@components/ui/password-input";
+import Button from "@components/ui/button";
+import { useForm } from "react-hook-form";
+import { useLoginMutation, LoginInputType } from "@framework/auth/use-login";
+import { useUI } from "@contexts/ui.context";
+import Logo from "@components/ui/logo";
+import { ImGoogle2, ImFacebook2 } from "react-icons/im";
+import { useTranslation } from "next-i18next";
+import { useState, useEffect } from "react";
+import { GoogleLogin } from "react-google-login";
+// import { gapi } from "gapi-script";
+import { SignUpInputType, useSignUpMutation } from "@framework/auth/use-signup";
 
 const LoginForm: React.FC = () => {
+  let gpi: {
+    client: { init: (arg0: { clientId: string; scope: string }) => void };
+    load: (arg0: string, arg1: () => void) => void;
+  };
   const { t } = useTranslation();
   const { setModalView, openModal, closeModal, setRememberMe, rememberMe } =
     useUI();
-  // let { srm } = () => {setRememberMe(false);}
+
+  // let {
+  //   srm,
+  // } = () => {
+  //   setRememberMe(false);
+  // };
   const { mutate: signUp } = useSignUpMutation();
 
   const { mutate: login, isLoading } = useLoginMutation();
@@ -31,23 +40,23 @@ const LoginForm: React.FC = () => {
     login({
       email,
       password,
-      rememberMe,
+      remember_me,
     });
-    console.log(email, password, rememberMe, 'data');
+    console.log(email, password, rememberMe, "data");
   }
   function handelSocialLogin() {
     login({
-      email: 'demo@demo.com',
-      password: 'demo',
+      email: "demo@demo.com",
+      password: "demo",
       remember_me: true,
     });
   }
   function handleSignUp() {
-    setModalView('SIGN_UP_VIEW');
+    setModalView("SIGN_UP_VIEW");
     return openModal();
   }
   function handleForgetPassword() {
-    setModalView('FORGET_PASSWORD');
+    setModalView("FORGET_PASSWORD");
     return openModal();
   }
   useEffect(() => {
@@ -56,32 +65,50 @@ const LoginForm: React.FC = () => {
   }, []);
 
   const clientId =
-    '764934816914-i9k3l79um38itcd6bfihi43hh6pi5usb.apps.googleusercontent.com';
+    "764934816914-i9k3l79um38itcd6bfihi43hh6pi5usb.apps.googleusercontent.com";
 
   useEffect(() => {
+    console.log("//////////////////////////////////");
+    importModule();
+
+    // console.log("//gapi");
+    // console.log(gpi);
+    // console.log("im herer");
+  }, []);
+
+  const importModule = async () => {
+    gpi = await import("gapi-script").then((pack) => pack.gapi);
+    console.log("imported module");
+    console.log(gpi);
+
     const initClient = () => {
-      gapi.client.init({
+      gpi.client.init({
         clientId: clientId,
-        scope: '',
+        scope: "",
       });
     };
-    gapi.load('client:auth2', initClient);
-  });
+
+    gpi.load("client:auth2", initClient);
+    console.log("loaded");
+  };
 
   const onSuccess = (res: any, {}: SignUpInputType) => {
+    console.log("im herere signing with goo");
     signUp({
       name: res?.profileObj?.name,
       email: res?.profileObj?.email,
       username: res?.profileObj?.givenName,
-      password: '12345678',
+      password: "12345678",
     });
-    console.log('success:', res);
+    console.log("success:", res);
   };
   // const onSuccess = (err: any) => {
   //   console.log('success:', err);
   // };
   const onFailure = (err: any) => {
-    console.log('failed:', err);
+    console.log("im failure")
+    console.log("failed:", err);
+    console.log('haris error')
   };
 
   return (
@@ -91,7 +118,7 @@ const LoginForm: React.FC = () => {
           <Logo />
         </div>
         <p className="text-sm md:text-base text-white mt-2 mb-8 sm:mb-10">
-          {t('common:login-helper')}
+          {t("common:login-helper")}
         </p>
       </div>
       <form
@@ -104,12 +131,12 @@ const LoginForm: React.FC = () => {
             labelKey="forms:label-email"
             type="email"
             variant="solid"
-            {...register('email', {
-              required: `${t('forms:email-required')}`,
+            {...register("email", {
+              required: `${t("forms:email-required")}`,
               pattern: {
                 value:
                   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: t('forms:email-error'),
+                message: t("forms:email-error"),
               },
             })}
             errorKey={errors.email?.message}
@@ -117,8 +144,8 @@ const LoginForm: React.FC = () => {
           <PasswordInput
             labelKey="forms:label-password"
             errorKey={errors.password?.message}
-            {...register('password', {
-              required: `${t('forms:password-required')}`,
+            {...register("password", {
+              required: `${t("forms:password-required")}`,
             })}
           />
           <div className="flex items-center justify-center">
@@ -135,8 +162,8 @@ const LoginForm: React.FC = () => {
                 <span
                   className={
                     rememberMe
-                      ? 'bg-gradient-to-r from-orange-500  to-pink-500 absolute inset-0 transition-all duration-300 ease-in slider round'
-                      : 'bg-gray-500 absolute inset-0 transition-all duration-300 ease-in slider round'
+                      ? "bg-gradient-to-r from-orange-500  to-pink-500 absolute inset-0 transition-all duration-300 ease-in slider round"
+                      : "bg-gray-500 absolute inset-0 transition-all duration-300 ease-in slider round"
                   }
                 ></span>
               </label>
@@ -144,7 +171,7 @@ const LoginForm: React.FC = () => {
                 htmlFor="remember"
                 className="flex-shrink-0 text-sm text-heading ps-3 cursor-pointer"
               >
-                {t('forms:label-remember-me')}
+                {t("forms:label-remember-me")}
               </label>
             </div>
             <div className="flex ms-auto">
@@ -153,7 +180,7 @@ const LoginForm: React.FC = () => {
                 onClick={handleForgetPassword}
                 className="text-end text-sm text-heading ps-3 underline hover:no-underline focus:outline-none"
               >
-                {t('common:text-forgot-password')}
+                {t("common:text-forgot-password")}
               </button>
             </div>
           </div>
@@ -164,7 +191,7 @@ const LoginForm: React.FC = () => {
               disabled={isLoading}
               className="h-11 md:h-12 w-full mt-1.5 bg-gradient-to-r from-orange-500  to-pink-500"
             >
-              {t('common:text-login')}
+              {t("common:text-login")}
             </Button>
           </div>
         </div>
@@ -178,10 +205,10 @@ const LoginForm: React.FC = () => {
       <GoogleLogin
         className="h-11 md:h-12 w-full mt-2.5 bg-facebook hover:bg-facebookHover"
         clientId={clientId}
-        buttonText="Sign in with Google"
+        buttonText="Sign in with Google" //@ts-ignore
         onSuccess={onSuccess}
         onFailure={onFailure}
-        cookiePolicy={'single_host_origin'}
+        cookiePolicy={"single_host_origin"}
         isSignedIn={true}
       />
       <Button
@@ -191,7 +218,7 @@ const LoginForm: React.FC = () => {
         onClick={handelSocialLogin}
       >
         <ImFacebook2 className="text-sm sm:text-base me-1.5" />
-        {t('common:text-login-with-facebook')}
+        {t("common:text-login-with-facebook")}
       </Button>
       <Button
         loading={isLoading}
@@ -200,16 +227,16 @@ const LoginForm: React.FC = () => {
         onClick={handelSocialLogin}
       >
         <ImGoogle2 className="text-sm sm:text-base me-1.5" />
-        {t('common:text-login-with-google')}
+        {t("common:text-login-with-google")}
       </Button>
       <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
-        {t('common:text-no-account')}{' '}
+        {t("common:text-no-account")}{" "}
         <button
           type="button"
           className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
           onClick={handleSignUp}
         >
-          {t('common:text-register')}
+          {t("common:text-register")}
         </button>
       </div>
     </div>

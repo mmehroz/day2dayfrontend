@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
 import Button from "@components/ui/button";
+import { ROUTES } from "@utils/routes";
 
-const CheckoutForm = ({ handleClose, price }: any): JSX.Element => {
+const CheckoutForm = ({ handleClose, price, placeOrder }: any): JSX.Element => {
+  const Router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
   const [stripeLoaded, setStripeLoaded] = useState<boolean>(false);
@@ -46,7 +49,11 @@ const CheckoutForm = ({ handleClose, price }: any): JSX.Element => {
       redirect: "if_required",
     });
 
-    if (!error?.type) handleClose();
+    if (!error?.type) {
+      placeOrder();
+      handleClose();
+      Router.push(ROUTES.ORDER);
+    }
 
     //@ts-ignore
     if (error?.type === "card_error" || error?.type === "validation_error") {

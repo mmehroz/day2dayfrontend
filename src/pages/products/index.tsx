@@ -42,7 +42,7 @@ export default function Products() {
 						</StickyBox>
 					</div>
 
-					<div className="w-full lg:-ms-9">
+					<div className="w-full lg:-ms-9 ">
 						<SearchTopBar />
 						<ProductGrid />
 					</div>

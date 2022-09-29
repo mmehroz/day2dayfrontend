@@ -35,7 +35,7 @@ interface CheckoutInputType {
 }
 
 const CheckoutForm: React.FC = () => {
-  const { total, items } = useCart();
+  const { total, items, clearItemFromCart } = useCart();
   const [clientSecret, setClientSecret] = useState<string>("");
   const [showStripe, setShowStripe] = useState<boolean>(false);
   const { price } = usePrice({
@@ -64,13 +64,7 @@ const CheckoutForm: React.FC = () => {
     formState: { errors },
   } = useForm<CheckoutInputType>();
 
-  async function onSubmit(input: CheckoutInputType) {
-    updateUser(input);
-    await payWithCard();
-
-    console.log("error occured");
-    console.log("items", items);
-
+  async function placeOrder() {
     const filteredArr = items.map((el, _i) => {
       return {
         product_id: el.id,
@@ -80,6 +74,8 @@ const CheckoutForm: React.FC = () => {
         unit_price: el.price,
       };
     });
+
+    const input = orders;
 
     const res = await axios("http://207.244.250.143/day2day/api/createorder", {
       method: "POST",
@@ -97,8 +93,29 @@ const CheckoutForm: React.FC = () => {
       },
     });
 
-    return;
-    Router.push(ROUTES.ORDER);
+    console.log("order placed after payment successfull");
+    console.log(res);
+    setOrders({
+      firstName: "",
+      lastName: "",
+      address: "",
+      phone: "",
+      email: "",
+      city: "",
+      postCode: "",
+    });
+
+    items.map((el) => clearItemFromCart(el?.id));
+  }
+
+  async function onSubmit(input: CheckoutInputType) {
+    updateUser(input);
+    await payWithCard();
+    console.log("im hrere stripe payment completed");
+
+    console.log("error occured");
+    console.log("items", items);
+
   }
 
   const payWithCard = async () => {
@@ -162,6 +179,8 @@ const CheckoutForm: React.FC = () => {
               errorKey={errors.lastName?.message}
               variant="solid"
               className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
+              onChange={handleChange("lastName")}
+              value={orders.lastName}
             />
           </div>
           <Input
@@ -171,6 +190,8 @@ const CheckoutForm: React.FC = () => {
             })}
             errorKey={errors.address?.message}
             variant="solid"
+            onChange={handleChange("address")}
+            value={orders.address}
           />
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0">
             <Input
@@ -181,7 +202,9 @@ const CheckoutForm: React.FC = () => {
               })}
               errorKey={errors.phone?.message}
               variant="solid"
-              className="w-full lg:w-1/2 "
+              className="w-full lg:w-1/2"
+              onChange={handleChange("phone")}
+              value={orders.phone}
             />
 
             <Input
@@ -198,6 +221,8 @@ const CheckoutForm: React.FC = () => {
               errorKey={errors.email?.message}
               variant="solid"
               className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
+              onChange={handleChange("email")}
+              value={orders.email}
             />
           </div>
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0">
@@ -206,6 +231,8 @@ const CheckoutForm: React.FC = () => {
               {...register("city")}
               variant="solid"
               className="w-full lg:w-1/2 "
+              onChange={handleChange("city")}
+              value={orders.city}
             />
 
             <Input
@@ -213,6 +240,8 @@ const CheckoutForm: React.FC = () => {
               {...register("zipCode")}
               variant="solid"
               className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
+              onChange={handleChange("postCode")}
+              value={orders.postCode}
             />
           </div>
           <div className="relative flex items-center ">
@@ -278,7 +307,11 @@ const CheckoutForm: React.FC = () => {
                 options={{ appearance: { theme: "stripe" }, clientSecret }}
                 stripe={stripePromise}
               >
-                <StripeForm handleClose={handleClose} price={price} />
+                <StripeForm
+                  handleClose={handleClose}
+                  price={price}
+                  placeOrder={placeOrder}
+                />
               </Elements>
             )}
           </motion.div>
