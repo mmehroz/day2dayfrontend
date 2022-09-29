@@ -3,7 +3,7 @@ export const API_ENDPOINTS = {
   REGISTER: "http://207.244.250.143/day2day/api/register",
   LOGOUT: "/logout",
   FORGET_PASSWORD: "/forget-password",
-  MENU: "http://207.244.250.143/day2day/api/webnav",
+  MENU: "http://207.244.250.143/day2day/api/demowebnav",
   SUB_NAV: "http://207.244.250.143/day2day/api/subnav",
   CATEGORIES: "http://207.244.250.143/day2day/api/categories",
   FEATURED_CATEGORIES: "http://localhost:3000/api/featured_categories.json",

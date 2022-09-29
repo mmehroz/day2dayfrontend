@@ -8,12 +8,16 @@ import Logo from '@components/ui/logo';
 import { ImGoogle2, ImFacebook2 } from 'react-icons/im';
 import { useTranslation } from 'next-i18next';
 import { useState, useEffect } from 'react';
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
+import { SignUpInputType, useSignUpMutation } from '@framework/auth/use-signup';
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
   const { setModalView, openModal, closeModal, setRememberMe, rememberMe } =
     useUI();
   // let { srm } = () => {setRememberMe(false);}
+  const { mutate: signUp } = useSignUpMutation();
 
   const { mutate: login, isLoading } = useLoginMutation();
 
@@ -50,6 +54,35 @@ const LoginForm: React.FC = () => {
     // Your code here
     setRememberMe(false);
   }, []);
+
+  const clientId =
+    '764934816914-i9k3l79um38itcd6bfihi43hh6pi5usb.apps.googleusercontent.com';
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: clientId,
+        scope: '',
+      });
+    };
+    gapi.load('client:auth2', initClient);
+  });
+
+  const onSuccess = (res: any, {}: SignUpInputType) => {
+    signUp({
+      name: res?.profileObj?.name,
+      email: res?.profileObj?.email,
+      username: res?.profileObj?.givenName,
+      password: '12345678',
+    });
+    console.log('success:', res);
+  };
+  // const onSuccess = (err: any) => {
+  //   console.log('success:', err);
+  // };
+  const onFailure = (err: any) => {
+    console.log('failed:', err);
+  };
 
   return (
     <div className="overflow-hidden bg-gray-750 mx-auto rounded-lg w-full sm:w-96 md:w-450px  py-5 px-5 sm:px-8">
@@ -142,6 +175,15 @@ const LoginForm: React.FC = () => {
 					{t("common:text-or")}
 				</span> */}
       </div>
+      <GoogleLogin
+        className="h-11 md:h-12 w-full mt-2.5 bg-facebook hover:bg-facebookHover"
+        clientId={clientId}
+        buttonText="Sign in with Google"
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+        cookiePolicy={'single_host_origin'}
+        isSignedIn={true}
+      />
       <Button
         loading={isLoading}
         disabled={isLoading}

@@ -3,7 +3,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import Link from './link';
 
 const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
-  console.log(data,'data')
+  console.log(data, 'data');
   const { t } = useTranslation('menu');
   return (
     <li className="relative">
@@ -12,14 +12,14 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
         className="flex items-center justify-between py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-600"
       >
         {t(data.subcategory_name)}
-        {data.subMenu && (
+        {data.inner && (
           <span className="text-sm mt-0.5 shrink-0">
             <IoIosArrowForward className="text-white transition duration-300 ease-in-out group-hover:text-black" />
           </span>
         )}
       </Link>
       {hasSubMenu && (
-        <SubMenu dept={dept} data={data.subMenu} menuIndex={menuIndex} />
+        <SubMenu dept={dept} data={data.inner} menuIndex={menuIndex} />
       )}
     </li>
   );

@@ -136,32 +136,6 @@ export const footer = {
 				},
 			],
 		},
-		{
-			id: 6,
-			widgetTitle: "widget-title-top-categories",
-			lists: [
-				{
-					id: 1,
-					title: "link-men-wear",
-					path: "/search",
-				},
-				{
-					id: 2,
-					title: "link-men-wear",
-					path: "/search",
-				},
-				{
-					id: 3,
-					title: "link-kids-wear",
-					path: "/search",
-				},
-				{
-					id: 4,
-					title: "link-sports-wear",
-					path: "/search",
-				},
-			],
-		},
 	],
 	payment: [
 		{
