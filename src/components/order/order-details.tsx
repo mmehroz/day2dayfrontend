@@ -1,4 +1,3 @@
-import { useOrderQuery } from "@framework/order/get-order";
 import usePrice from "@framework/product/use-price";
 import { OrderItem } from "@framework/types";
 import { useRouter } from "next/router";

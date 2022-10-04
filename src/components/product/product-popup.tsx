@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import isEmpty from 'lodash/isEmpty';
-import { ROUTES } from '@utils/routes';
-import { useUI } from '@contexts/ui.context';
-import Button from '@components/ui/button';
-import Counter from '@components/common/counter';
-import { useCart } from '@contexts/cart/cart.context';
-import { ProductAttributes } from '@components/product/product-attributes';
-import { generateCartItem } from '@utils/generate-cart-item';
-import usePrice from '@framework/product/use-price';
-import { getVariations } from '@framework/utils/get-variations';
-import { useTranslation } from 'next-i18next';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import isEmpty from "lodash/isEmpty";
+import { ROUTES } from "@utils/routes";
+import { useUI } from "@contexts/ui.context";
+import Button from "@components/ui/button";
+import Counter from "@components/common/counter";
+import { useCart } from "@contexts/cart/cart.context";
+import { ProductAttributes } from "@components/product/product-attributes";
+import { generateCartItem } from "@utils/generate-cart-item";
+import usePrice from "@framework/product/use-price";
+import { getVariations } from "@framework/utils/get-variations";
+import { useTranslation } from "next-i18next";
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { toast } from "react-toastify";
 
 export default function ProductPopup() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const {
     modalData: { data },
     closeModal,
@@ -30,9 +30,9 @@ export default function ProductPopup() {
   const { selling_price, purchase_price, discount_price } = usePrice({
     amount: data.sale_price ? data.sale_price : data.selling_price,
     baseAmount: data.purchase_price,
-    currencyCode: 'USD',
+    currencyCode: "USD",
   });
-  console.log(data, 'modalData');
+  console.log(data, "modalData");
   // const attributes = getAttributes(data.attributes);
   const variations = getVariations(data.variants);
   const { product_slug, product_thumbnail, product_name, long_description } =
@@ -67,16 +67,16 @@ export default function ProductPopup() {
 
     const item = generateCartItem(data!, attributes);
     addItemToCart(item, quantity);
-    toast('Added to the bag', {
-      progressClassName: 'fancy-progress-bar',
-      position: width > 768 ? 'bottom-right' : 'top-right',
+    toast("Added to the bag", {
+      progressClassName: "fancy-progress-bar",
+      position: width > 768 ? "bottom-right" : "top-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
     });
-    console.log(item, 'item');
+    console.log(item, "item");
   }
 
   function navigateToProductPage() {
@@ -107,7 +107,7 @@ export default function ProductPopup() {
           <img
             src={
               `${API_ENDPOINTS.PRODUCT_THUMBNAIL}/${product_thumbnail}` ||
-              '/assets/placeholder/products/product-thumbnail.svg'
+              "/assets/placeholder/products/product-thumbnail.svg"
             }
             alt={product_name}
             className="lg:object-cover lg:w-full lg:h-full object-cover"
@@ -125,9 +125,10 @@ export default function ProductPopup() {
                 {product_name}
               </h2>
             </div>
-            <p className="text-sm leading-6 md:text-white md:leading-7">
-              {long_description}
-            </p>
+            <p
+              dangerouslySetInnerHTML={{ __html: long_description }}
+              className="text-sm leading-6 md:text-white md:leading-7"
+            ></p>
 
             <div className="flex items-center mt-3">
               <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
@@ -164,14 +165,14 @@ export default function ProductPopup() {
                 }
                 disableDecrement={quantity === 1}
               /> */}
-               <Counter
-            quantity={quantity}
-            onIncrement={() => setQuantity((prev) => prev + 1)}
-            onDecrement={() =>
-              setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-            }
-            disableDecrement={quantity === 1}
-          />
+              <Counter
+                quantity={quantity}
+                onIncrement={() => setQuantity((prev) => prev + 1)}
+                onDecrement={() =>
+                  setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+                }
+                disableDecrement={quantity === 1}
+              />
               {/* <Button
                 onClick={addToCart}
                 variant="flat"
@@ -184,16 +185,16 @@ export default function ProductPopup() {
                 {t('text-add-to-cart')}
               </Button> */}
               <Button
-            onClick={addToCart}
-            variant="slim"
-            className={`w-full md:w-6/12 xl:w-full ${
-              !isSelected && 'bg-orange-500 hover:bg-gray-600'
-            }`}
-            disabled={!isSelected}
-            loading={addToCartLoader}
-          >
-            <span className="py-2 3xl:px-8">Add to cart</span>
-          </Button>
+                onClick={addToCart}
+                variant="slim"
+                className={`w-full md:w-6/12 xl:w-full ${
+                  !isSelected && "bg-orange-500 hover:bg-gray-600"
+                }`}
+                disabled={!isSelected}
+                loading={addToCartLoader}
+              >
+                <span className="py-2 3xl:px-8">Add to cart</span>
+              </Button>
             </div>
 
             {viewCartBtn && (
@@ -201,7 +202,7 @@ export default function ProductPopup() {
                 onClick={navigateToCartPage}
                 className="w-full mb-4 h-11 md:h-12 rounded text-heading focus:outline-none border  transition-colors hover:bg-gray-50 focus:bg-gray-50"
               >
-                {t('text-view-cart')}
+                {t("text-view-cart")}
               </button>
             )}
 
@@ -210,7 +211,7 @@ export default function ProductPopup() {
               variant="flat"
               className="w-full h-11 md:h-12 bg-gradient-to-r from-orange-500  to-pink-500 transition-colors hover:bg-gray-50 focus:bg-gray-50"
             >
-              {t('text-view-details')}
+              {t("text-view-details")}
             </Button>
           </div>
         </div>

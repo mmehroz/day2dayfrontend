@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import Button from '@components/ui/button';
-import Counter from '@components/common/counter';
-import { useRouter } from 'next/router';
-import { useProductQuery } from '@framework/product/get-product';
-import { getVariations } from '@framework/utils/get-variations';
-import usePrice from '@framework/product/use-price';
-import { useCart } from '@contexts/cart/cart.context';
-import { generateCartItem } from '@utils/generate-cart-item';
-import { ProductAttributes } from './product-attributes';
-import isEmpty from 'lodash/isEmpty';
-import Link from '@components/ui/link';
-import { toast } from 'react-toastify';
-import { useWindowSize } from '@utils/use-window-size';
-import Carousel from '@components/ui/carousel/carousel';
-import { SwiperSlide } from 'swiper/react';
-import ProductMetaReview from '@components/product/product-meta-review';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import React, { useState } from "react";
+import Button from "@components/ui/button";
+import Counter from "@components/common/counter";
+import { useRouter } from "next/router";
+import { useProductQuery } from "@framework/product/get-product";
+import { getVariations } from "@framework/utils/get-variations";
+import usePrice from "@framework/product/use-price";
+import { useCart } from "@contexts/cart/cart.context";
+import { generateCartItem } from "@utils/generate-cart-item";
+import { ProductAttributes } from "./product-attributes";
+import isEmpty from "lodash/isEmpty";
+import Link from "@components/ui/link";
+import { toast } from "react-toastify";
+import { useWindowSize } from "@utils/use-window-size";
+import Carousel from "@components/ui/carousel/carousel";
+import { SwiperSlide } from "swiper/react";
+import ProductMetaReview from "@components/product/product-meta-review";
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 
 const productGalleryCarouselResponsive = {
-  '768': {
+  "768": {
     slidesPerView: 2,
   },
-  '0': {
+  "0": {
     slidesPerView: 1,
   },
 };
@@ -40,11 +40,14 @@ const ProductSingleDetails: React.FC = () => {
     data && {
       amount: data.sale_price ? data.sale_price : data.price,
       baseAmount: data.price,
-      currencyCode: 'USD',
+      currencyCode: "USD",
     }
   );
   if (isLoading) return <p>Loading...</p>;
   const variations = getVariations(data?.variations);
+
+  console.log(data);
+  console.log("Data");
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -63,16 +66,16 @@ const ProductSingleDetails: React.FC = () => {
 
     const item = generateCartItem(data!, attributes);
     addItemToCart(item, quantity);
-    toast('Added to the bag', {
-      progressClassName: 'fancy-progress-bar',
-      position: width > 768 ? 'bottom-right' : 'top-right',
+    toast("Added to the bag", {
+      progressClassName: "fancy-progress-bar",
+      position: width > 768 ? "bottom-right" : "top-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
     });
-    console.log(item, 'item');
+    console.log(item, "item");
   }
 
   function handleAttribute(attribute: any) {
@@ -140,16 +143,19 @@ const ProductSingleDetails: React.FC = () => {
           <h2 className="text-heading text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-bold hover:text-black mb-3.5">
             {data?.details?.product_name}
           </h2>
-          <p className="text-body text-sm lg:text-base leading-6 lg:leading-8">
-            {data?.details?.long_description}
-          </p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: data?.details?.long_description,
+            }}
+            className="text-body text-sm lg:text-base leading-6 lg:leading-8"
+          ></p>
           <div className="flex items-center mt-5">
             <div className="text-heading font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-              {data?.details?.discount_price}
+              ${data?.details?.purchase_price}.00
             </div>
 
             <span className="line-through font-segoe text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl ps-2">
-              {data?.details?.selling_price}
+              ${data?.details?.selling_price}.00
             </span>
           </div>
         </div>
@@ -180,7 +186,7 @@ const ProductSingleDetails: React.FC = () => {
             onClick={addToCart}
             variant="slim"
             className={`w-full md:w-6/12 xl:w-full ${
-              !isSelected && 'bg-orange-500 hover:bg-gray-400'
+              !isSelected && "bg-orange-500 hover:bg-gray-400"
             }`}
             disabled={!isSelected}
             loading={addToCartLoader}
