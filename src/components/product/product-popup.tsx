@@ -187,9 +187,7 @@ export default function ProductPopup() {
               <Button
                 onClick={addToCart}
                 variant="slim"
-                className={`w-full md:w-6/12 xl:w-full ${
-                  !isSelected && "bg-orange-500 hover:bg-gray-600"
-                }`}
+                className={`w-full md:w-6/12 xl:w-full bg-gray-700`}
                 disabled={!isSelected}
                 loading={addToCartLoader}
               >

@@ -30,6 +30,7 @@ const ProductSingleDetails: React.FC = () => {
   const {
     query: { slug },
   } = useRouter();
+
   const { width } = useWindowSize();
   const { data, isLoading } = useProductQuery(slug as string);
   const { addItemToCart } = useCart();
@@ -48,6 +49,7 @@ const ProductSingleDetails: React.FC = () => {
 
   console.log(data);
   console.log("Data");
+  console.log("my data: ", data);
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -84,6 +86,8 @@ const ProductSingleDetails: React.FC = () => {
       ...attribute,
     }));
   }
+
+  console.log();
 
   const placeholderImage = `/assets/placeholder/products/product-gallery.svg`;
 
@@ -185,10 +189,7 @@ const ProductSingleDetails: React.FC = () => {
           <Button
             onClick={addToCart}
             variant="slim"
-            className={`w-full md:w-6/12 xl:w-full ${
-              !isSelected && "bg-orange-500 hover:bg-gray-400"
-            }`}
-            disabled={!isSelected}
+            className="w-full md:w-6/12 xl:w-full bg-gradient-to-tr from-orange-800 to-orange-500  animate-shine"
             loading={addToCartLoader}
           >
             <span className="py-2 3xl:px-8">Add to cart</span>
@@ -213,7 +214,17 @@ const ProductSingleDetails: React.FC = () => {
                 {data?.details?.category_name}
               </Link>
             </li>
-            {data?.tags && Array.isArray(data.tags) && (
+            <span className="font-semibold text-heading inline-block pe-2">
+              Tags:
+            </span>
+            <Link
+              href={"/"}
+              className="inline-block pe-1.5 transition hover:underline hover:text-heading last:pe-0"
+            >
+              {data?.details?.product_tags}
+            </Link>
+            {/* Not working right now  */}
+            {/* {data?.tags && Array.isArray(data.tags) && (
               <li className="productTags">
                 <span className="font-semibold text-heading inline-block pe-2">
                   Tags:
@@ -229,8 +240,26 @@ const ProductSingleDetails: React.FC = () => {
                   </Link>
                 ))}
               </li>
-            )}
+            )} */}
           </ul>
+          <div className="w-full h-2 border-t mt-6 mb-6" />
+
+          <span className="font-semibold text-heading inline-block pe-2">
+            Product Details
+          </span>
+
+          <span className="font-semibold text-heading inline-block pe-2">
+            {data?.details?.description}
+          </span>
+          <div className="w-full h-2 border-t mt-6 mb-6" />
+
+          <span className="font-semibold text-heading inline-block pe-2">
+            Additional Information
+          </span>
+          <div className="w-full h-2 border-t mt-6 mb-6" />
+          <span className="font-semibold text-heading inline-block pe-2">
+            Customer Reviews
+          </span>
         </div>
 
         {/* <ProductMetaReview data={data} /> */}
