@@ -14,7 +14,7 @@ export const API_ENDPOINTS = {
   TOP_SELLER_PRODUCTS: "http://localhost:3000/api/products_top_seller.json",
   ON_SELLING_PRODUCTS: "http://localhost:3000/api/products_on_selling.json",
   PRODUCT: "http://localhost:3000/api/product.json",
-  PRO:"http://207.244.250.143/day2day/api/products",
+  PRO: "http://207.244.250.143/day2day/api/products",
   SINGLE_PRODUCT: "http://207.244.250.143/day2day/api/productdetails",
   RELATED_PRODUCTS: "http://207.244.250.143/day2day/api/productdetails",
   BEST_SELLER_PRODUCTS: "http://localhost:3000/api/products_best_seller.json",
@@ -27,6 +27,9 @@ export const API_ENDPOINTS = {
   ORDER: "http://localhost:3000/api//order.json",
   BANNER: "http://207.244.250.143/day2day/api/slider",
   NEXT_PUBLIC_REST_ENDPOINT: "http://207.244.250.143/day2day",
-  ACCOUNT_DETAILS:"http://207.244.250.143/day2day/api/me",
-  PRODUCT_THUMBNAIL: "http://207.244.250.143/day2day/public/assets/img/products/thumb",
+  ACCOUNT_DETAILS: "http://207.244.250.143/day2day/api/me",
+  PRODUCT_THUMBNAIL:
+    "http://207.244.250.143/day2day/public/assets/img/products/thumb",
+  ORDER_DETAILS: "http://207.244.250.143/day2day/api/orderlist",
+  SINGLE_ORDER_DETAILS: "http://207.244.250.143/day2day/api/orderdetails",
 };

@@ -22,6 +22,7 @@ export const useSignUpMutation = () => {
     onSuccess: (data) => {
       // Cookies.set("auth_token", data.token);
       Cookies.set('auth_token', data);
+      console.log('im login user: ', data)
       authorize();
       closeModal();
     },
