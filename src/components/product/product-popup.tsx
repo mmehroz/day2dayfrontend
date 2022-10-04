@@ -12,6 +12,7 @@ import usePrice from '@framework/product/use-price';
 import { getVariations } from '@framework/utils/get-variations';
 import { useTranslation } from 'next-i18next';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import { toast } from 'react-toastify';
 
 export default function ProductPopup() {
   const { t } = useTranslation('common');
@@ -44,16 +45,37 @@ export default function ProductPopup() {
       )
     : true;
 
+  // function addToCart() {
+  //   if (!isSelected) return;
+  //   // to show btn feedback while product carting
+  //   setAddToCartLoader(true);
+  //   setTimeout(() => {
+  //     setAddToCartLoader(false);
+  //     setViewCartBtn(true);
+  //   }, 600);
+  //   const item = generateCartItem(data!, attributes);
+  //   addItemToCart(item, quantity);
+  //   console.log(item, 'item');
+  // }
   function addToCart() {
     if (!isSelected) return;
     // to show btn feedback while product carting
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
-      setViewCartBtn(true);
     }, 600);
+
     const item = generateCartItem(data!, attributes);
     addItemToCart(item, quantity);
+    toast('Added to the bag', {
+      progressClassName: 'fancy-progress-bar',
+      position: width > 768 ? 'bottom-right' : 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
     console.log(item, 'item');
   }
 
@@ -119,7 +141,7 @@ export default function ProductPopup() {
             </div>
           </div>
 
-          {Object.keys(variations).map((variation) => {
+          {/* {Object.keys(variations).map((variation) => {
             return (
               <ProductAttributes
                 key={`popup-attribute-key${variation.id}`}
@@ -130,29 +152,48 @@ export default function ProductPopup() {
                 onClick={handleAttribute}
               />
             );
-          })}
+          })} */}
 
           <div className="pt-2 md:pt-4">
             <div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
-              <Counter
+              {/* <Counter
                 quantity={quantity}
                 onIncrement={() => setQuantity((prev) => prev + 1)}
                 onDecrement={() =>
                   setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
                 }
                 disableDecrement={quantity === 1}
-              />
-              <Button
+              /> */}
+               <Counter
+            quantity={quantity}
+            onIncrement={() => setQuantity((prev) => prev + 1)}
+            onDecrement={() =>
+              setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+            }
+            disableDecrement={quantity === 1}
+          />
+              {/* <Button
                 onClick={addToCart}
                 variant="flat"
                 className={`w-full h-11 md:h-12 px-1.5 ${
                   !isSelected && 'bg-gray-690 hover:bg-gray-600'
                 }`}
-                disabled={!isSelected}
+                // disabled={!isSelected}
                 loading={addToCartLoader}
               >
                 {t('text-add-to-cart')}
-              </Button>
+              </Button> */}
+              <Button
+            onClick={addToCart}
+            variant="slim"
+            className={`w-full md:w-6/12 xl:w-full ${
+              !isSelected && 'bg-orange-500 hover:bg-gray-600'
+            }`}
+            disabled={!isSelected}
+            loading={addToCartLoader}
+          >
+            <span className="py-2 3xl:px-8">Add to cart</span>
+          </Button>
             </div>
 
             {viewCartBtn && (

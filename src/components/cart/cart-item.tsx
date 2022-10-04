@@ -27,6 +27,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     currencyCode: 'USD',
   });
   console.log(item, 'item');
+  const myLoader = ({ src }) => {
+    return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
+  };
+  // const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
   return (
     <motion.div
       layout
@@ -39,10 +43,13 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     >
       <div className="relative flex w-24 md:w-28 h-24 md:h-28 rounded-md overflow-hidden bg-gray-200 flex-shrink-0 cursor-pointer me-4">
         <Image
-          src={
-            // `${API_ENDPOINTS.PRODUCT_THUMBNAIL}/${item?.image}` ??
-            '/assets/placeholder/cart-item.svg'
-          }
+          // src={
+          //   // `${API_ENDPOINTS.PRODUCT_THUMBNAIL}/${item?.image}` ??
+          //   '/assets/placeholder/cart-item.svg'
+          // }
+          src={item?.image ?? '/assets/placeholder/cart-item.svg'}
+          loader={myLoader}
+
           width={112}
           height={112}
           loading="eager"

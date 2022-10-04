@@ -175,13 +175,13 @@ const LoginForm: React.FC = () => {
               </label>
             </div>
             <div className="flex ms-auto">
-              <button
+              {/* <button
                 type="button"
                 onClick={handleForgetPassword}
                 className="text-end text-sm text-heading ps-3 underline hover:no-underline focus:outline-none"
               >
                 {t("common:text-forgot-password")}
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="relative">
@@ -220,7 +220,7 @@ const LoginForm: React.FC = () => {
         <ImFacebook2 className="text-sm sm:text-base me-1.5" />
         {t("common:text-login-with-facebook")}
       </Button>
-      <Button
+      {/* <Button
         loading={isLoading}
         disabled={isLoading}
         className="h-11 md:h-12 w-full mt-2.5 bg-google hover:bg-googleHover"
@@ -228,7 +228,7 @@ const LoginForm: React.FC = () => {
       >
         <ImGoogle2 className="text-sm sm:text-base me-1.5" />
         {t("common:text-login-with-google")}
-      </Button>
+      </Button> */}
       <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
         {t("common:text-no-account")}{" "}
         <button
