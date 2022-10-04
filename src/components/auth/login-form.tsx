@@ -37,12 +37,14 @@ const LoginForm: React.FC = () => {
   } = useForm<LoginInputType>();
 
   function onSubmit({ email, password, remember_me }: LoginInputType) {
-    login({
+    const res = login({
       email,
       password,
       remember_me,
     });
-    console.log(email, password, rememberMe, "data");
+    console.clear();
+    console.log("response of login");
+    console.log(res);
   }
   function handelSocialLogin() {
     login({
@@ -94,6 +96,7 @@ const LoginForm: React.FC = () => {
 
   const onSuccess = (res: any, {}: SignUpInputType) => {
     console.log("im herere signing with goo");
+
     signUp({
       name: res?.profileObj?.name,
       email: res?.profileObj?.email,
@@ -106,9 +109,9 @@ const LoginForm: React.FC = () => {
   //   console.log('success:', err);
   // };
   const onFailure = (err: any) => {
-    console.log("im failure")
+    console.log("im failure");
     console.log("failed:", err);
-    console.log('haris error')
+    console.log("haris error");
   };
 
   return (
