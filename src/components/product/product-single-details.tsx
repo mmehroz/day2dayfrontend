@@ -147,7 +147,7 @@ const ProductSingleDetails: React.FC = () => {
               // 	"/assets/placeholder/products/product-gallery.svg"
               // }
               alt={`${data?.details?.product_name}`}
-              className="object-cover w-full"
+              className="object-cover w-full h-[80%]"
             />
           </div>
           {/* // ))} */}
