@@ -8,14 +8,11 @@ import usePrice from "@framework/product/use-price";
 import { useCart } from "@contexts/cart/cart.context";
 import { generateCartItem } from "@utils/generate-cart-item";
 import { ProductAttributes } from "./product-attributes";
-import isEmpty from "lodash/isEmpty";
 import Link from "@components/ui/link";
 import { toast } from "react-toastify";
 import { useWindowSize } from "@utils/use-window-size";
-import Carousel from "@components/ui/carousel/carousel";
-import { SwiperSlide } from "swiper/react";
-import ProductMetaReview from "@components/product/product-meta-review";
-import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { motion, AnimatePresence } from "framer-motion";
+import ProductMetaReview from "./product-meta-review";
 
 const productGalleryCarouselResponsive = {
   "768": {
@@ -37,6 +34,13 @@ const ProductSingleDetails: React.FC = () => {
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState(1);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+
+  const [filters, setFilters] = useState({
+    productDetails: false,
+    additionalInformation: false,
+    customerReviews: false,
+  });
+
   const { price, basePrice, discount } = usePrice(
     data && {
       amount: data.sale_price ? data.sale_price : data.price,
@@ -45,28 +49,21 @@ const ProductSingleDetails: React.FC = () => {
     }
   );
   if (isLoading) return <p>Loading...</p>;
-  const variations = getVariations(data?.variations);
+  const variations = getVariations(data?.sortvariants);
 
-  console.log(data);
-  console.log("Data");
-  console.log("my data: ", data);
-
-  const isSelected = !isEmpty(variations)
-    ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
-      )
-    : true;
+  const handleFilters = (value: string) => () => {
+    setFilters({ ...filters, [value]: !filters[value] });
+  };
 
   function addToCart() {
-    if (!isSelected) return;
+    if (Object.keys(attributes)?.length !== data?.sortvariants?.length) return;
     // to show btn feedback while product carting
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
     }, 600);
 
-    const item = generateCartItem(data!, attributes);
+    const item = generateCartItem(data?.details, attributes);
     addItemToCart(item, quantity);
     toast("Added to the bag", {
       progressClassName: "fancy-progress-bar",
@@ -87,9 +84,24 @@ const ProductSingleDetails: React.FC = () => {
     }));
   }
 
-  console.log();
+  function renderTags() {
+    const tags = data?.details?.product_tags?.split(",");
+    console.log("tags: ", tags);
+
+    return tags?.map((el: string, _i: number) => (
+      <Link
+        href={`/${el}`}
+        className="inline-block pe-1.5 transition hover:underline hover:text-heading last:pe-0"
+      >
+        {el}
+      </Link>
+    ));
+  }
 
   const placeholderImage = `/assets/placeholder/products/product-gallery.svg`;
+
+  console.log(data);
+  console.log("data");
 
   return (
     <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start">
@@ -144,12 +156,12 @@ const ProductSingleDetails: React.FC = () => {
 
       <div className="col-span-4 pt-8 lg:pt-0">
         <div className="pb-7 mb-7 border-b border-gray-300">
-          <h2 className="text-heading text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-bold hover:text-black mb-3.5">
+          <h2 className="text-heading text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-bold  mb-3.5">
             {data?.details?.product_name}
           </h2>
           <p
             dangerouslySetInnerHTML={{
-              __html: data?.details?.long_description,
+              __html: data?.details?.short_description,
             }}
             className="text-body text-sm lg:text-base leading-6 lg:leading-8"
           ></p>
@@ -164,19 +176,24 @@ const ProductSingleDetails: React.FC = () => {
           </div>
         </div>
 
-        {/* <div className="pb-3 border-b border-gray-300">
-          {Object.keys(variations).map((variation) => {
-            return (
-              <ProductAttributes
-                key={variation}
-                title={variation}
-                attributes={variations[variation]}
-                active={attributes[variation]}
-                onClick={handleAttribute}
-              />
-            );
-          })}
-        </div> */}
+        {data?.sortvariants?.length && (
+          <div className="pb-3 border-b border-gray-300">
+            {data?.sortvariants?.map((variation: any) => {
+              console.log("variations: ", variation);
+              return (
+                <ProductAttributes
+                  key={`popup-attribute-key${variation.id}`}
+                  title={variation?.name}
+                  attributes={variation?.size}
+                  // attributes={variation.attributes}
+                  active={attributes[variation?.name]}
+                  onClick={handleAttribute}
+                />
+              );
+            })}
+          </div>
+        )}
+
         <div className="flex items-center space-s-4 md:pe-32 lg:pe-12 2xl:pe-32 3xl:pe-48 border-b border-gray-300 py-8">
           <Counter
             quantity={quantity}
@@ -191,6 +208,9 @@ const ProductSingleDetails: React.FC = () => {
             variant="slim"
             className="w-full md:w-6/12 xl:w-full bg-gradient-to-tr from-orange-800 to-orange-500  animate-shine"
             loading={addToCartLoader}
+            disabled={
+              Object.keys(attributes)?.length !== data?.sortvariants?.length
+            }
           >
             <span className="py-2 3xl:px-8">Add to cart</span>
           </Button>
@@ -217,12 +237,9 @@ const ProductSingleDetails: React.FC = () => {
             <span className="font-semibold text-heading inline-block pe-2">
               Tags:
             </span>
-            <Link
-              href={"/"}
-              className="inline-block pe-1.5 transition hover:underline hover:text-heading last:pe-0"
-            >
-              {data?.details?.product_tags}
-            </Link>
+
+            {renderTags()}
+
             {/* Not working right now  */}
             {/* {data?.tags && Array.isArray(data.tags) && (
               <li className="productTags">
@@ -244,25 +261,81 @@ const ProductSingleDetails: React.FC = () => {
           </ul>
           <div className="w-full h-2 border-t mt-6 mb-6" />
 
-          <span className="font-semibold text-heading inline-block pe-2">
-            Product Details
-          </span>
-
-          <span className="font-semibold text-heading inline-block pe-2">
-            {data?.details?.description}
-          </span>
+          <div className="flex flex-col">
+            <div
+              onClick={handleFilters("productDetails")}
+              className="w-full flex justify-between items-center cursor-pointer"
+            >
+              <span className="font-semibold text-heading inline-block pe-2">
+                Product Details
+              </span>
+              <span className={`font-semibold text-white text-[32px] `}>
+                {filters?.productDetails ? "-" : "+"}
+              </span>
+            </div>
+            <AnimatePresence>
+              {filters?.productDetails && (
+                <motion.span
+                  initial={{
+                    opacity: 0,
+                    height: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    height: 250,
+                  }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ type: "keyframes", duration: 0.5 }}
+                  dangerouslySetInnerHTML={{
+                    __html: data?.details?.long_description,
+                  }}
+                  className="font-semibold text-heading inline-block pe-2"
+                />
+              )}
+            </AnimatePresence>
+          </div>
           <div className="w-full h-2 border-t mt-6 mb-6" />
 
-          <span className="font-semibold text-heading inline-block pe-2">
-            Additional Information
-          </span>
+          <div
+            onClick={handleFilters("additionalInformation")}
+            className="flex flex-col cursor-pointer"
+          >
+            <div className="w-full flex justify-between items-center">
+              <span className="font-semibold text-heading inline-block pe-2">
+                Additional Information
+              </span>
+              <span className={`font-semibold text-white text-[32px] `}>
+                {filters?.additionalInformation ? "-" : "+"}
+              </span>
+            </div>
+            <AnimatePresence>
+              {filters?.additionalInformation && (
+                <motion.span
+                  initial={{
+                    opacity: 0,
+                    height: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    height: 250,
+                  }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ type: "keyframes", duration: 0.5 }}
+                  dangerouslySetInnerHTML={{
+                    __html: data?.details?.additional_info,
+                  }}
+                  className="font-semibold text-heading inline-block pe-2"
+                />
+              )}
+            </AnimatePresence>
+          </div>
+
           <div className="w-full h-2 border-t mt-6 mb-6" />
           <span className="font-semibold text-heading inline-block pe-2">
             Customer Reviews
           </span>
         </div>
 
-        {/* <ProductMetaReview data={data} /> */}
       </div>
     </div>
   );

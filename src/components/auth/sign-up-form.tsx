@@ -85,6 +85,7 @@ const SignUpForm: React.FC = () => {
               },
             })}
             errorKey={errors.email?.message}
+            id='email-id-register'
           />
           <Input
             labelKey="forms:label-username"
@@ -116,8 +117,8 @@ const SignUpForm: React.FC = () => {
       </form>
       <div className="flex flex-col items-center justify-center relative text-sm text-heading mt-6 mb-3.5">
         <hr className="w-full border-gray-300" />
-        <span className="absolute -top-2.5 px-2 bg-white">
-          {t("common:text-or")}
+        <span className="absolute -top-2.5 px-2 bg-gray-800 rounded-md">
+         OR
         </span>
       </div>
 

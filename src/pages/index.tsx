@@ -1,39 +1,25 @@
-// import BannerCard from "@components/common/banner-card";
-// import BrandGridBlock from "@containers/brand-grid-block";
-// import CategoryBlock from "@containers/category-block";
-// import BannerWithProducts from "@containers/banner-with-products";
-// import DownloadApps from "@components/common/download-apps";
-// import Support from "@components/common/support";
-// import Instagram from "@components/common/instagram";
-// import ProductsFlashSaleBlock from "@containers/product-flash-sale-block";
-// import BannerSliderBlock from "@containers/banner-slider-block";
-// import ExclusiveBlock from "@containers/exclusive-block";
-// import { homeThreeBanner as banner } from "@framework/static/banner";
-// import { homeThreeMasonryBanner as masonryBanner } from "@framework/static/banner";
-// import { ROUTES } from "@utils/routes";
+import Container from "@components/ui/container";
+import Layout from "@components/layout/layout";
+import Divider from "@components/ui/divider";
+import ProductsFeatured from "@containers/products-featured";
+import Subscription from "@components/common/subscription";
+import NewArrivalsProductFeed from "@components/product/feeds/new-arrivals-product-feed";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetStaticProps } from "next";
+import HeroSlider from "@containers/hero-slider";
+import { homeElegantHeroSlider as banners } from "@framework/static/banner";
+import BannerBlock from "@containers/banner-block";
+import { bannerDataThree } from "@framework/static/banner";
+import CategoryBlockIcon from "@containers/category-block-icon";
+import ProductsFlashSaleCarousel from "@containers/product-flash-sale-carousel";
+import BrandBlock from "@containers/brand-block";
+import http from "@framework/utils/http";
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 
-import Container from '@components/ui/container';
-import Layout from '@components/layout/layout';
-import Divider from '@components/ui/divider';
-import ProductsFeatured from '@containers/products-featured';
-import Subscription from '@components/common/subscription';
-import NewArrivalsProductFeed from '@components/product/feeds/new-arrivals-product-feed';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next';
-import HeroSlider from '@containers/hero-slider';
-import { homeElegantHeroSlider as banners } from '@framework/static/banner';
-import BannerBlock from '@containers/banner-block';
-import { bannerDataThree } from '@framework/static/banner';
-import CategoryBlockIcon from '@containers/category-block-icon';
-import ProductsFlashSaleCarousel from '@containers/product-flash-sale-carousel';
-import BrandBlock from '@containers/brand-block';
-import http from '@framework/utils/http';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import React, { useEffect, useState } from "react";
 
-import React, { useEffect, useState } from 'react';
-
-import axios from 'axios';
-import { useQuery } from 'react-query';
+import axios from "axios";
+import { useQuery } from "react-query";
 
 export default function Home() {
   const [banners, setBanners] = useState([]);
@@ -124,10 +110,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale!, [
-        'common',
-        'forms',
-        'menu',
-        'footer',
+        "common",
+        "forms",
+        "menu",
+        "footer",
       ])),
     },
   };

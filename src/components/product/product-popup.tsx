@@ -27,23 +27,23 @@ export default function ProductPopup() {
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+  const [variantSelected, setVariantSelected] = useState(null);
+
   const { selling_price, purchase_price, discount_price } = usePrice({
     amount: data.sale_price ? data.sale_price : data.selling_price,
     baseAmount: data.purchase_price,
     currencyCode: "USD",
   });
-  console.log(data, "modalData");
+
   // const attributes = getAttributes(data.attributes);
   const variations = getVariations(data.variants);
-  const { product_slug, product_thumbnail, product_name, long_description } =
-    data;
-
-  const isSelected = !isEmpty(variations)
-    ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
-      )
-    : true;
+  const {
+    product_slug,
+    product_thumbnail,
+    product_name,
+    long_description,
+    short_description,
+  } = data;
 
   // function addToCart() {
   //   if (!isSelected) return;
@@ -58,8 +58,19 @@ export default function ProductPopup() {
   //   console.log(item, 'item');
   // }
   function addToCart() {
-    if (!isSelected) return;
-    // to show btn feedback while product carting
+    console.log("im add to cart");
+    console.log(attributes);
+    console.log("attributes whole");
+
+    const dataVariantsKeys = data?.variants?.map((el: any) => {
+      return el?.name;
+    });
+
+    console.log(dataVariantsKeys);
+    if (Object.keys(attributes)?.length !== dataVariantsKeys?.length) {
+      return;
+    }
+
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
@@ -69,7 +80,7 @@ export default function ProductPopup() {
     addItemToCart(item, quantity);
     toast("Added to the bag", {
       progressClassName: "fancy-progress-bar",
-      position: width > 768 ? "bottom-right" : "top-right",
+      position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -87,6 +98,9 @@ export default function ProductPopup() {
   }
 
   function handleAttribute(attribute: any) {
+    console.log(attribute);
+    console.log("attribute selected");
+
     setAttributes((prev) => ({
       ...prev,
       ...attribute,
@@ -99,6 +113,13 @@ export default function ProductPopup() {
       openCart();
     }, 300);
   }
+
+  console.log(data);
+  console.log("product--popup-data111");
+
+  console.log("Variations Keys: ", Object.keys(variations));
+  console.log(variations);
+  console.log("parsed variations");
 
   return (
     <div className="rounded-lg bg-gray-800">
@@ -126,34 +147,38 @@ export default function ProductPopup() {
               </h2>
             </div>
             <p
-              dangerouslySetInnerHTML={{ __html: long_description }}
+              dangerouslySetInnerHTML={{ __html: short_description }}
               className="text-sm leading-6 md:text-white md:leading-7"
-            ></p>
+            />
 
             <div className="flex items-center mt-3">
               <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
-                {selling_price}
+                ${data?.discount_price}.00
               </div>
-              {discount_price && (
+              {data?.selling_price && (
                 <del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
-                  {purchase_price}
+                  ${data?.selling_price}.00
                 </del>
               )}
             </div>
           </div>
 
-          {/* {Object.keys(variations).map((variation) => {
+          {data?.variants?.map((variation: any) => {
+            console.log(attributes);
+            console.log("attributes in variansts map");
+            console.log(variation);
+            console.log(attributes);
             return (
               <ProductAttributes
                 key={`popup-attribute-key${variation.id}`}
-                title={Object.keys(variations[variation][0].attributes[0])[1]}
-                attributes={variations[variation][0].attributes}
+                title={variation?.name}
+                attributes={variation?.attributes}
                 // attributes={variation.attributes}
-                active={attributes[variation]}
+                active={attributes[variation?.name]}
                 onClick={handleAttribute}
               />
             );
-          })} */}
+          })}
 
           <div className="pt-2 md:pt-4">
             <div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
@@ -188,7 +213,9 @@ export default function ProductPopup() {
                 onClick={addToCart}
                 variant="slim"
                 className={`w-full md:w-6/12 xl:w-full bg-gray-700`}
-                disabled={!isSelected}
+                disabled={
+                  Object.keys(attributes)?.length !== data?.variants?.length
+                }
                 loading={addToCartLoader}
               >
                 <span className="py-2 3xl:px-8">Add to cart</span>
