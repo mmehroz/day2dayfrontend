@@ -104,7 +104,7 @@ const ProductSingleDetails: React.FC = () => {
   console.log("data");
 
   return (
-    <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start">
+    <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start pl-52 px-40">
       {
         // width < 1025 ? (
         // 	<Carousel
@@ -131,7 +131,7 @@ const ProductSingleDetails: React.FC = () => {
         // 		))}
         // 	</Carousel>
         // ) :
-        <div className="col-span-5 grid grid-cols-2 gap-2.5">
+        <div className="col-span-5 grid grid-cols-2 gap-2.5 ">
           {/* {data?.details?.map(( index: number) => ( */}
           <div
             // key={index}
