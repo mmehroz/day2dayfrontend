@@ -53,6 +53,9 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
   }
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
 
+  console.log(product);
+  console.log('product')
+
   const myLoader = ({ src }) => {
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
   };
@@ -88,9 +91,9 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
             </p>
           </div>
           <div className="flex-shrink-0 text-white flex md:flex-col  2xl:flex-col items-center md:items-end lg:items-start 2xl:items-end justify-end md:text-end lg:text-start xl:text-end mt-2 md:-mt-0.5 lg:mt-2 2xl:-mt-0.5">
-            {product.discount_price && (
+            {product.selling_price && (
               <del className="text-sm md:text-base lg:text-sm xl:text-base 3xl:text-lg">
-                ${product.purchase_price}.00
+                ${product.selling_price}.00
               </del>
             )}
             <div className=" text-white font-segoe font-semibold text-base md:text-xl lg:text-base xl:text-xl 3xl:text-2xl 3xl:mt-0.5 pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
