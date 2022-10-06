@@ -164,10 +164,7 @@ export default function ProductPopup() {
           </div>
 
           {data?.variants?.map((variation: any) => {
-            console.log(attributes);
-            console.log("attributes in variansts map");
-            console.log(variation);
-            console.log(attributes);
+
             return (
               <ProductAttributes
                 key={`popup-attribute-key${variation.id}`}

@@ -32,7 +32,7 @@ export const ProductAttributes: React.FC<Props> = ({
           <li
             key={`${size}-${id}`}
             className={cn(
-              "cursor-pointer rounded border border-gray-100 w-9 md:w-11 h-9 md:h-11 p-1 mb-2 md:mb-3 me-2 md:me-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-orange-500",
+              "cursor-pointer rounded-md border border-gray-100  p-2 mb-2 md:mb-3 me-2 md:me-3 flex justify-center items-center text-heading text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-orange-500",
               {
                 "border-pink-500": size === active,
               }
