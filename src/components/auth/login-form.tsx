@@ -142,6 +142,7 @@ const LoginForm: React.FC = () => {
                 message: t("forms:email-error"),
               },
             })}
+            id="email-id-login"
             errorKey={errors.email?.message}
           />
           <PasswordInput
