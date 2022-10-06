@@ -1,10 +1,12 @@
-import { useTranslation } from 'next-i18next';
-import { IoIosArrowForward } from 'react-icons/io';
-import Link from './link';
+import { useTranslation } from "next-i18next";
+import { IoIosArrowForward } from "react-icons/io";
+import Link from "./link";
 
 const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
-  console.log(data, 'data');
-  const { t } = useTranslation('menu');
+  console.log(data, "data");
+  const { t } = useTranslation("menu");
+  console.log(data.inner);
+  console.log("data inner");
   return (
     <li className="relative">
       <Link
@@ -18,9 +20,9 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
           </span>
         )}
       </Link>
-      {hasSubMenu && (
+      {data?.inner?.length ? (
         <SubMenu dept={dept} data={data.inner} menuIndex={menuIndex} />
-      )}
+      ) : null}
     </li>
   );
 };

@@ -162,5 +162,21 @@ export const footer = {
       width: 76,
       height: 20,
     },
+    {
+      id: 4,
+      path: "/",
+      image: "/assets/images/payment/amx-2.png",
+      name: "american-express",
+      width: 70,
+      height: 20,
+    },
+    {
+      id: 5,
+      path: "/",
+      image: "/assets/images/payment/discover.png",
+      name: "Discover",
+      width: 70,
+      height: 20,
+    },
   ],
 };
