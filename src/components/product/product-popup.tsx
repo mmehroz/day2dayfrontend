@@ -185,7 +185,11 @@ export default function ProductPopup() {
               /> */}
               <Counter
                 quantity={quantity}
-                onIncrement={() => setQuantity((prev) => prev + 1)}
+                onIncrement={() => {
+                  if (quantity >= parseInt(data?.product_qty)) return;
+
+                  setQuantity((prev) => prev + 1);
+                }}
                 onDecrement={() =>
                   setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
                 }

@@ -213,7 +213,11 @@ const ProductSingleDetails: React.FC = () => {
         <div className="flex items-center space-s-4 md:pe-32 lg:pe-12 2xl:pe-32 3xl:pe-48 border-b border-gray-300 py-8">
           <Counter
             quantity={quantity}
-            onIncrement={() => setQuantity((prev) => prev + 1)}
+            onIncrement={() => {
+              if (quantity >= parseInt(data?.details?.product_qty)) return;
+
+              setQuantity((prev) => prev + 1);
+            }}
             onDecrement={() =>
               setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
             }
