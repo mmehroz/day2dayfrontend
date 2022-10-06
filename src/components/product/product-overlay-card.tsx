@@ -91,8 +91,8 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
         <Image
           loader={myLoader}
           src={product?.product_thumbnail || placeholderImage}
-          width={size < 600 ? 600 : size}
-          height={size < 600 ? 600 : size}
+          width={size}
+          height={size}
           loading={imgLoading}
           alt={product?.product_name || "Product Image"}
           className="transition duration-500 ease-in-out transform group-hover:scale-110  object-cover"
