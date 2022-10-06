@@ -1,12 +1,12 @@
-import Card from '@components/common/card';
-import SectionHeader from '@components/common/section-header';
-import Carousel from '@components/ui/carousel/carousel';
-import { SwiperSlide } from 'swiper/react';
-import CardRoundedLoader from '@components/ui/loaders/card-rounded-loader';
-import { useBrandsQuery } from '@framework/brand/get-all-brands';
-import { ROUTES } from '@utils/routes';
-import Alert from '@components/ui/alert';
-import { Brand } from '@framework/types';
+import Card from "@components/common/card";
+import SectionHeader from "@components/common/section-header";
+import Carousel from "@components/ui/carousel/carousel";
+import { SwiperSlide } from "swiper/react";
+import CardRoundedLoader from "@components/ui/loaders/card-rounded-loader";
+import { useBrandsQuery } from "@framework/brand/get-all-brands";
+import { ROUTES } from "@utils/routes";
+import Alert from "@components/ui/alert";
+import { Brand } from "@framework/types";
 
 interface BrandProps {
   sectionHeading: string;
@@ -14,41 +14,42 @@ interface BrandProps {
 }
 
 const breakpoints = {
-  '1720': {
+  "1720": {
     slidesPerView: 8,
     spaceBetween: 28,
   },
-  '1400': {
+  "1400": {
     slidesPerView: 7,
     spaceBetween: 28,
   },
-  '1025': {
+  "1025": {
     slidesPerView: 6,
     spaceBetween: 20,
   },
-  '768': {
+  "768": {
     slidesPerView: 5,
     spaceBetween: 20,
   },
-  '500': {
+  "500": {
     slidesPerView: 4,
     spaceBetween: 20,
   },
-  '0': {
+  "0": {
     slidesPerView: 3,
     spaceBetween: 12,
   },
 };
 
 const BrandBlock: React.FC<BrandProps> = ({
-  className = 'mb-11 md:mb-11 lg:mb-12 xl:mb-14 lg:pb-1 xl:pb-0',
+  className = "mb-11 md:mb-11 lg:mb-12 xl:mb-14 lg:pb-1 xl:pb-0",
   sectionHeading,
 }) => {
   const { data, isLoading, error } = useBrandsQuery({
     limit: 8,
   });
   const brands = data?.topbrands;
-  // console.log(brands, 'bbbbb');
+
+  console.log("brands data in brand block: ", data);
   return (
     <div className={className}>
       <SectionHeader sectionHeading={sectionHeading} />
@@ -69,7 +70,7 @@ const BrandBlock: React.FC<BrandProps> = ({
                   <CardRoundedLoader uniqueKey={`category-${idx}`} />
                 </SwiperSlide>
               ))
-            : brands?.map((brand: Brand) => (
+            : data?.map((brand: Brand) => (
                 <SwiperSlide key={`brand--key${brand.id}`}>
                   <Card
                     item={brand}
