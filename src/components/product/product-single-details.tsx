@@ -183,7 +183,7 @@ const ProductSingleDetails: React.FC = () => {
           ></p>
           <div className="flex items-center mt-5">
             <div className="text-heading font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-              ${data?.details?.purchase_price}.00
+              ${data?.details?.discount_price}.00
             </div>
 
             <span className="line-through font-segoe text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl ps-2">
