@@ -22,6 +22,15 @@ export const siteSettings = {
 		// height: 30,
 		height: 90,
 	},
+	logoSecondary: {
+		url: "/assets/images/logo-2.svg",
+		alt: "DAY2DAY",
+		href: "/",
+		// width: 95,
+		width: 160,
+		// height: 30,
+		height: 100,
+	},
 	defaultLanguage: "en",
 	currencyCode: "USD",
 	site_header: {
