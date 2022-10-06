@@ -1,21 +1,21 @@
-import Image from 'next/image';
-import { useUI } from '@contexts/ui.context';
-import usePrice from '@framework/product/use-price';
-import { Product } from '@framework/types';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import Image from "next/image";
+import { useUI } from "@contexts/ui.context";
+import usePrice from "@framework/product/use-price";
+import { Product } from "@framework/types";
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 
 interface ProductProps {
   product: Product;
   index: number;
-  imgLoading?: 'eager' | 'lazy';
-  variant?: 'left' | 'center' | 'combined' | 'flat';
+  imgLoading?: "eager" | "lazy";
+  variant?: "left" | "center" | "combined" | "flat";
 }
 
 const ProductOverlayCard: React.FC<ProductProps> = ({
   product,
   index,
-  variant = 'left',
-  imgLoading = 'lazy',
+  variant = "left",
+  imgLoading = "lazy",
 }) => {
   let size = 260;
   let classes;
@@ -40,35 +40,35 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
   // 	classes = "col-span-2 lg:col-span-1";
   // }
 
-  if (variant === 'left' && index === 0) {
-    classes = 'row-span-2 lg:row-span-1 col-span-full lg:col-span-1';
+  if (variant === "left" && index === 0) {
+    classes = "row-span-2 lg:row-span-1 col-span-full lg:col-span-1";
     size = 620;
-  } else if (variant === 'center' && index === 1) {
-    classes = 'row-span-1 lg:row-span-1 col-span-1 lg:col-span-1';
+  } else if (variant === "center" && index === 1) {
+    classes = "row-span-1 lg:row-span-1 col-span-1 lg:col-span-1";
     size = 620;
-  } else if (variant === 'combined') {
+  } else if (variant === "combined") {
     if (index === 0) {
-      classes = 'col-span-2 lg:row-span-1 col-span-full lg:col-span-1';
+      classes = "col-span-2 lg:row-span-1 col-span-full lg:col-span-1";
       size = 620;
     } else if (index === 2) {
       classes = `col-span-1 lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-3`;
       size = 620;
     } else {
-      classes = 'col-span-1 lg:col-span-1';
+      classes = "col-span-1 lg:col-span-1";
     }
   } else {
-    classes = 'col-span-1 lg:col-span-1';
+    classes = "col-span-1 lg:col-span-1";
   }
 
   const { openModal, setModalView, setModalData } = useUI();
   const { selling_price, purchase_price, discount_price } = usePrice({
     amount: product.sale_price ? product.sale_price : product.price,
     baseAmount: product.price,
-    currencyCode: 'USD',
+    currencyCode: "USD",
   });
   function handlePopupView() {
     setModalData({ data: product });
-    setModalView('PRODUCT_VIEW');
+    setModalView("PRODUCT_VIEW");
     return openModal();
   }
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
@@ -77,23 +77,25 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
   };
 
+  console.log("size: ", size);
+
   return (
     <div
       onClick={handlePopupView}
       className={`${classes} cursor-pointer group flex flex-col bg-gray-650 rounded-md relative items-center justify-between overflow-hidden`}
     >
       <div
-        className="flex justify-center items-center p-4 h-full 3xl:min-h-[330px]"
+        className="flex justify-center items-center p-4 h-full 3xl:min-h-[330px] "
         title={product?.name}
       >
         <Image
           loader={myLoader}
           src={product?.product_thumbnail || placeholderImage}
-          width={size}
-          height={size}
+          width={size < 600 ? 600 : size}
+          height={size < 600 ? 600 : size}
           loading={imgLoading}
-          alt={product?.product_name || 'Product Image'}
-          className="transition duration-500 ease-in-out transform group-hover:scale-110"
+          alt={product?.product_name || "Product Image"}
+          className="transition duration-500 ease-in-out transform group-hover:scale-110  object-cover"
         />
       </div>
       {product.discount_price && (

@@ -27,7 +27,7 @@ export default function ProductPopup() {
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
-  const [variantSelected, setVariantSelected] = useState(null);
+  const [quantitySelected, setQuantitySelected] = useState(0);
 
   const { selling_price, purchase_price, discount_price } = usePrice({
     amount: data.sale_price ? data.sale_price : data.selling_price,
@@ -58,10 +58,6 @@ export default function ProductPopup() {
   //   console.log(item, 'item');
   // }
   function addToCart() {
-    console.log("im add to cart");
-    console.log(attributes);
-    console.log("attributes whole");
-
     const dataVariantsKeys = data?.variants?.map((el: any) => {
       return el?.name;
     });
@@ -76,6 +72,13 @@ export default function ProductPopup() {
       setAddToCartLoader(false);
     }, 600);
 
+    if (
+      quantitySelected >= parseInt(data?.product_qty) ||
+      quantity >= parseInt(data?.product_qty)
+    ) {
+      return;
+    }
+
     const item = generateCartItem(data!, attributes);
     addItemToCart(item, quantity);
     toast("Added to the bag", {
@@ -88,6 +91,7 @@ export default function ProductPopup() {
       draggable: true,
     });
     console.log(item, "item");
+    setQuantitySelected((prev) => prev + 1);
   }
 
   function navigateToProductPage() {
@@ -98,9 +102,6 @@ export default function ProductPopup() {
   }
 
   function handleAttribute(attribute: any) {
-    console.log(attribute);
-    console.log("attribute selected");
-
     setAttributes((prev) => ({
       ...prev,
       ...attribute,
@@ -116,10 +117,6 @@ export default function ProductPopup() {
 
   console.log(data);
   console.log("product--popup-data111");
-
-  console.log("Variations Keys: ", Object.keys(variations));
-  console.log(variations);
-  console.log("parsed variations");
 
   return (
     <div className="rounded-lg bg-gray-800">
@@ -164,7 +161,6 @@ export default function ProductPopup() {
           </div>
 
           {data?.variants?.map((variation: any) => {
-
             return (
               <ProductAttributes
                 key={`popup-attribute-key${variation.id}`}
@@ -211,7 +207,9 @@ export default function ProductPopup() {
                 variant="slim"
                 className={`w-full md:w-6/12 xl:w-full bg-gray-700`}
                 disabled={
-                  Object.keys(attributes)?.length !== data?.variants?.length
+                  Object.keys(attributes)?.length !== data?.variants?.length ||
+                  quantitySelected >= parseInt(data?.product_qty) ||
+                  quantity >= parseInt(data?.product_qty)
                 }
                 loading={addToCartLoader}
               >

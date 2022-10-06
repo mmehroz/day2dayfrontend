@@ -33,6 +33,7 @@ const ProductSingleDetails: React.FC = () => {
   const { addItemToCart } = useCart();
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState(1);
+  const [quantitySelected, setQuantitySelected] = useState(0);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
 
   const [filters, setFilters] = useState({
@@ -64,6 +65,23 @@ const ProductSingleDetails: React.FC = () => {
     }, 600);
 
     const item = generateCartItem(data?.details, attributes);
+
+    if (
+      quantitySelected >= parseInt(data?.details?.product_qty) ||
+      quantity >= parseInt(data?.details?.product_qty)
+    ) {
+      toast("Maximum Quantity Reached", {
+        progressClassName: "fancy-progress-bar",
+        position: width > 768 ? "bottom-right" : "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return;
+    }
+
     addItemToCart(item, quantity);
     toast("Added to the bag", {
       progressClassName: "fancy-progress-bar",
@@ -75,6 +93,7 @@ const ProductSingleDetails: React.FC = () => {
       draggable: true,
     });
     console.log(item, "item");
+    setQuantitySelected((prev) => prev + 1);
   }
 
   function handleAttribute(attribute: any) {
@@ -99,9 +118,6 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   const placeholderImage = `/assets/placeholder/products/product-gallery.svg`;
-
-  console.log(data);
-  console.log("data");
 
   return (
     <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start pl-52 px-40">
@@ -209,7 +225,9 @@ const ProductSingleDetails: React.FC = () => {
             className="w-full md:w-6/12 xl:w-full bg-gradient-to-tr from-orange-800 to-orange-500  animate-shine"
             loading={addToCartLoader}
             disabled={
-              Object.keys(attributes)?.length !== data?.sortvariants?.length
+              Object.keys(attributes)?.length !== data?.sortvariants?.length ||
+              quantity >= parseInt(data?.details?.product_qty) ||
+              quantitySelected >= parseInt(data?.details?.product_qty)
             }
           >
             <span className="py-2 3xl:px-8">Add to cart</span>
@@ -282,7 +300,7 @@ const ProductSingleDetails: React.FC = () => {
                   }}
                   animate={{
                     opacity: 1,
-                    height: 250,
+                    height: data?.details?.long_description?.length - 450,
                   }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ type: "keyframes", duration: 0.5 }}
@@ -335,7 +353,6 @@ const ProductSingleDetails: React.FC = () => {
             Customer Reviews
           </span>
         </div>
-
       </div>
     </div>
   );

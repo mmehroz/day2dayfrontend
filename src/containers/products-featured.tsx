@@ -1,9 +1,9 @@
-import SectionHeader from '@components/common/section-header';
-import ProductOverlayCard from '@components/product/product-overlay-card';
-import { useFeaturedProductsQuery } from '@framework/product/get-all-featured-products';
-import Alert from '@components/ui/alert';
-import { Product } from '@framework/types';
-import ProductOverlayCardBackup from '@components/product/product-overlay-card-backup';
+import SectionHeader from "@components/common/section-header";
+import ProductOverlayCard from "@components/product/product-overlay-card";
+import { useFeaturedProductsQuery } from "@framework/product/get-all-featured-products";
+import Alert from "@components/ui/alert";
+import { Product } from "@framework/types";
+import ProductOverlayCardBackup from "@components/product/product-overlay-card-backup";
 
 interface ProductsProps {
   sectionHeading: string;
@@ -11,21 +11,21 @@ interface ProductsProps {
   className?: string;
   limit?: number;
   singlelimit?: number;
-  variant?: 'left' | 'center' | 'combined' | 'flat';
+  variant?: "left" | "center" | "combined" | "flat";
 }
 
 const ProductsFeatured: React.FC<ProductsProps> = ({
   sectionHeading,
   categorySlug,
-  className = 'mb-12 md:mb-14 xl:mb-16',
-  variant = 'left',
+  className = "mb-12 md:mb-14 xl:mb-16",
+  variant = "left",
   limit = 4,
   singlelimit = 1,
 }) => {
   const { data, error } = useFeaturedProductsQuery({
     limit: limit,
   });
-  // console.log(data, 'feeee');
+
   return (
     <div className={className}>
       <SectionHeader
