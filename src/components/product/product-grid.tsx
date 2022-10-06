@@ -42,7 +42,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 				)}
 			</div>
 			<div className="text-center pt-8 xl:pt-14">
-				{hasNextPage && (
+				{/* {hasNextPage && (
 					<Button
 						loading={loadingMore}
 						disabled={loadingMore}
@@ -52,7 +52,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 					>
 						{t("button-load-more")}
 					</Button>
-				)}
+				)} */}
 			</div>
 		</>
 	);
