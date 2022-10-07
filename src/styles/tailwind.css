@@ -326,6 +326,27 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
 }
 
 
-.hidescrollbar::-webkit-scrollbar {
-  display: none;
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 1rem;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 1rem;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
