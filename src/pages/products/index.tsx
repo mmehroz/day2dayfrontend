@@ -14,6 +14,7 @@ import { ROUTES } from "@utils/routes";
 import { GetStaticProps } from "next";
 
 export default function Products() {
+
 	const { t } = useTranslation("common");
 	return (
 		<>

@@ -120,11 +120,11 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
         <div className="flex-shrink-0 flex md:flex-col  2xl:flex-col items-center md:items-end lg:items-start 2xl:items-end justify-end md:text-end lg:text-start xl:text-end mt-2 md:-mt-0.5 lg:mt-2 2xl:-mt-0.5">
           {product.discount_price && (
             <del className="text-sm md:text-base lg:text-sm xl:text-base 3xl:text-lg">
-              {product.purchase_price}
+              ${product.purchase_price}.00
             </del>
           )}
           <div className=" text-white font-segoe font-semibold text-base md:text-xl lg:text-base xl:text-xl 3xl:text-2xl 3xl:mt-0.5 pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-            {product.selling_price}
+            ${product.selling_price}.00
           </div>
         </div>
       </div>

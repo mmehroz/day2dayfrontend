@@ -61,7 +61,7 @@ const Breadcrumb: React.FC<{ separator?: string }> = ({ separator = "/" }) => {
   const breadcrumbs = useBreadcrumb();
   const { t } = useTranslation("common");
   return (
-    <div className="px-40 pl-52" >
+    <div className="2xl:px-40 2xl:pl-52" >
       <BreadcrumbItems separator={separator}>
         <ActiveLink href={"/"} activeClassName="font-semibold text-heading ">
           <a>{t("breadcrumb-home")}</a>

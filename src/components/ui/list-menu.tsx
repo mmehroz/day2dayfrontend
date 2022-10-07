@@ -3,18 +3,19 @@ import { IoIosArrowForward } from "react-icons/io";
 import Link from "./link";
 
 const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
-  console.log(data, "data");
   const { t } = useTranslation("menu");
-  console.log(data.inner);
-  console.log("data inner");
+  console.log("this is the data inside navbar");
+
   return (
-    <li className="relative">
+    <li className="">
       <Link
-        href={`/products?product_slug=${data.subcategory_slug}`}
+        href={`/product/${data?.id ? "product_sub" : "product_inner"}=${
+          data?.id ? data?.id : data?.category_id
+        }`}
         className="flex items-center justify-between py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-600"
       >
         {t(data.subcategory_name)}
-        {data.inner && (
+        {data.inner?.length && (
           <span className="text-sm mt-0.5 shrink-0">
             <IoIosArrowForward className="text-white transition duration-300 ease-in-out group-hover:text-black" />
           </span>
@@ -29,8 +30,12 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
 
 const SubMenu: React.FC<any> = ({ dept, data, menuIndex }) => {
   dept = dept + 1;
+  console.log(data);
+  console.log(dept);
+  console.log(menuIndex);
+  console.log("submenu");
   return (
-    <ul className="subMenuChild shadow-subMenu bg-gray-690 absolute z-0 end-full 2xl:end-auto 2xl:start-full opacity-0 invisible top-4 w-56 py-3">
+    <ul className="subMenuChild shadow-subMenu bg-gray-690 absolute z-[99999] end-full 2xl:end-auto 2xl:start-full opacity-0 invisible left-64 bottom-0 mt-3 top-0 right-0 w-56 py-3">
       {data?.map((menu: any, index: number) => {
         const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
 

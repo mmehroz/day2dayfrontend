@@ -52,7 +52,7 @@ const IconCard: React.FC<Props> = ({
           )}
         >
           <img
-            src={`http://207.244.250.143/day2day/public/assets/img/category/${category_icon}`}
+            src={`http://207.244.250.143/day2day/public/assets/img/category/vape.svg`}
             alt={category_name || t("text-card-thumbnail")}
             className={cn("mb-0 filter  ", {
               "mx-auto mb-4 sm:mb-6 w-2/4 sm:w-2/3 md:w-8/12 3xl:w-full":
@@ -79,7 +79,9 @@ const IconCard: React.FC<Props> = ({
             "mb-1": variant === "modern",
           })}
         >
-          {category_name}
+          {category_name?.length >= 10
+            ? category_name?.slice(0, 10)
+            : category_name}
         </Text>
         {/* {variant === 'modern' && (
         <Text className="pb-0.5 truncate">

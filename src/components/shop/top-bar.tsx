@@ -7,8 +7,22 @@ import ListBox from "@components/ui/list-box";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { getDirection } from "@utils/get-direction";
+import { useProductsQuery } from "@framework/product/get-all-products";
 
 const SearchTopBar = () => {
+  const { query } = useRouter();
+  const {
+    isFetching: isLoading,
+    isFetchingNextPage: loadingMore,
+    fetchNextPage,
+    hasNextPage,
+    data,
+    error,
+  } = useProductsQuery({ limit: 10, ...query });
+
+  console.log("products data in search bar: ");
+  console.log(data);
+
   const { openFilter, displayFilter, closeFilter } = useUI();
   const { t } = useTranslation("common");
   const router = useRouter();
@@ -20,7 +34,7 @@ const SearchTopBar = () => {
   return (
     <div className="flex justify-between items-center mb-7">
       <Text variant="pageHeading" className="hidden lg:inline-flex pb-1">
-        {router?.query?.product_slug?.toString()?.toUpperCase()}
+        {data?.pages[0]?.filtername}
       </Text>
       <button
         className="lg:hidden text-heading text-sm px-4 py-2 font-semibold border border-gray-300 rounded-md flex items-center transition duration-200 ease-in-out focus:outline-none hover:bg-gray-200"

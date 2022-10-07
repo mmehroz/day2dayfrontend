@@ -97,7 +97,7 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
               </del>
             )}
             <div className=" text-white font-segoe font-semibold text-base md:text-xl lg:text-base xl:text-xl 3xl:text-2xl 3xl:mt-0.5 pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-              ${product.selling_price}.00
+              ${product.discount_price}.00
             </div>
           </div>
         </div>

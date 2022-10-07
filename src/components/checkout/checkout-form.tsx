@@ -223,6 +223,7 @@ const CheckoutForm: React.FC = () => {
               className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
               onChange={handleChange("email")}
               value={orders.email}
+              id='contact-us-email'
             />
           </div>
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0">

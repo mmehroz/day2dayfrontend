@@ -24,12 +24,14 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
   }, []);
 
   console.log("navbar data: ", nevdata);
-  console.log("Navbar Data");
 
   return (
     <nav className={classNames(`headerMenu flex w-full relative`, className)}>
       {nevdata?.map((item: any) => {
         if (!item?.subMenu?.length) return;
+
+        console.log(item);
+        console.log("items");
         return (
           <div
             className={`menuItem group cursor-pointer py-7 ${
@@ -38,7 +40,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
             key={item.category_id}
           >
             <Link
-              href={`/products?product_slug=${item.category_slug}`}
+              href={`/product/product_id=${item.id}`}
               className="inline-flex items-center text-sm xl:text-base text-heading px-3 xl:px-4 py-2 font-normal relative "
             >
               {t(item.category_name)}
@@ -54,10 +56,9 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
           )} */}
 
             {item?.subMenu && Array.isArray(item.subMenu) && (
-              <div className="subMenu shadow-header bg-gray-650 absolute start-0 opacity-0 group-hover:opacity-100">
-                <ul className="text-white text-sm py-5">
+              <div className="subMenu shadow-header bg-gray-650 absolute start-0 opacity-0 group-hover:opacity-100 ">
+                <ul className="text-white text-sm py-5 h-[25rem] overflow-y-scroll  overflow-x-hidden hidescrollbar ">
                   {item.subMenu.map((menu: any, index: number) => {
-                    
                     const dept: number = 1;
                     const menuName: string = `sidebar-menu-${dept}-${index}`;
 
