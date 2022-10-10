@@ -350,3 +350,9 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+
+body {
+  overflow-x: hidden;
+}

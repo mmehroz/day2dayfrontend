@@ -44,10 +44,9 @@ const BrandBlock: React.FC<BrandProps> = ({
   className = "mb-11 md:mb-11 lg:mb-12 xl:mb-14 lg:pb-1 xl:pb-0",
   sectionHeading,
 }) => {
-  const { data, isLoading, error } = useBrandsQuery({
-    limit: 8,
-  });
+  const { data, isLoading, error } = useBrandsQuery({});
   const brands = data?.topbrands;
+  console.log("brands data: ", data);
 
   console.log("brands data in brand block: ", data);
   return (

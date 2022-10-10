@@ -15,6 +15,7 @@ import ProductsFlashSaleCarousel from "@containers/product-flash-sale-carousel";
 import BrandBlock from "@containers/brand-block";
 import http from "@framework/utils/http";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { useRouter } from "next/router";
 
 import React, { useEffect, useState } from "react";
 

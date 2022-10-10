@@ -30,6 +30,12 @@ const fetchProducts = async ({ queryKey }: any) => {
     route = `http://207.244.250.143/day2day/api/productinner/product_id=${id}`;
   }
 
+  if (product_id?.toString()?.includes("brand-id")) {
+    const id = product_id.split("=")[1];
+
+    route = `http://207.244.250.143/day2day/api/brandproduct/brand_id=${id}`;
+  }
+
   console.log(route);
   console.log("route");
 
@@ -42,6 +48,7 @@ const fetchProducts = async ({ queryKey }: any) => {
       nextPageUrl: "",
     },
     filtername: data.filtername,
+    brandname: data?.brandname,
   };
 };
 

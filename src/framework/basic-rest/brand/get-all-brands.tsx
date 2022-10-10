@@ -7,6 +7,7 @@ export const fetchBrands = async ({ queryKey }: any) => {
   const [_key, _params] = queryKey;
   const { data } = await http.get(API_ENDPOINTS.BRANDS);
   console.log("brands data: ", data?.topbrands?.topbrands);
+  console.log('raw data brands: ', data)
   return data.topbrands;
 };
 export const useBrandsQuery = (options: QueryOptionsType) => {
