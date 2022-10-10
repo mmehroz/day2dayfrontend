@@ -59,6 +59,7 @@ const ProductSingleDetails: React.FC = () => {
     customerReviews: false,
   });
 
+
   const { price, basePrice, discount } = usePrice(
     data && {
       amount: data.sale_price ? data.sale_price : data.price,
@@ -76,8 +77,19 @@ const ProductSingleDetails: React.FC = () => {
     setFilters({ ...filters, [value]: !filters[value] });
   };
 
+  const getSortVariationsLength = () => {
+    let counter = 0;
+    data?.sortvariants?.map((el, i) => {
+      if (el?.name) {
+        counter++;
+      }
+    });
+
+    return counter;
+  };
+
   function addToCart() {
-    if (Object.keys(attributes)?.length !== data?.sortvariants?.length) return;
+    if (Object.keys(attributes)?.length !== sortvariantsLengths) return;
     // to show btn feedback while product carting
     setAddToCartLoader(true);
     setTimeout(() => {
@@ -260,6 +272,13 @@ const ProductSingleDetails: React.FC = () => {
     }
   };
 
+  console.log("data: ", data);
+  console.log("object keys: ", Object.keys(attributes)?.length);
+  console.log("sort variatns: ", data?.sortvariants?.length);
+
+  const sortvariantsLengths = getSortVariationsLength();
+
+
   return (
     <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start 2xl:pl-52 2xl:px-40">
       {
@@ -370,7 +389,7 @@ const ProductSingleDetails: React.FC = () => {
             className="w-full md:w-6/12 xl:w-full bg-gradient-to-tr from-orange-800 to-orange-500  animate-shine"
             loading={addToCartLoader}
             disabled={
-              Object.keys(attributes)?.length !== data?.sortvariants?.length ||
+              Object.keys(attributes)?.length !== sortvariantsLengths ||
               quantity >= parseInt(data?.details?.product_qty) ||
               quantitySelected >= parseInt(data?.details?.product_qty)
             }

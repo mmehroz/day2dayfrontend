@@ -35,6 +35,8 @@ export default function ProductPopup() {
     currencyCode: "USD",
   });
 
+  const variantsLength = getVariantsLength();
+
   // const attributes = getAttributes(data.attributes);
   const variations = getVariations(data.variants);
   const {
@@ -63,7 +65,7 @@ export default function ProductPopup() {
     });
 
     console.log(dataVariantsKeys);
-    if (Object.keys(attributes)?.length !== dataVariantsKeys?.length) {
+    if (Object.keys(attributes)?.length !== variantsLength) {
       return;
     }
 
@@ -113,6 +115,17 @@ export default function ProductPopup() {
     setTimeout(() => {
       openCart();
     }, 300);
+  }
+
+  function getVariantsLength() {
+    let counter = 0;
+    data?.variants?.map((el) => {
+      if (el?.name) {
+        counter++;
+      }
+    });
+
+    return counter;
   }
 
   console.log(data);
@@ -211,7 +224,7 @@ export default function ProductPopup() {
                 variant="slim"
                 className={`w-full md:w-6/12 xl:w-full bg-gray-700`}
                 disabled={
-                  Object.keys(attributes)?.length !== data?.variants?.length ||
+                  Object.keys(attributes)?.length !== variantsLength ||
                   quantitySelected >= parseInt(data?.product_qty) ||
                   quantity >= parseInt(data?.product_qty)
                 }

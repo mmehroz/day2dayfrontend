@@ -13,6 +13,7 @@ import { GoogleLogin } from "react-google-login";
 import { SignUpInputType, useSignUpMutation } from "@framework/auth/use-signup";
 
 const LoginForm: React.FC = () => {
+  const [resetPasswordModal, setResetPasswordModal] = useState(false);
   let gpi: {
     client: { init: (arg0: { clientId: string; scope: string }) => void };
     load: (arg0: string, arg1: () => void) => void;
@@ -21,11 +22,6 @@ const LoginForm: React.FC = () => {
   const { setModalView, openModal, closeModal, setRememberMe, rememberMe } =
     useUI();
 
-  // let {
-  //   srm,
-  // } = () => {
-  //   setRememberMe(false);
-  // };
   const { mutate: signUp } = useSignUpMutation();
 
   const { mutate: login, isLoading } = useLoginMutation();
@@ -54,7 +50,6 @@ const LoginForm: React.FC = () => {
     });
   }
   function handleSignUp() {
-    setModalView("SIGN_UP_VIEW");
     return openModal();
   }
   function handleForgetPassword() {
@@ -70,12 +65,7 @@ const LoginForm: React.FC = () => {
     "764934816914-i9k3l79um38itcd6bfihi43hh6pi5usb.apps.googleusercontent.com";
 
   useEffect(() => {
-    console.log("//////////////////////////////////");
     importModule();
-
-    // console.log("//gapi");
-    // console.log(gpi);
-    // console.log("im herer");
   }, []);
 
   const importModule = async () => {
@@ -105,13 +95,15 @@ const LoginForm: React.FC = () => {
     });
     console.log("success:", res);
   };
-  // const onSuccess = (err: any) => {
-  //   console.log('success:', err);
-  // };
+
   const onFailure = (err: any) => {
     console.log("im failure");
     console.log("failed:", err);
     console.log("haris error");
+  };
+
+  const handleResetPassword = () => {
+    closeModal();
   };
 
   return (
@@ -233,15 +225,27 @@ const LoginForm: React.FC = () => {
         <ImGoogle2 className="text-sm sm:text-base me-1.5" />
         {t("common:text-login-with-google")}
       </Button> */}
-      <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
-        {t("common:text-no-account")}{" "}
-        <button
-          type="button"
-          className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
-          onClick={handleSignUp}
-        >
-          {t("common:text-register")}
-        </button>
+      <div className="w-full flex flex-col">
+        <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
+          {t("common:text-no-account")}{" "}
+          <button
+            type="button"
+            className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
+            onClick={handleSignUp}
+          >
+            {t("common:text-register")}
+          </button>
+        </div>
+        <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
+          Forget your password?{" "}
+          <button
+            type="button"
+            className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
+            onClick={handleForgetPassword}
+          >
+            Reset
+          </button>
+        </div>
       </div>
     </div>
   );
