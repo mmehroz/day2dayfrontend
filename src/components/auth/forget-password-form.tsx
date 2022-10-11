@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useUI } from "@contexts/ui.context";
 import { useTranslation } from "next-i18next";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 type FormValues = {
   email: string;
@@ -25,15 +27,16 @@ const ForgetPasswordForm = () => {
     defaultValues,
   });
 
+  const [loading, setLoading] = useState(false);
+
   function handleSignIn() {
     setModalView("LOGIN_VIEW");
     return openModal();
   }
 
-
-
   const onSubmit = async (values: FormValues) => {
     try {
+      setLoading(true);
       console.clear();
       console.log(values, "token");
       if (!values?.email) return;
@@ -45,9 +48,19 @@ const ForgetPasswordForm = () => {
         },
       });
 
-      alert("Email Sended Successfully, check your mail");
+      toast(`check your email at ${values?.email}`, {
+        progressClassName: "fancy-progress-bar",
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
@@ -82,7 +95,7 @@ const ForgetPasswordForm = () => {
           errorKey={errors.email?.message}
         />
 
-        <Button type="submit" className="h-11 md:h-12 w-full mt-2">
+        <Button type="submit" className="h-11 md:h-12 w-full mt-2" loading={loading}>
           {t("common:text-reset-password")}
         </Button>
       </form>

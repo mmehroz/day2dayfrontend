@@ -7,14 +7,61 @@ import CookieBar from "@components/common/cookie-bar";
 import { useAcceptCookies } from "@utils/use-accept-cookies";
 import Button from "@components/ui/button";
 import { useTranslation } from "next-i18next";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Logo from "@components/ui/logo";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Layout: React.FC = ({ children }) => {
   const [isAdult, setIsAdult] = useState(false);
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies();
   const { t } = useTranslation("common");
   const router = useRouter();
+  const [tokenCred, setTokenCred] = useState({
+    verifyToken: null,
+    id: null,
+  });
+  const [passwords, setPasswords] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log("router query: ", router?.query);
+    if (!router?.query?.resetPassword) return;
+    toast("verfying user", {
+      progressClassName: "fancy-progress-bar",
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+
+    fetchResetCred(router?.query?.resetPassword)
+      .then((res) => {
+        console.log("response of a function: ", res);
+        setTokenCred({
+          verifyToken: res?.data?.verify_token,
+          id: res?.data?.id,
+        });
+      })
+      .catch((err) => {
+        toast(err?.message, {
+          progressClassName: "fancy-progress-bar",
+          position: "bottom-right",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      });
+  }, [router?.query]);
 
   useEffect(() => {
     const adult = localStorage.getItem("isAdult");
@@ -28,6 +75,20 @@ const Layout: React.FC = ({ children }) => {
     console.log("adult: ", adult);
   }, []);
 
+  const handlePasswordChange =
+    (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
+      setPasswords({ ...passwords, [name]: e.target.value });
+    };
+
+  async function fetchResetCred(verify_token: any) {
+    return await axios("http://207.244.250.143/day2day/api/verifycode", {
+      method: "POST",
+      data: {
+        verify_token,
+      },
+    });
+  }
+
   const handleAgree = () => {
     const obj = { isAdult: true };
     localStorage.setItem("isAdult", JSON.stringify(obj));
@@ -36,6 +97,74 @@ const Layout: React.FC = ({ children }) => {
 
   const handleDisagree = () => {
     router?.replace("https://www.google.com/");
+  };
+
+  const handleSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      if (!tokenCred?.verifyToken) throw new Error("Something went wrong");
+      if (!passwords?.password) return;
+      if (!passwords?.confirmPassword) return;
+
+      if (passwords?.password !== passwords?.confirmPassword)
+        throw new Error("Password Not Matched");
+
+      setLoading(true);
+      const res = await axios(
+        "http://207.244.250.143/day2day/api/resetpassword",
+        {
+          method: "POST",
+          data: {
+            verify_token: tokenCred?.verifyToken,
+            id: tokenCred?.id,
+            password: passwords?.password,
+          },
+        }
+      );
+
+      console.log("response of a api resetpassword: ", res);
+
+      toast("Password Change Successfull", {
+        progressClassName: "fancy-progress-bar",
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        className: "bg-red-500",
+      });
+
+      setPasswords({
+        password: "",
+        confirmPassword: "",
+      });
+
+      setTokenCred({
+        verifyToken: null,
+        id: null,
+      });
+
+      setTimeout(() => {
+        router?.push("/");
+      }, 5000);
+
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      //@ts-ignore
+      toast(err?.message, {
+        progressClassName: "fancy-progress-bar",
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        className: "bg-red-500",
+      });
+      setLoading(false);
+    }
   };
 
   return (
@@ -126,6 +255,48 @@ const Layout: React.FC = ({ children }) => {
           </div>
         </div>
       )}
+      <AnimatePresence>
+        {tokenCred?.id && (
+          <motion.div
+            initial={{ y: "25%" }}
+            animate={{ y: "-14%" }}
+            exit={{ y: "25%" }}
+            className="w-[100rem] h-[100rem]  z-[999999] overflow-x-hidden fixed"
+          >
+            <div className="fixed w-[25rem] h-[25rem] bg-gray-800 rounded-xl  top-[25%] bottom-0 left-[35%] right-0 flex flex-col py-10 items-center custom-shadow">
+              <Logo />
+              <form
+                onSubmit={handleSubmit}
+                className="w-full flex flex-col gap-4 px-10"
+              >
+                <input
+                  className="w-full p-4 rounded-md bg-gray-700 outline-none text-white mt-4"
+                  placeholder="New Password"
+                  onChange={handlePasswordChange("password")}
+                  required
+                  type="password"
+                />
+                <input
+                  className="w-full p-4 rounded-md bg-gray-700 outline-none text-white "
+                  placeholder="Confirm Password"
+                  onChange={handlePasswordChange("confirmPassword")}
+                  required
+                  type="password"
+                />
+
+                <button
+                  onClick={handleSubmit}
+                  type="submit"
+                  disabled={loading}
+                  className="outline-none p-4 w-full  bg-gradient-to-tr to-orange-500 from-pink-500 text-white rounded-md"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
