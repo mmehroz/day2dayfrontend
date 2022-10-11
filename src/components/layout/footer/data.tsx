@@ -80,7 +80,7 @@ export const footer = {
         {
           id: 3,
           title: "link-about-us",
-          path: "/contact-us",
+          path: "/about-us",
         },
         {
           id: 4,
@@ -127,7 +127,7 @@ export const footer = {
         {
           id: 3,
           title: "link-return-policy",
-          path: "/privacy",
+          path: "/return-policy",
         },
         {
           id: 4,
