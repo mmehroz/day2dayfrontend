@@ -60,6 +60,9 @@ const Header: React.FC = () => {
         console.log("response of account : ", response);
         setName(response?.data?.name);
         // setDetails(detail);
+      })
+      .catch((err) => {
+        setName(null);
       });
   };
 
