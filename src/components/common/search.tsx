@@ -16,9 +16,7 @@ import axios from "axios";
 export default function Search() {
   const { displaySearch, closeSearch } = useUI();
   const [searchText, setSearchText] = React.useState("");
-  const { data, isLoading } = useSearchQuery({
-    text: searchText,
-  });
+
 
   const [searchData, setSearchData] = useState([]);
 
