@@ -25,7 +25,7 @@ const HeroSlider: React.FC<Props> = ({
       className={cn(
         " mb-5 md:mb-8 w-screen",
         {
-          "mx-auto ": variant === "fullWidth",
+          " ": variant === "fullWidth",
         },
         className
       )}
@@ -34,7 +34,7 @@ const HeroSlider: React.FC<Props> = ({
         autoplay={{
           delay: 5000,
         }}
-        className={`mx-0 w-screen ${
+        className={`mx-0 w-screen bg-white ${
           variant === "fullWidth" ? "carousel-full-width" : ""
         }`}
         // paginationPosition="left"

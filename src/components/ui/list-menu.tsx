@@ -34,7 +34,7 @@ const SubMenu: React.FC<any> = ({ dept, data, menuIndex }) => {
   console.log(menuIndex);
   console.log("submenu");
   return (
-    <ul className="subMenuChild shadow-subMenu bg-gray-690 absolute z-[99999] end-full 2xl:end-auto 2xl:start-full opacity-0 invisible left-64 bottom-0 mt-3 top-0 right-0 w-56 py-3">
+    <ul className="subMenuChild  shadow-subMenu bg-gray-690  absolute z-[99999] end-full 2xl:end-auto 2xl:start-full opacity-0 invisible left-64 bottom-0 mt-3 top-0 right-0 w-56 py-3 overflow-y-scroll">
       {data?.map((menu: any, index: number) => {
         const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
 
