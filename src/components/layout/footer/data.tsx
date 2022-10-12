@@ -15,7 +15,7 @@ export const footer = {
         {
           id: 3,
           title: "link-facebook",
-          path: "https://www.facebook.com/",
+          path: "https://www.facebook.com/profile.php?id=100084234712051&sk=about_profile_transparency",
           icon: <IoLogoFacebook />,
         },
         {
@@ -26,7 +26,7 @@ export const footer = {
         },
         {
           id: 2,
-          title: "link-tiktok",
+          title: "Tiktok",
           path: "https://tiktok.com/",
           icon: <IoLogoTiktok />,
         },

@@ -65,17 +65,17 @@ export default function Cart() {
         <Link
           href={isEmpty === false ? ROUTES.CHECKOUT : '/'}
           className={cn(
-            'w-full px-5 py-3 md:py-4 flex items-center justify-center bg-gray-650 rounded-md text-sm sm:text-base text-white focus:outline-none transition duration-300 hover:bg-gray-600',
+            'w-full px-5 py-3 md:py-4 flex items-center justify-center bg-gray-650 rounded-md text-sm sm:text-base text-white focus:outline-none transition duration-300 hover:bg-gradient-to-tr hover:to-orange-500 hover:from-orange-800 ',
             {
-              'cursor-not-allowed bg-gray-400 hover:bg-gray-400': isEmpty,
+              'cursor-not-allowed bg-gray-400 hover:bg-gradient-to-tr hover:to-orange-500 hover:from-orange-800 ': isEmpty,
             }
           )}
         >
-          <span className="w-full pe-5 -mt-0.5 py-0.5">
+          <span className="w-full pe-5 -mt-0.5 py-0.5 ">
             {t('text-proceed-to-checkout')}
           </span>
-          <span className="ms-auto flex-shrink-0 -mt-0.5 py-0.5 text-orange-500">
-            <span className="border-s border-orange-500 pe-5 py-0.5" />
+          <span className="ms-auto flex-shrink-0 -mt-0.5 py-0.5 text-white ">
+            <span className="border-s pe-5 py-0.5 " />
             {cartTotal}
           </span>
         </Link>
