@@ -4,7 +4,6 @@ import Link from "./link";
 
 const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
   const { t } = useTranslation("menu");
-  console.log("this is the data inside navbar");
 
   return (
     <li className="">
@@ -12,12 +11,12 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
         href={`/product/${data?.id ? "product_sub" : "product_inner"}=${
           data?.id ? data?.id : data?.category_id
         }`}
-        className="flex items-center justify-between py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading hover:bg-gray-600"
+        className="flex items-center justify-between py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading  hover:bg-gradient-to-tr to-orange-500 from-orange-800"
       >
         {t(data.subcategory_name)}
         {data.inner?.length ? (
           <span className="text-sm mt-0.5 shrink-0">
-            <IoIosArrowForward className="text-white transition duration-300 ease-in-out group-hover:text-black" />
+            <IoIosArrowForward className="text-white transition duration-300 ease-in-out group-hover:text-white" />
           </span>
         ) : null}
       </Link>

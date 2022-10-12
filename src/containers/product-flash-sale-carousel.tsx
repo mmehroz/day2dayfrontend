@@ -1,10 +1,10 @@
-import Carousel from '@components/ui/carousel/carousel';
-import ProductCard from '@components/product/product-card';
-import SectionHeader from '@components/common/section-header';
-import ProductCardGridLoader from '@components/ui/loaders/product-card-grid-loader';
-import { useFlashSaleProductsQuery } from '@framework/product/get-all-flash-sale-products';
-import Alert from '@components/ui/alert';
-import { SwiperSlide } from 'swiper/react';
+import Carousel from "@components/ui/carousel/carousel";
+import ProductCard from "@components/product/product-card";
+import SectionHeader from "@components/common/section-header";
+import ProductCardGridLoader from "@components/ui/loaders/product-card-grid-loader";
+import { useFlashSaleProductsQuery } from "@framework/product/get-all-flash-sale-products";
+import Alert from "@components/ui/alert";
+import { SwiperSlide } from "swiper/react";
 
 interface ProductsProps {
   sectionHeading?: string;
@@ -13,31 +13,31 @@ interface ProductsProps {
 }
 
 const breakpoints = {
-  '1500': {
-    slidesPerView: 5,
+  "1500": {
+    slidesPerView: 6,
     spaceBetween: 28,
   },
-  '1025': {
-    slidesPerView: 4,
+  "1025": {
+    slidesPerView: 5,
     spaceBetween: 20,
   },
-  '768': {
+  "768": {
     slidesPerView: 3,
     spaceBetween: 20,
   },
-  '480': {
+  "480": {
     slidesPerView: 3,
     spaceBetween: 12,
   },
-  '0': {
+  "0": {
     slidesPerView: 2,
     spaceBetween: 12,
   },
 };
 
 const ProductsFlashSaleCarousel: React.FC<ProductsProps> = ({
-  sectionHeading = 'text-flash-sale',
-  className = 'mb-10 md:mb-12 xl:mb-14',
+  sectionHeading = "text-flash-sale",
+  className = "mb-10 md:mb-12 xl:mb-14",
 }) => {
   const { data, isLoading, error } = useFlashSaleProductsQuery({
     limit: 10,

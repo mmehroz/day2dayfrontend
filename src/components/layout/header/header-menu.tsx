@@ -70,11 +70,21 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
     });
   }, []);
 
-  console.log("navbar data: ", nevdata);
+  const arr = nevdata?.map((el, i) => {
+    const menu = el?.subMenu?.sort((a, b) =>
+      a?.subcategory_name
+        ?.toString()
+        ?.localeCompare(b?.subcategory_name?.toString())
+    );
+    return {
+      ...el,
+      subMenu: menu,
+    };
+  });
 
   return (
     <nav className={classNames(`headerMenu flex w-full relative`, className)}>
-      {nevdata?.map((item: any) => {
+      {arr?.map((item: any, i: number) => {
         if (!item?.subMenu?.length) return;
 
         return (
