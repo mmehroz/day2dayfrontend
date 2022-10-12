@@ -1,5 +1,4 @@
 import BannerCard2 from "@components/common/banner-card-2";
-import BannerCard from "@components/common/banner-card-2";
 import { ROUTES } from "@utils/routes";
 interface BannerProps {
 	data: any;

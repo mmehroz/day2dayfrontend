@@ -3,6 +3,7 @@ import {
   IoLogoTwitter,
   IoLogoFacebook,
   IoLogoYoutube,
+  IoLogoTiktok
 } from "react-icons/io5";
 
 export const footer = {
@@ -12,6 +13,12 @@ export const footer = {
       widgetTitle: "widget-title-social",
       lists: [
         {
+          id: 3,
+          title: "link-facebook",
+          path: "https://www.facebook.com/",
+          icon: <IoLogoFacebook />,
+        },
+        {
           id: 1,
           title: "link-instagram",
           path: "https://www.instagram.com/",
@@ -19,15 +26,9 @@ export const footer = {
         },
         {
           id: 2,
-          title: "link-twitter",
-          path: "https://twitter.com/",
-          icon: <IoLogoTwitter />,
-        },
-        {
-          id: 3,
-          title: "link-facebook",
-          path: "https://www.facebook.com/",
-          icon: <IoLogoFacebook />,
+          title: "link-tiktok",
+          path: "https://tiktok.com/",
+          icon: <IoLogoTiktok />,
         },
         {
           id: 4,

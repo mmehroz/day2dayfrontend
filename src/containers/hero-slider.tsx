@@ -34,7 +34,7 @@ const HeroSlider: React.FC<Props> = ({
         autoplay={{
           delay: 5000,
         }}
-        className={`mx-0 w-screen bg-white ${
+        className={`mx-0 w-screen bg-transparent ${
           variant === "fullWidth" ? "carousel-full-width" : ""
         }`}
         // paginationPosition="left"
@@ -58,7 +58,7 @@ const HeroSlider: React.FC<Props> = ({
               href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
               variant={variantRounded}
             />
-            <div className="absolute text-white" id="test-para">
+            <div className="absolute " id="test-para">
               <span>
                 {banner.slider_title} <p>Hellow world</p>{" "}
               </span>
