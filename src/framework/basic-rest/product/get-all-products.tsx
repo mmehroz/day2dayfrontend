@@ -50,7 +50,15 @@ const fetchProducts = async ({ queryKey }: any) => {
     route = `http://207.244.250.143/day2day/api/getsale/type=flash`;
   }
   if (product_id === "product_sub=1003") {
-    route = `http://207.244.250.143/day2day/api/getsale/type=new`;
+    route = "http://207.244.250.143/day2day/api/getsale/type=new";
+  }
+
+  if(product_id === "product_sub=1004") {
+    route = "http://207.244.250.143/day2day/api/getsale/type=Specialoffer"
+  }
+
+  if(product_id === "product_sub=1005") {
+    route = "http://207.244.250.143/day2day/api/getsale/type=Specialdeal"
   }
 
   console.log(route);

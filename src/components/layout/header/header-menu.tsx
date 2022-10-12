@@ -37,6 +37,20 @@ const salesData = [
         subcategory_slug: "new-arrivals",
         inner: [],
       },
+      {
+        category_id: 1004,
+        id: 1004,
+        subcategory_name: "Special Offer",
+        subcategory_slug: "special-offer",
+        inner: [],
+      },
+      {
+        category_id: 1005,
+        id: 1005,
+        subcategory_name: "Special Deal",
+        subcategory_slug: "special-deal",
+        inner: [],
+      },
     ],
   },
 ];
