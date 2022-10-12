@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import SearchIcon from "@components/icons/search-icon";
 import { siteSettings } from "@settings/site-settings";
 import HeaderMenu from "@components/layout/header/header-menu";
@@ -9,12 +9,16 @@ import { addActiveScroll } from "@utils/add-active-scroll";
 import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";
 import LanguageSwitcher from "@components/ui/language-switcher";
+import http from "@framework/utils/http";
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import Cookies from "js-cookie";
 const AuthMenu = dynamic(() => import("./auth-menu"), { ssr: false });
 const CartButton = dynamic(() => import("@components/cart/cart-button"), {
   ssr: false,
 });
 
 type DivElementRef = React.MutableRefObject<HTMLDivElement>;
+
 const { site_header } = siteSettings;
 const Header: React.FC = () => {
   const {
@@ -37,6 +41,31 @@ const Header: React.FC = () => {
     setDrawerView("MOBILE_MENU");
     return openSidebar();
   }
+  const [name, setName] = useState("");
+
+  const getDetails = () => {
+    console.log(Cookies.get("auth_token"));
+    return http
+      .get(API_ENDPOINTS.ACCOUNT_DETAILS, {
+        headers: { Authorization: `Bearer ${Cookies.get("auth_token")}` },
+      })
+      .then((response) => {
+        // console.log(response, 'data');
+        // setDetails(response.data);
+
+        let detail = [];
+
+        detail.push(response.data);
+        console.log(detail, "array");
+        console.log("response of account : ", response);
+        setName(response?.data?.name);
+        // setDetails(detail);
+      });
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   return (
     <header
@@ -94,7 +123,7 @@ const Header: React.FC = () => {
                   onClick: handleLogin,
                 }}
               >
-                {t("text-account")}
+                {name ?? "Account"}
               </AuthMenu>
             </div>
             <CartButton />

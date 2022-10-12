@@ -8,6 +8,39 @@ import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import React from "react";
 import http from "@framework/utils/http";
 
+const salesData = [
+  {
+    category_icon: null,
+    category_image: "default.jpg",
+    category_name: "Sales",
+    category_slug: "sales",
+    id: "sales",
+    subMenu: [
+      {
+        category_id: 1000,
+        id: 1000,
+        subcategory_name: "Featured Products",
+        subcategory_slug: "featured-products",
+        inner: [],
+      },
+      {
+        category_id: 1001,
+        id: 1001,
+        subcategory_name: "Flash Sale",
+        subcategory_slug: "flash-sale",
+        inner: [],
+      },
+      {
+        category_id: 1003,
+        id: 1003,
+        subcategory_name: "New Arrivals",
+        subcategory_slug: "new-arrivals",
+        inner: [],
+      },
+    ],
+  },
+];
+
 interface MenuProps {
   data: any;
   className?: string;
@@ -30,6 +63,56 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
       {nevdata?.map((item: any) => {
         if (!item?.subMenu?.length) return;
 
+        return (
+          <div
+            className={`menuItem group cursor-pointer py-7 ${
+              item.subMenu ? "relative" : ""
+            }`}
+            key={item.category_id}
+          >
+            <Link
+              href={`/product/product_id=${item.id}`}
+              className="inline-flex items-center text-sm xl:text-base text-heading px-3 xl:px-4 py-2 font-normal relative "
+            >
+              {t(item.category_name)}
+              {item?.inner || item.subMenu ? (
+                <span className="opacity-30 text-xs mt-1 xl:mt-0.5 w-4 flex justify-end">
+                  <FaChevronDown className="transition duration-300 ease-in-out transform group-hover:-rotate-180" />
+                </span>
+              ) : null}
+            </Link>
+
+            {/* {item?.subMenu && Array.isArray(item.subMenu) && (
+            <MegaMenu subMenu={item.subMenu} />
+          )} */}
+
+            {item?.subMenu && Array.isArray(item.subMenu) ? (
+              <div className="subMenu shadow-header bg-gray-650 absolute start-0 opacity-0 group-hover:opacity-100 ">
+                <ul className="text-white text-sm py-5 h-[25rem] overflow-y-scroll  overflow-x-hidden hidescrollbar ">
+                  {item.subMenu.map((menu: any, index: number) => {
+                    const dept: number = 1;
+                    const menuName: string = `sidebar-menu-${dept}-${index}`;
+
+                    return (
+                      <ListMenu
+                        dept={dept}
+                        data={menu}
+                        hasSubMenu={menu.inner}
+                        menuName={menuName}
+                        key={menuName}
+                        menuIndex={index}
+                      />
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        );
+      })}
+
+      {salesData?.map((item: any) => {
+        if (!item?.subMenu?.length) return;
         return (
           <div
             className={`menuItem group cursor-pointer py-7 ${

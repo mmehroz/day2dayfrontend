@@ -14,7 +14,7 @@ const fetchProducts = async ({ queryKey }: any) => {
   console.log("query key");
   const { product_id } = queryKey[1];
 
-  if (product_id?.toString()?.includes("product_id")) {
+  if (product_id?.toString()?.includes("product_id") && product_id?.toString() !== 'product_id=sales') {
     route = `http://207.244.250.143/day2day/api/product/${product_id}`;
   }
 
@@ -36,8 +36,30 @@ const fetchProducts = async ({ queryKey }: any) => {
     route = `http://207.244.250.143/day2day/api/brandproduct/brand_id=${id}`;
   }
 
+  // console.log("productid: ", product_id);
+
+  if(product_id === 'product_id=sales') {
+    route = "http://207.244.250.143/day2day/api/getsale/type=all"
+  }
+
+  if (product_id === "product_sub=1000") {
+    route = `http://207.244.250.143/day2day/api/getsale/type=featured`;
+  }
+
+  if (product_id === "product_sub=1001") {
+    route = `http://207.244.250.143/day2day/api/getsale/type=flash`;
+  }
+  if (product_id === "product_sub=1003") {
+    route = `http://207.244.250.143/day2day/api/getsale/type=new`;
+  }
+
   console.log(route);
-  console.log("route");
+
+  route = route
+    ? route
+    : "http://207.244.250.143/day2day/api/product/product_id=all";
+
+  console.log("final: ", route);
 
   const { data } = await http.get(route);
 
@@ -47,7 +69,7 @@ const fetchProducts = async ({ queryKey }: any) => {
     paginatorInfo: {
       nextPageUrl: "",
     },
-    filtername: data.filtername,
+    filtername: data.filtername?.category_name ? data.filtername?.category_name : data?.filtername,
     brandname: data?.brandname,
   };
 };
