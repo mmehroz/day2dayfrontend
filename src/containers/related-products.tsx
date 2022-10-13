@@ -45,8 +45,6 @@ const RelatedProducts: React.FC<ProductsProps> = ({
         ) : (
           <>
           {render()}
-          {render()}
-          
           </>
         )}
       </div>

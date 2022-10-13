@@ -25,7 +25,7 @@ export const API_ENDPOINTS = {
   SEARCH: "http://localhost:3000/api/search.json",
   ORDERS: "http://localhost:3000/api//orders.json",
   ORDER: "http://localhost:3000/api//order.json",
-  BANNER: "http://207.244.250.143/day2day/api/slider",
+  BANNER: "http://207.244.250.143/day2day/api/slider/type=1",
   NEXT_PUBLIC_REST_ENDPOINT: "http://207.244.250.143/day2day",
   ACCOUNT_DETAILS: "http://207.244.250.143/day2day/api/me",
   PRODUCT_THUMBNAIL:

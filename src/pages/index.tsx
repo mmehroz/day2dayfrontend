@@ -24,6 +24,7 @@ import { useQuery } from "react-query";
 
 export default function Home() {
   const [banners, setBanners] = useState([]);
+  const [bannersBlock, setBannersBlock] = useState([]);
 
   const getBanners = () => {
     return (
@@ -36,7 +37,38 @@ export default function Home() {
         })
     );
   };
+
+  const getBannerBlock = async () => {
+    const promises: any[] = [];
+    const data = [
+      "http://207.244.250.143/day2day/api/slider/type=2",
+      "http://207.244.250.143/day2day/api/slider/type=3",
+      "http://207.244.250.143/day2day/api/slider/type=4",
+    ];
+
+    data.forEach((el) => {
+      const promise = axios(el);
+      promises.push(promise);
+    });
+
+    const res = await Promise.all(promises);
+    console.log(res);
+    console.log("response off banners: ");
+
+    const sorted = res?.map((el, i) => {
+      return {
+        ...el?.data?.data[0],
+        type: i === 0 ? "medium" : "small",
+      };
+    });
+
+    console.log("sorted banner: ", sorted);
+    //@ts-ignore
+    setBannersBlock(sorted);
+  };
+
   useEffect(() => {
+    getBannerBlock();
     getBanners();
     console.log(banners);
   }, []);
@@ -52,7 +84,7 @@ export default function Home() {
 
       <Container>
         <BannerBlock
-          data={bannerDataThree}
+          data={bannersBlock}
           className="mb-12 md:mb-14 xl:mb-16"
         />
         <CategoryBlockIcon

@@ -23,6 +23,8 @@ const IconCard: React.FC<Props> = ({
 
   const { category_name, category_icon, tags, productCount } = item ?? {};
   const { t } = useTranslation("common");
+
+  console.log('category_icon: ', category_icon)
   return (
     <div
       onMouseLeave={() => setHoverCard(false)}
@@ -52,7 +54,7 @@ const IconCard: React.FC<Props> = ({
           )}
         >
           <img
-            src={`http://207.244.250.143/day2day/public/assets/img/category/vape.svg`}
+            src={`http://207.244.250.143/day2day/public/assets/img/category/${category_icon}`}
             alt={category_name || t("text-card-thumbnail")}
             className={cn("mb-0 filter  ", {
               "mx-auto mb-4 sm:mb-6 w-2/4 sm:w-2/3 md:w-8/12 3xl:w-full":

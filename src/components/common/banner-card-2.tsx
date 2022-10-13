@@ -38,6 +38,13 @@ const BannerCard2: FC<BannerProps> = ({
 	// const myLoader = ({ src }) => {
 	// 	return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`
 	//   }
+
+	console.log('selecetd image: ', selectedImage)
+	const myLoader = ({ src }) => {
+    return `http://207.244.250.143/day2day/${selectedImage?.url}`;
+  };
+	console.log(banner)
+	console.log('in banner card')
 	return (
 		<div className={cn("mx-auto", className)}>
 			<Link
@@ -51,10 +58,11 @@ const BannerCard2: FC<BannerProps> = ({
 					// loader={myLoader}
 					// src={`${ROUTES.BANNER}/${selectedImage.url}`}
 					// src={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}${selectedImage.url}`}
-					src={selectedImage.url}
+					src={`http://207.244.250.143/day2day/${selectedImage?.url}`}
 					width={selectedImage.width}
 					height={selectedImage.height}
 					alt={title}
+					loader={myLoader}
 					quality={100}
 					className={cn("bg-gray-300 object-cover w-full", {
 						"rounded-md": variant === "rounded",
