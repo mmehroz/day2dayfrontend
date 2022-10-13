@@ -35,10 +35,13 @@ export default function Home() {
           setBanners(response.data.data);
           // console.log(response.data.data);
         })
+        .catch((err) => {})
     );
   };
 
   const getBannerBlock = async () => {
+    try {
+
     const promises: any[] = [];
     const data = [
       "http://207.244.250.143/day2day/api/slider/type=2",
@@ -65,11 +68,14 @@ export default function Home() {
     console.log("sorted banner: ", sorted);
     //@ts-ignore
     setBannersBlock(sorted);
+  }catch(err) {
+
+  }
   };
 
   useEffect(() => {
-    getBannerBlock();
-    getBanners();
+    getBannerBlock().catch(err => {})
+    getBanners().catch(err => {})
     console.log(banners);
   }, []);
 
@@ -83,10 +89,7 @@ export default function Home() {
       <HeroSlider data={banners} variantRounded="default" variant="fullWidth" />
 
       <Container>
-        <BannerBlock
-          data={bannersBlock}
-          className="mb-12 md:mb-14 xl:mb-16"
-        />
+        <BannerBlock data={bannersBlock} className="mb-12 md:mb-14 xl:mb-16" />
         <CategoryBlockIcon
           sectionHeading="text-browse-categories"
           variant="modern"

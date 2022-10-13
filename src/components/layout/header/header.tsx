@@ -67,7 +67,8 @@ const Header: React.FC = () => {
   };
 
   useEffect(() => {
-    getDetails();
+
+    getDetails().catch(err => {}) 
   }, []);
 
   return (
