@@ -75,7 +75,7 @@ const IconCard: React.FC<Props> = ({
         </div>
         <Text
           variant="heading"
-          className={cn("capitalize mt-10 text-center", {
+          className={cn("capitalize mt-10 text-center font-normal", {
             "absolute text-center bottom-4 sm:bottom-5 md:bottom-6 xl:bottom-8 inset-x-0":
               variant === "default",
             "mb-1": variant === "modern",
