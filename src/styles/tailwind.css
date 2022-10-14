@@ -354,5 +354,5 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
 
 
 body {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }

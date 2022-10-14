@@ -45,7 +45,7 @@ const ProductsFlashSaleCarousel: React.FC<ProductsProps> = ({
   // console.log(data, 'data');
   return (
     <div className={`${className} 2xl:pt-2`}>
-      <div className="flex justify-between items-center flex-wrap mb-5 md:mb-6">
+      <div className=" justify-between items-center flex-wrap mb-5 md:mb-6 hidden sm:flex">
         <SectionHeader sectionHeading={sectionHeading} className="mb-0" />
       </div>
       {error ? (
