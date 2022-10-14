@@ -30,8 +30,8 @@ const IconCard: React.FC<Props> = ({
       onMouseLeave={() => setHoverCard(false)}
       onMouseEnter={() => setHoverCard(true)}
     >
-      <Link
-        href={href}
+      <div
+        // href={href}
         className={cn("group flex justify-center flex-col rounded-lg  ", {
           "h-28 sm:h-[8.5rem] md:h-40 xl:h-[11.5rem] 2xl:h-44 3xl:h-60 bg-gray-200":
             variant === "default",
@@ -101,7 +101,7 @@ const IconCard: React.FC<Props> = ({
 					</div>
 				</>
 			)} */}
-      </Link>
+      </div>
     </div>
   );
 };
