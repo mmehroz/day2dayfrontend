@@ -28,7 +28,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   });
   console.log(item, "item");
   const myLoader = ({ src }) => {
-    if (src?.toString()?.includes("shopify")) {
+    if (src?.toString()?.includes("shopify") || src?.toString()?.includes('repziocdn')) {
       return src;
     }
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;

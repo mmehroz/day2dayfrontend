@@ -278,7 +278,7 @@ const ProductSingleDetails: React.FC = () => {
   const sortvariantsLengths = getSortVariationsLength();
 
   const renderImage = () => {
-    if (data?.details?.product_thumbnail?.toString()?.includes("shopify")) {
+    if (data?.details?.product_thumbnail?.toString()?.includes("shopify") || data?.details?.product_thumbnail?.toString()?.includes('repziocdn')) {
       return data?.details?.product_thumbnail;
     }
 

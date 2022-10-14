@@ -132,7 +132,7 @@ export default function ProductPopup() {
   console.log("product--popup-data111");
 
   const renderImage = () => {
-    if (product_thumbnail?.toString()?.includes("shopify")) {
+    if (product_thumbnail?.toString()?.includes("shopify") || product_thumbnail?.toString()?.includes('repziocdn')) {
       return product_thumbnail;
     }
 
