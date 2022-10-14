@@ -56,7 +56,7 @@ const IconCard: React.FC<Props> = ({
           <img
             src={`http://207.244.250.143/day2day/public/assets/img/category/${category_icon}`}
             alt={category_name || t("text-card-thumbnail")}
-            className={cn("mb-0 filter  ", {
+            className={cn("mb-0 filter mt-8 ", {
               "mx-auto mb-4 sm:mb-6 w-2/4 sm:w-2/3 md:w-8/12 3xl:w-full":
                 variant === "default",
               "mb-4 sm:mb-6 w-5/6": variant === "modern",
@@ -75,7 +75,7 @@ const IconCard: React.FC<Props> = ({
         </div>
         <Text
           variant="heading"
-          className={cn("capitalize", {
+          className={cn("capitalize mt-10", {
             "absolute text-center bottom-4 sm:bottom-5 md:bottom-6 xl:bottom-8 inset-x-0":
               variant === "default",
             "mb-1": variant === "modern",

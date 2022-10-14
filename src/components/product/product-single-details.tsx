@@ -59,7 +59,6 @@ const ProductSingleDetails: React.FC = () => {
     customerReviews: false,
   });
 
-
   const { price, basePrice, discount } = usePrice(
     data && {
       amount: data.sale_price ? data.sale_price : data.price,
@@ -278,6 +277,16 @@ const ProductSingleDetails: React.FC = () => {
 
   const sortvariantsLengths = getSortVariationsLength();
 
+  const renderImage = () => {
+    if (data?.details?.product_thumbnail?.toString()?.includes("shopify")) {
+      return data?.details?.product_thumbnail;
+    }
+
+    return (
+      `http://207.244.250.143/day2day/public/assets/img/products/thumb/${data?.details?.product_thumbnail}` ??
+      placeholderImage
+    );
+  };
 
   return (
     <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start 2xl:pl-52 2xl:px-40">
@@ -314,10 +323,7 @@ const ProductSingleDetails: React.FC = () => {
             className="col-span-2 transition duration-150 ease-in hover:opacity-90"
           >
             <img
-              src={
-                `http://207.244.250.143/day2day/public/assets/img/products/thumb/${data?.details?.product_thumbnail}` ??
-                placeholderImage
-              }
+              src={renderImage()}
               // src={
               // 	item?.original ??
               // 	"/assets/placeholder/products/product-gallery.svg"

@@ -131,15 +131,23 @@ export default function ProductPopup() {
   console.log(data);
   console.log("product--popup-data111");
 
+  const renderImage = () => {
+    if (product_thumbnail?.toString()?.includes("shopify")) {
+      return product_thumbnail;
+    }
+
+    return (
+      `${API_ENDPOINTS.PRODUCT_THUMBNAIL}/${product_thumbnail}` ||
+      "/assets/placeholder/products/product-thumbnail.svg"
+    );
+  };
+
   return (
     <div className="rounded-lg bg-gray-800">
       <div className="flex flex-col lg:flex-row w-full md:w-[650px] lg:w-[960px] mx-auto overflow-hidden">
         <div className="flex-shrink-0 flex items-center justify-center w-full lg:w-430px max-h-500px  overflow-hidden bg-gray-650">
           <img
-            src={
-              `${API_ENDPOINTS.PRODUCT_THUMBNAIL}/${product_thumbnail}` ||
-              "/assets/placeholder/products/product-thumbnail.svg"
-            }
+            src={renderImage()}
             alt={product_name}
             className="lg:object-cover lg:w-full lg:h-full object-cover"
           />

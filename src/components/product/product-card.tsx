@@ -37,6 +37,9 @@ const ProductCard: FC<ProductProps> = ({
     return openModal();
   }
   const myLoader = ({ src }) => {
+    if(src?.toString()?.includes('shopify')) {
+      return src;
+    }
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
   };
 
