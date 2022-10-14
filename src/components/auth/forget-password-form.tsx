@@ -95,7 +95,7 @@ const ForgetPasswordForm = () => {
           errorKey={errors.email?.message}
         />
 
-        <Button type="submit" className="h-11 md:h-12 w-full mt-2" loading={loading}>
+        <Button type="submit" className="h-11 md:h-12 w-full mt-2 bg-gradient-to-tr to-orange-500 from-orange-800" loading={loading}>
           {t("common:text-reset-password")}
         </Button>
       </form>
@@ -105,11 +105,11 @@ const ForgetPasswordForm = () => {
           {t("common:text-or")}
         </span>
       </div>
-      <div className="text-sm sm:text-base text-body text-center">
+      <div className="text-sm sm:text-base text-white text-center">
         {t("common:text-back-to")}{" "}
         <button
           type="button"
-          className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
+          className="text-sm sm:text-base  underline font-bold hover:no-underline focus:outline-none text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-orange-800 "
           onClick={handleSignIn}
         >
           {t("common:text-login")}

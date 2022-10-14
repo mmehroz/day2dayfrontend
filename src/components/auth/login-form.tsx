@@ -50,6 +50,8 @@ const LoginForm: React.FC = () => {
     });
   }
   function handleSignUp() {
+    console.log('clicking handle signup')
+    setModalView("SIGN_UP_VIEW");
     return openModal();
   }
   function handleForgetPassword() {
@@ -211,7 +213,7 @@ const LoginForm: React.FC = () => {
       <Button
         loading={isLoading}
         disabled={isLoading}
-        className="h-11 md:h-12 w-full mt-2.5 bg-facebookHover hover:bg-facebookHover/80"
+        className="h-11 md:h-12 w-full mt-2.5 bg-facebookHover hover:bg-facebookHover/80 facebook-color "
         onClick={handelSocialLogin}
       >
         <ImFacebook2 className="text-sm sm:text-base me-1.5" />
@@ -241,7 +243,7 @@ const LoginForm: React.FC = () => {
           Forget your password?{" "}
           <button
             type="button"
-            className="text-sm sm:text-base text-orange-500 underline font-bold hover:no-underline focus:outline-none ml-2 text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-orange-800"
+            className="text-sm sm:text-base  font-bold hover:no-underline focus:outline-none ml-2 text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-orange-800"
             onClick={handleForgetPassword}
           >
             Reset

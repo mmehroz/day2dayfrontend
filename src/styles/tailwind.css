@@ -365,3 +365,8 @@ body {
   justify-content: center ;
 
 }
+
+.facebook-color {
+  --tw-bg-opacity: 1;
+  background-color: rgba(57, 95, 173, var(--tw-bg-opacity));
+}

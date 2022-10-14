@@ -11,7 +11,7 @@ import { ROUTES } from "@utils/routes";
 import { useTranslation } from "next-i18next";
 
 const SignUpForm: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); 
   const { mutate: signUp, isLoading } = useSignUpMutation();
   const { setModalView, openModal, closeModal } = useUI();
   const {
@@ -108,7 +108,7 @@ const SignUpForm: React.FC = () => {
               type="submit"
               loading={isLoading}
               disabled={isLoading}
-              className="h-11 md:h-12 w-full mt-2"
+              className="h-11 md:h-12 w-full mt-2 bg-gradient-to-tr from-orange-500 to-orange-800"
             >
               {t("common:text-register")}
             </Button>
@@ -126,7 +126,7 @@ const SignUpForm: React.FC = () => {
         type="submit"
         loading={isLoading}
         disabled={isLoading}
-        className="h-11 md:h-12 w-full mt-2.5 bg-facebook hover:bg-facebookHover"
+        className="h-11 md:h-12 w-full mt-2.5 facebook-color"
       >
         <ImFacebook2 className="text-sm sm:text-base me-1.5" />
         {t("common:text-login-with-facebook")}
@@ -135,16 +135,16 @@ const SignUpForm: React.FC = () => {
         type="submit"
         loading={isLoading}
         disabled={isLoading}
-        className="h-11 md:h-12 w-full mt-2.5 bg-google hover:bg-googleHover"
+        className="h-11 md:h-12 w-full mt-2.5 "
       >
         <ImGoogle2 className="text-sm sm:text-base me-1.5" />
         {t("common:text-login-with-google")}
       </Button>
-      <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
+      <div className="text-sm sm:text-base text-white text-center mt-5 mb-1">
         {t("common:text-have-account")}{" "}
         <button
           type="button"
-          className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
+          className="text-sm sm:text-base underline font-bold hover:no-underline focus:outline-none text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-orange-800"
           onClick={handleSignIn}
         >
           {t("common:text-login")}

@@ -24,7 +24,7 @@ const IconCard: React.FC<Props> = ({
   const { category_name, category_icon, tags, productCount } = item ?? {};
   const { t } = useTranslation("common");
 
-  console.log('category_icon: ', category_icon)
+  console.log("category_icon: ", category_icon);
   return (
     <div
       onMouseLeave={() => setHoverCard(false)}
@@ -42,7 +42,7 @@ const IconCard: React.FC<Props> = ({
       >
         <div
           className={cn(
-            "relativ flex items-center ",
+            "relative flex items-center justify-center ",
             `${hoverCard && "covert-white"}`,
             {
               "mb-3.5 md:mb-4 lg:mb-5 xl:mb-2 2xl:mb-6 3xl:mb-8 lg:h-24 mx-auto":
