@@ -356,3 +356,12 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
 body {
   overflow-x: hidden !important;
 }
+
+.google-text-button {
+  text-align: center !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center ;
+
+}

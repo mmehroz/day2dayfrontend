@@ -75,14 +75,14 @@ const IconCard: React.FC<Props> = ({
         </div>
         <Text
           variant="heading"
-          className={cn("capitalize mt-10", {
+          className={cn("capitalize mt-10 text-center", {
             "absolute text-center bottom-4 sm:bottom-5 md:bottom-6 xl:bottom-8 inset-x-0":
               variant === "default",
             "mb-1": variant === "modern",
           })}
         >
-          {category_name?.length >= 10
-            ? category_name?.slice(0, 10)
+          {category_name?.length >= 11
+            ? category_name?.slice(0, 11)
             : category_name}
         </Text>
         {/* {variant === 'modern' && (

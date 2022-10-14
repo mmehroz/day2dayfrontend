@@ -358,7 +358,7 @@ const ProductSingleDetails: React.FC = () => {
           </div>
         </div>
 
-        {data?.sortvariants?.length && (
+        {data?.sortvariants?.length ? (
           <div className="pb-3 border-b border-gray-300">
             {data?.sortvariants?.map((variation: any) => {
               console.log("variations: ", variation);
@@ -374,7 +374,7 @@ const ProductSingleDetails: React.FC = () => {
               );
             })}
           </div>
-        )}
+        ): null}
 
         <div className="flex items-center space-s-4 md:pe-32 lg:pe-12 2xl:pe-32 3xl:pe-48 border-b border-gray-300 py-8">
           <Counter

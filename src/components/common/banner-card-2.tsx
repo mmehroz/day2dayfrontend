@@ -64,7 +64,7 @@ const BannerCard2: FC<BannerProps> = ({
 					alt={title}
 					loader={myLoader}
 					quality={100}
-					className={cn("bg-gray-300 object-cover w-full", {
+					className={cn("bg-gray-300 ", {
 						"rounded-md": variant === "rounded",
 					})}
 				/>

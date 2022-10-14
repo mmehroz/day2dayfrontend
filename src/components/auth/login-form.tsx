@@ -199,18 +199,19 @@ const LoginForm: React.FC = () => {
 				</span> */}
       </div>
       <GoogleLogin
-        className="h-11 md:h-12 w-full mt-2.5 bg-facebook hover:bg-facebookHover"
+        className="h-11 md:h-12 mt-2.5 text-center w-full google-text-button"
         clientId={clientId}
         buttonText="Sign in with Google" //@ts-ignore
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
+        style={{backgroundColor: 'black', textAlign: 'center'}}
       />
       <Button
         loading={isLoading}
         disabled={isLoading}
-        className="h-11 md:h-12 w-full mt-2.5 bg-facebook hover:bg-facebookHover"
+        className="h-11 md:h-12 w-full mt-2.5 bg-facebookHover hover:bg-facebookHover/80"
         onClick={handelSocialLogin}
       >
         <ImFacebook2 className="text-sm sm:text-base me-1.5" />
@@ -226,21 +227,21 @@ const LoginForm: React.FC = () => {
         {t("common:text-login-with-google")}
       </Button> */}
       <div className="w-full flex flex-col">
-        <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
+        <div className="text-sm sm:text-base text-white text-center mt-5 mb-1">
           {t("common:text-no-account")}{" "}
           <button
             type="button"
-            className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
+            className="text-sm sm:text-base underline font-bold hover:no-underline focus:outline-none ml-2  text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-orange-800 "
             onClick={handleSignUp}
           >
             {t("common:text-register")}
           </button>
         </div>
-        <div className="text-sm sm:text-base text-body text-center mt-5 mb-1">
+        <div className="text-sm sm:text-base text-white text-center mt-5 mb-1">
           Forget your password?{" "}
           <button
             type="button"
-            className="text-sm sm:text-base text-heading underline font-bold hover:no-underline focus:outline-none"
+            className="text-sm sm:text-base text-orange-500 underline font-bold hover:no-underline focus:outline-none ml-2 text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-orange-800"
             onClick={handleForgetPassword}
           >
             Reset

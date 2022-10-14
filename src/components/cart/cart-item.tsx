@@ -1,33 +1,36 @@
-import Link from '@components/ui/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { fadeInOut } from '@utils/motion/fade-in-out';
-import { IoIosCloseCircle } from 'react-icons/io';
-import Counter from '@components/common/counter';
-import { useCart } from '@contexts/cart/cart.context';
-import usePrice from '@framework/product/use-price';
-import { ROUTES } from '@utils/routes';
-import { generateCartItemName } from '@utils/generate-cart-item-name';
-import { useTranslation } from 'next-i18next';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import Link from "@components/ui/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { fadeInOut } from "@utils/motion/fade-in-out";
+import { IoIosCloseCircle } from "react-icons/io";
+import Counter from "@components/common/counter";
+import { useCart } from "@contexts/cart/cart.context";
+import usePrice from "@framework/product/use-price";
+import { ROUTES } from "@utils/routes";
+import { generateCartItemName } from "@utils/generate-cart-item-name";
+import { useTranslation } from "next-i18next";
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 
 type CartItemProps = {
   item: any;
 };
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const { addItemToCart, removeItemFromCart, clearItemFromCart } = useCart();
   const { price } = usePrice({
     amount: item.selling_price,
-    currencyCode: 'USD',
+    currencyCode: "USD",
   });
   const { price: totalPrice } = usePrice({
     amount: item.itemTotal,
-    currencyCode: 'USD',
+    currencyCode: "USD",
   });
-  console.log(item, 'item');
+  console.log(item, "item");
   const myLoader = ({ src }) => {
+    if (src?.toString()?.includes("shopify")) {
+      return src;
+    }
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
   };
   // const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
@@ -47,13 +50,12 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           //   // `${API_ENDPOINTS.PRODUCT_THUMBNAIL}/${item?.image}` ??
           //   '/assets/placeholder/cart-item.svg'
           // }
-          src={item?.image ?? '/assets/placeholder/cart-item.svg'}
+          src={item?.image ?? "/assets/placeholder/cart-item.svg"}
           loader={myLoader}
-
           width={112}
           height={112}
           loading="eager"
-          alt={item.name || 'Product Image'}
+          alt={item.name || "Product Image"}
           className="bg-gray-300 object-cover"
         />
         <div
@@ -73,8 +75,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           {generateCartItemName(item?.product_name, item.attributes)}
         </Link>
         <span className="text-sm text-gray-400 mb-2.5">
-          {t('text-unit-price')} : &nbsp;
-          {price}
+          {t("text-unit-price")} : &nbsp;
+          {totalPrice}
         </span>
 
         <div className="flex items-end justify-between">

@@ -85,7 +85,7 @@ const ProductCard: FC<ProductProps> = ({
           loading={imgLoading}
           quality={100}
           alt={product?.product_name || "Product Image"}
-          className={cn("bg-gray-650 object-cover rounded-s-md", {
+          className={cn("bg-gray-650 object-fill rounded-s-md", {
             "w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
               variant === "grid",
             "rounded-md transition duration-150 ease-linear transform group-hover:scale-105":
