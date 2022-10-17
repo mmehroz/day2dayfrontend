@@ -5,6 +5,10 @@ import { useUI } from "@contexts/ui.context";
 import usePrice from "@framework/product/use-price";
 import { Product } from "@framework/types";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { useContext } from "react";
+import Cookies from "js-cookie";
+import http from "@framework/utils/http";
+import { userContext } from "@contexts/user.context";
 
 interface ProductProps {
   product: Product;
@@ -28,6 +32,7 @@ const ProductCard: FC<ProductProps> = ({
   imgLoading,
 }) => {
   const { openModal, setModalView, setModalData } = useUI();
+  const { name } = useContext(userContext);
   // const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
 
@@ -37,10 +42,34 @@ const ProductCard: FC<ProductProps> = ({
     return openModal();
   }
   const myLoader = ({ src }) => {
-    if(src?.toString()?.includes('shopify') || src?.toString()?.includes('repziocdn')) {
+    if (
+      src?.toString()?.includes("shopify") ||
+      src?.toString()?.includes("repziocdn")
+    ) {
       return src;
     }
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
+  };
+
+  const rendeSellingPrice = () => {
+    if (name) {
+      return (
+        <div
+          className={`text-pink-500 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
+            variant === "grid"
+              ? "lg:text-lg lg:mt-2.5"
+              : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
+          }`}
+        >
+          <span className="inline-block">${product.discount_price}.00</span>
+          {product.selling_price && (
+            <del className="sm:text-base font-normal text-gray-600">
+              ${product.selling_price}.00
+            </del>
+          )}
+        </div>
+      );
+    }
   };
 
   return (
@@ -124,20 +153,7 @@ const ProductCard: FC<ProductProps> = ({
             className="text-gray-500 text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate"
           ></p>
         )}
-        <div
-          className={`text-pink-500 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
-            variant === "grid"
-              ? "lg:text-lg lg:mt-2.5"
-              : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
-          }`}
-        >
-          <span className="inline-block">${product.discount_price}.00</span>
-          {product.selling_price && (
-            <del className="sm:text-base font-normal text-gray-600">
-              ${product.selling_price}.00
-            </del>
-          )}
-        </div>
+        {rendeSellingPrice()}
       </div>
     </div>
   );

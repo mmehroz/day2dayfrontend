@@ -3,6 +3,11 @@ import { useUI } from "@contexts/ui.context";
 import usePrice from "@framework/product/use-price";
 import { Product } from "@framework/types";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import http from "@framework/utils/http";
+import { useContext } from "react";
+import { userContext } from "@contexts/user.context";
 
 interface ProductProps {
   product: Product;
@@ -66,6 +71,9 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
     baseAmount: product.price,
     currencyCode: "USD",
   });
+
+  const { name } = useContext(userContext);
+
   function handlePopupView() {
     setModalData({ data: product });
     setModalView("PRODUCT_VIEW");
@@ -75,6 +83,36 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
 
   const myLoader = ({ src }) => {
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
+  };
+
+  const renderDiscount = () => {
+    if (name) {
+      return (
+        <span className="absolute top-3.5 md:top-5 3xl:top-7 start-3.5 md:start-5 3xl:start-7 text-gray-500 bg-gradient-to-r from-orange-500 to-pink-500 text-10px md:text-sm leading-5 rounded-xl inline-block px-2 xl:px-3 pt-0.5 pb-1">
+          {product.discount_price}
+        </span>
+      );
+    }
+  };
+
+  const renderDiscountPrice = () => {
+    if (name) {
+      return (
+        <del className="text-sm md:text-base lg:text-sm xl:text-base 3xl:text-lg">
+          ${product.purchase_price}.00
+        </del>
+      );
+    }
+  };
+
+  const sellingPrice = () => {
+    if (name) {
+      return (
+        <div className=" text-white font-segoe font-semibold text-base md:text-xl lg:text-base xl:text-xl 3xl:text-2xl 3xl:mt-0.5 pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
+          ${product.selling_price}.00
+        </div>
+      );
+    }
   };
 
   console.log("size: ", size);
@@ -98,11 +136,7 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
           className="transition duration-500 ease-in-out transform group-hover:scale-110  object-cover"
         />
       </div>
-      {product.discount_price && (
-        <span className="absolute top-3.5 md:top-5 3xl:top-7 start-3.5 md:start-5 3xl:start-7 text-gray-500 bg-gradient-to-r from-orange-500 to-pink-500 text-10px md:text-sm leading-5 rounded-xl inline-block px-2 xl:px-3 pt-0.5 pb-1">
-          {product.discount_price}
-        </span>
-      )}
+      {renderDiscount()}
 
       <div
         className="flex flex-col md:flex-row  2xl:flex-row md:justify-between md:items-center lg:items-start 2xl:items-center w-full px-4 md:px-5 3xl:px-7 pb-4 md:pb-5 3xl:pb-7"
@@ -118,14 +152,8 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
           </p>
         </div>
         <div className="flex-shrink-0 flex md:flex-col  2xl:flex-col items-center md:items-end lg:items-start 2xl:items-end justify-end md:text-end lg:text-start xl:text-end mt-2 md:-mt-0.5 lg:mt-2 2xl:-mt-0.5">
-          {product.discount_price && (
-            <del className="text-sm md:text-base lg:text-sm xl:text-base 3xl:text-lg">
-              ${product.purchase_price}.00
-            </del>
-          )}
-          <div className=" text-white font-segoe font-semibold text-base md:text-xl lg:text-base xl:text-xl 3xl:text-2xl 3xl:mt-0.5 pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-            ${product.selling_price}.00
-          </div>
+          {renderDiscountPrice()}
+          {sellingPrice()}
         </div>
       </div>
     </div>
