@@ -1,7 +1,7 @@
 import { CheckBox } from "@components/ui/checkbox";
 import { useBrandsQuery } from "@framework/brand/get-all-brands";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import { useProductsQuery } from "@framework/product/get-all-products";
 
@@ -28,6 +28,7 @@ export const BrandFilter = () => {
   React.useEffect(() => {
     setFormState(selectedBrands);
   }, [query?.brand]);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
@@ -52,36 +53,60 @@ export const BrandFilter = () => {
       { scroll: false }
     );
   }
+
+  console.log("data in brands ", data);
   const items = data?.brands;
+
+  const render = () => {
+    if (data?.length) {
+      console.log("im heerererer: ", data);
+      return data?.map((item, i) => {
+        return (
+          <CheckBox
+            key={item.id}
+            label={item.brand_name}
+            name={item.brand_name.toLowerCase()}
+            checked={formState.includes(item.brand_slug)}
+            value={item.brand_slug}
+            onChange={handleItemClick}
+          />
+        );
+      });
+    }
+
+    if (dataSecondary?.pages[0]?.brandname) {
+      return (
+        <CheckBox
+          key={"brand-data"}
+          label={dataSecondary?.pages[0]?.brandname}
+          name={dataSecondary?.pages[0]?.brandname}
+          checked={true}
+          value={null}
+          onChange={() => {}}
+        />
+      );
+    }
+
+    if (items?.length) {
+      return items?.map((item: any) => (
+        <CheckBox
+          key={item.id}
+          label={item.name}
+          name={item.name.toLowerCase()}
+          checked={formState.includes(item.slug)}
+          value={item.slug}
+          onChange={handleItemClick}
+        />
+      ));
+    }
+  };
 
   return (
     <div className="block border-b border-gray-300 pb-7 mb-7">
       <h3 className="text-heading text-sm md:text-base font-semibold mb-7">
         {t("text-brands")}
       </h3>
-      <div className="mt-2 flex flex-col space-y-4">
-        {dataSecondary?.pages[0]?.brandname ? (
-          <CheckBox
-            key={"brand-data"}
-            label={dataSecondary?.pages[0]?.brandname}
-            name={dataSecondary?.pages[0]?.brandname}
-            checked={true}
-            value={null}
-            onChange={() => {}}
-          />
-        ) : (
-          items?.map((item: any) => (
-            <CheckBox
-              key={item.id}
-              label={item.name}
-              name={item.name.toLowerCase()}
-              checked={formState.includes(item.slug)}
-              value={item.slug}
-              onChange={handleItemClick}
-            />
-          ))
-        )}
-      </div>
+      <div className="mt-2 flex flex-col space-y-4">{render()}</div>
     </div>
   );
 };

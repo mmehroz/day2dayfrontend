@@ -1,49 +1,62 @@
 import { useCategoriesQuery } from "@framework/category/get-all-categories";
 import { CheckBox } from "@components/ui/checkbox";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
+import axios from "axios";
 
 export const CategoryFilter = ({ currentCategory }: any) => {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { pathname, query } = router;
-  const { data, isLoading } = useCategoriesQuery({
-    limit: 10,
-  });
-  const selectedCategories = query?.category
-    ? (query.category as string).split(",")
-    : [];
-  const [formState, setFormState] =
-    React.useState<string[]>(selectedCategories);
+  const [categories, setCategories] = useState([]);
 
-  React.useEffect(() => {
-    setFormState(selectedCategories);
-  }, [query?.category]);
+  useEffect(() => {
+    let subscribe: boolean = false;
+    if (subscribe) return;
 
-  if (isLoading) return <p>Loading...</p>;
+    if (!router?.query?.product_id) return;
 
-  function handleItemClick(e: React.FormEvent<HTMLInputElement>): void {
-    const { value } = e.currentTarget;
-    let currentFormState = formState.includes(value)
-      ? formState.filter((i) => i !== value)
-      : [...formState, value];
-    const { category, ...restQuery } = query;
-    router.push(
-      {
-        pathname,
-        query: {
-          ...restQuery,
-          ...(!!currentFormState.length
-            ? { category: currentFormState.join(",") }
-            : {}),
-        },
+    const product_id = router?.query?.product_id;
+    const id = product_id?.split("=")[1];
+    const type = product_id?.split("=")[0];
+    let postType;
+
+    if (type === "product_sub") {
+      postType = "child";
+    }
+
+    if (type === "product_inner") {
+      postType = "sub";
+    }
+
+    if (type === "product_id") {
+      postType = "parent";
+    }
+
+    console.log("current category: ", currentCategory);
+
+    axios("http://207.244.250.143/day2day/api/subnav", {
+      method: "POST",
+      data: {
+        category_id: id,
+        type: postType,
       },
-      undefined,
-      { scroll: false }
-    );
-  }
-  const items = data?.categories.data;
+    })
+      .then((res) => {
+        setCategories(res?.data?.subnav);
+        console.log("category response: ", res);
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
+
+    console.log("parsed id for category: ", id);
+
+    return () => {
+      subscribe = true;
+    };
+  }, [router?.query]);
+
   return (
     <div className="block border-b border-gray-300 pb-7 mb-7">
       <h3 className="text-heading text-sm md:text-base font-semibold mb-7">
@@ -58,6 +71,22 @@ export const CategoryFilter = ({ currentCategory }: any) => {
           value={""}
           onChange={() => {}}
         />
+        {categories?.map((el, i) => {
+          return (
+            <CheckBox
+              key={i}
+              label={el?.subcategory_name}
+              label={el?.subcategory_name}
+              checked={false}
+              value={el?.subcategory_slug}
+              onChange={() => {
+                router?.push(`/product/product_sub=${el?.id}`);
+
+                return;
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );

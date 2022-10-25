@@ -5,15 +5,17 @@ import Link from "./link";
 const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
   const { t } = useTranslation("menu");
 
+  console.log("header data 8 ", data);
+
   return (
     <li className="">
       <Link
         href={`/product/${data?.id ? "product_sub" : "product_inner"}=${
-          data?.id ? data?.id : data?.category_id
+          data?.id ? data?.id : data?.subcategory_id
         }`}
         className="flex items-center justify-between py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading  hover:bg-gradient-to-tr to-orange-500 from-orange-800"
       >
-        {t(data.subcategory_name)}
+        {t(data.subcategory_name)} {data?.subcategory_id}
         {data.inner?.length ? (
           <span className="text-sm mt-0.5 shrink-0">
             <IoIosArrowForward className="text-white transition duration-300 ease-in-out group-hover:text-white" />
