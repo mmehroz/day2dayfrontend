@@ -59,7 +59,6 @@ export const ShopFilters: React.FC = () => {
 
       <CategoryFilter currentCategory={data?.pages[0]?.filtername} />
       <BrandFilter />
-      <PriceFilter />
       {/* <ColorFilter /> */}
     </div>
   );

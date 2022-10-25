@@ -9,6 +9,7 @@ import { useContext } from "react";
 import Cookies from "js-cookie";
 import http from "@framework/utils/http";
 import { userContext } from "@contexts/user.context";
+import { useState } from "react";
 
 interface ProductProps {
   product: Product;
@@ -33,6 +34,8 @@ const ProductCard: FC<ProductProps> = ({
 }) => {
   const { openModal, setModalView, setModalData } = useUI();
   const { name } = useContext(userContext);
+  const [block, setBlock] = useState<boolean>(false);
+
   // const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
 
@@ -70,6 +73,29 @@ const ProductCard: FC<ProductProps> = ({
         </div>
       );
     }
+
+    return (
+      <div
+        className={`text-pink-500 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
+          variant === "grid"
+            ? "lg:text-lg lg:mt-2.5"
+            : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
+        }`}
+      >
+        <span
+          onClick={() => {
+            setBlock(!block);
+            console.log("clicking view price");
+            setModalView("LOGIN_VIEW");
+
+            return openModal();
+          }}
+          className="inline-block text-xs cursor-pointer"
+        >
+          view price
+        </span>
+      </div>
+    );
   };
 
   return (
@@ -88,7 +114,6 @@ const ProductCard: FC<ProductProps> = ({
         },
         className
       )}
-      onClick={handlePopupView}
       role="button"
       title={product?.product_name}
     >
@@ -113,6 +138,7 @@ const ProductCard: FC<ProductProps> = ({
           height={imgHeight}
           loading={imgLoading}
           quality={100}
+          onClick={handlePopupView}
           alt={product?.product_name || "Product Image"}
           className={cn("bg-gray-650 object-fill rounded-s-md", {
             "w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
@@ -136,6 +162,7 @@ const ProductCard: FC<ProductProps> = ({
         )}
       >
         <h2
+          onClick={handlePopupView}
           className={cn("text-heading font-semibold truncate mb-1", {
             "text-sm md:text-base": variant === "grid",
             "md:mb-1.5 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg":

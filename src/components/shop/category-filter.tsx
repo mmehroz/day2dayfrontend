@@ -17,8 +17,11 @@ export const CategoryFilter = ({ currentCategory }: any) => {
     if (!router?.query?.product_id) return;
 
     const product_id = router?.query?.product_id;
-    const id = product_id?.split("=")[1];
+    console.log(product_id);
+    console.log("product_id 21: ", product_id);
+    let id = product_id?.split("=")[1];
     const type = product_id?.split("=")[0];
+    console.log("type 24: ", type);
     let postType;
 
     if (type === "product_sub") {
@@ -31,6 +34,11 @@ export const CategoryFilter = ({ currentCategory }: any) => {
 
     if (type === "product_id") {
       postType = "parent";
+    }
+
+    if (type === "brand-id") {
+      postType = "parent";
+      id = 1;
     }
 
     console.log("current category: ", currentCategory);
@@ -63,14 +71,16 @@ export const CategoryFilter = ({ currentCategory }: any) => {
         {t("text-category")}
       </h3>
       <div className="mt-2 flex flex-col space-y-4">
-        <CheckBox
-          key={1}
-          label={currentCategory}
-          name={currentCategory}
-          checked={true}
-          value={""}
-          onChange={() => {}}
-        />
+        {currentCategory?.length ? (
+          <CheckBox
+            key={1}
+            label={currentCategory}
+            name={currentCategory}
+            checked={currentCategory?.length >= 1}
+            value={""}
+            onChange={() => {}}
+          />
+        ) : null}
         {categories?.map((el, i) => {
           return (
             <CheckBox
@@ -81,7 +91,6 @@ export const CategoryFilter = ({ currentCategory }: any) => {
               value={el?.subcategory_slug}
               onChange={() => {
                 router?.push(`/product/product_sub=${el?.id}`);
-
                 return;
               }}
             />
