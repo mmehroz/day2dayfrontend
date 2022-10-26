@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Drawer } from "@components/common/drawer/drawer";
 import FilterIcon from "@components/icons/filter-icon";
 import Text from "@components/ui/text";

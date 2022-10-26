@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";

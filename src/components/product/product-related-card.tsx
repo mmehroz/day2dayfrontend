@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import cn from "classnames";
 import Image from "next/image";
 import { FC } from "react";

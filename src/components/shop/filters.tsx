@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { CategoryFilter } from "./category-filter";
 import { BrandFilter } from "./brand-filter";
 import { FilteredItem } from "./filtered-item";

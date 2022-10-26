@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Link from "@components/ui/link";
 import Image from "next/image";
 import type { FC } from "react";

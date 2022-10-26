@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Link from "@components/ui/link";
 import { FaChevronDown } from "react-icons/fa";
 import MegaMenu from "@components/ui/mega-menu";

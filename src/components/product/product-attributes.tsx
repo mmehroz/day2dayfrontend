@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import cn from "classnames";
 interface Props {
   className?: string;

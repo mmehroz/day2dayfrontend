@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { motion } from 'framer-motion';
 import { fadeInTop } from '@utils/motion/fade-in-top';
 import Image from 'next/image';

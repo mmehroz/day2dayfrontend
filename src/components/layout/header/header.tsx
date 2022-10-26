@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useRef, useContext } from "react";
 import SearchIcon from "@components/icons/search-icon";
 import { siteSettings } from "@settings/site-settings";

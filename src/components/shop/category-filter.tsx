@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useCategoriesQuery } from "@framework/category/get-all-categories";
 import { CheckBox } from "@components/ui/checkbox";
 import { useRouter } from "next/router";

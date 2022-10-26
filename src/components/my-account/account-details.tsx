@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Input, { Props } from "@components/ui/input";
 import Button from "@components/ui/button";
 import { useForm } from "react-hook-form";
