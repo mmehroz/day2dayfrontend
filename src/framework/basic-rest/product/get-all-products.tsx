@@ -14,58 +14,61 @@ const fetchProducts = async ({ queryKey }: any) => {
   console.log("query key");
   const { product_id } = queryKey[1];
 
-  if (product_id?.toString()?.includes("product_id") && product_id?.toString() !== 'product_id=sales') {
-    route = `http://207.244.250.143/day2day/api/product/${product_id}`;
+  if (
+    product_id?.toString()?.includes("product_id") &&
+    product_id?.toString() !== "product_id=sales"
+  ) {
+    route = `http://portal.day2daywholesale.com/api/product/${product_id}`;
   }
 
   if (product_id?.toString()?.includes("product_sub")) {
     const id = product_id?.split("=")[1];
 
-    route = `http://207.244.250.143/day2day/api/productsub/product_id=${id}`;
+    route = `http://portal.day2daywholesale.com/api/productsub/product_id=${id}`;
   }
 
   if (product_id?.toString()?.includes("product_inner")) {
     const id = product_id?.split("=")[1];
 
-    route = `http://207.244.250.143/day2day/api/productinner/product_id=${id}`;
+    route = `http://portal.day2daywholesale.com/api/productinner/product_id=${id}`;
   }
 
   if (product_id?.toString()?.includes("brand-id")) {
     const id = product_id.split("=")[1];
 
-    route = `http://207.244.250.143/day2day/api/brandproduct/brand_id=${id}`;
+    route = `http://portal.day2daywholesale.com/api/brandproduct/brand_id=${id}`;
   }
 
   // console.log("productid: ", product_id);
 
-  if(product_id === 'product_id=sales') {
-    route = "http://207.244.250.143/day2day/api/getsale/type=all"
+  if (product_id === "product_id=sales") {
+    route = "http://portal.day2daywholesale.com/api/getsale/type=all";
   }
 
   if (product_id === "product_sub=1000") {
-    route = `http://207.244.250.143/day2day/api/getsale/type=featured`;
+    route = `http://portal.day2daywholesale.com/api/getsale/type=featured`;
   }
 
   if (product_id === "product_sub=1001") {
-    route = `http://207.244.250.143/day2day/api/getsale/type=flash`;
+    route = `http://portal.day2daywholesale.com/api/getsale/type=flash`;
   }
   if (product_id === "product_sub=1003") {
-    route = "http://207.244.250.143/day2day/api/getsale/type=new";
+    route = "http://portal.day2daywholesale.com/api/getsale/type=new";
   }
 
-  if(product_id === "product_sub=1004") {
-    route = "http://207.244.250.143/day2day/api/getsale/type=Specialoffer"
+  if (product_id === "product_sub=1004") {
+    route = "http://portal.day2daywholesale.com/api/getsale/type=Specialoffer";
   }
 
-  if(product_id === "product_sub=1005") {
-    route = "http://207.244.250.143/day2day/api/getsale/type=Specialdeal"
+  if (product_id === "product_sub=1005") {
+    route = "http://portal.day2daywholesale.com/api/getsale/type=Specialdeal";
   }
 
   console.log(route);
 
   route = route
     ? route
-    : "http://207.244.250.143/day2day/api/product/product_id=all";
+    : "http://portal.day2daywholesale.com/api/product/product_id=all";
 
   console.log("final: ", route);
 
@@ -77,7 +80,9 @@ const fetchProducts = async ({ queryKey }: any) => {
     paginatorInfo: {
       nextPageUrl: "",
     },
-    filtername: data.filtername?.category_name ? data.filtername?.category_name : data?.filtername,
+    filtername: data.filtername?.category_name
+      ? data.filtername?.category_name
+      : data?.filtername,
     brandname: data?.brandname,
   };
 };

@@ -47,13 +47,13 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
       let endpoint: string = "";
 
       if (type === "product_id") {
-        endpoint = `http://207.244.250.143/day2day/api/product/product_id=${p_id}?page=${
+        endpoint = `http://portal.day2daywholesale.com/api/product/product_id=${p_id}?page=${
           pages + 1
         }`;
       }
 
       if (type === "product_sub") {
-        endpoint = `http://207.244.250.143/day2day/api/productsub/product_id=${p_id}?page=${
+        endpoint = `http://portal.day2daywholesale.com/api/productsub/product_id=${p_id}?page=${
           pages + 1
         }`;
       }

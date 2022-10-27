@@ -77,7 +77,7 @@ const CheckoutForm: React.FC = () => {
 
     const input = orders;
 
-    const res = await axios("http://207.244.250.143/day2day/api/createorder", {
+    const res = await axios("http://portal.day2daywholesale.com/api/createorder", {
       method: "POST",
       data: {
         item: filteredArr,

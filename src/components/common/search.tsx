@@ -27,7 +27,7 @@ export default function Search() {
   async function handleAutoSearch(e: React.FormEvent<HTMLInputElement>) {
     setSearchText(e.currentTarget.value);
     const res = await axios(
-      `http://207.244.250.143/day2day/api/searchproduct/searchname=${e.currentTarget.value}`,
+      `http://portal.day2daywholesale.com/api/searchproduct/searchname=${e.currentTarget.value}`,
       {
         method: "GET",
       }

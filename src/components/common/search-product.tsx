@@ -16,7 +16,7 @@ const SearchProduct: React.FC<SearchProductProps> = ({ item }) => {
   });
 
   const myLoader = ({ src }) => {
-    return `http://207.244.250.143/day2day/public/assets/img/products/thumb/${item?.product_thumbnail}`;
+    return `http://portal.day2daywholesale.com/public/assets/img/products/thumb/${item?.product_thumbnail}`;
   };
   return (
     <Link
@@ -26,7 +26,7 @@ const SearchProduct: React.FC<SearchProductProps> = ({ item }) => {
       <div className="relative flex w-24 h-24 rounded-md overflow-hidden bg-gray-200 flex-shrink-0 cursor-pointer me-4">
         <Image
           src={
-            `http://207.244.250.143/day2day/public/assets/img/products/thumb/${item?.product_thumbnail}` ??
+            `http://portal.day2daywholesale.com/public/assets/img/products/thumb/${item?.product_thumbnail}` ??
             "/assets/placeholder/search-product.svg"
           }
           width={96}

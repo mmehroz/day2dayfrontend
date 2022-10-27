@@ -44,9 +44,9 @@ export default function Home() {
 
     const promises: any[] = [];
     const data = [
-      "http://207.244.250.143/day2day/api/slider/type=2",
-      "http://207.244.250.143/day2day/api/slider/type=3",
-      "http://207.244.250.143/day2day/api/slider/type=4",
+      "http://portal.day2daywholesale.com/api/slider/type=2",
+      "http://portal.day2daywholesale.com/api/slider/type=3",
+      "http://portal.day2daywholesale.com/api/slider/type=4",
     ];
 
     data.forEach((el) => {

@@ -25,7 +25,7 @@ const ContactForm: React.FC = () => {
     console.log("contact me");
     console.log(values, "contact");
 
-    axios("http://207.244.250.143/day2day/api/contactus", {
+    axios("http://portal.day2daywholesale.comus", {
       method: "POST",
       data: {
         contact_name: values.name,

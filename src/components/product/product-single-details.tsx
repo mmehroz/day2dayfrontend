@@ -235,7 +235,7 @@ const ProductSingleDetails: React.FC = () => {
       if (!valuesReview.name) throw new Error("Name field required");
       if (!valuesReview.email) throw new Error("Email field required");
 
-      await axios("http://207.244.250.143/day2day/api/review", {
+      await axios("http://portal.day2daywholesale.com/api/review", {
         method: "POST",
         data: {
           review_rating: rating + 1,
@@ -285,7 +285,7 @@ const ProductSingleDetails: React.FC = () => {
     }
 
     return (
-      `http://207.244.250.143/day2day/public/assets/img/products/thumb/${data?.details?.product_thumbnail}` ??
+      `http://portal.day2daywholesale.com/public/assets/img/products/thumb/${data?.details?.product_thumbnail}` ??
       placeholderImage
     );
   };
