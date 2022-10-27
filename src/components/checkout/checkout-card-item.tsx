@@ -14,7 +14,7 @@ export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
         <img
           src={
             item?.image
-              ? `http://portal.day2daywholesale.com/public/assets/img/products/thumb/${item.image}`
+              ? `https://portal.day2daywholesale.com/public/assets/img/products/thumb/${item.image}`
               : "/assets/placeholder/order-product.svg"
           }
           width="64"

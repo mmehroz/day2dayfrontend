@@ -39,7 +39,7 @@ const Subscription: React.FC<Props> = ({
     if (!input?.subscription_email) return;
 
     try {
-      await axios("http://portal.day2daywholesale.compi/subscription", {
+      await axios("https://portal.day2daywholesale.compi/subscription", {
         method: "POST",
         data: {
           subscription_email: input?.subscription_email,

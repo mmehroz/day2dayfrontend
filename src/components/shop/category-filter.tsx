@@ -45,7 +45,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
 
     console.log("current category: ", currentCategory);
 
-    axios("http://portal.day2daywholesale.com/api/subnav", {
+    axios("https://portal.day2daywholesale.com/api/subnav", {
       method: "POST",
       data: {
         category_id: id,

@@ -41,7 +41,7 @@ const ForgetPasswordForm = () => {
       console.log(values, "token");
       if (!values?.email) return;
 
-      await axios("http://portal.day2daywholesale.com/api/forgetpassword", {
+      await axios("https://portal.day2daywholesale.com/api/forgetpassword", {
         method: "POST",
         data: {
           email: values?.email,

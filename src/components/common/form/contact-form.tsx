@@ -25,7 +25,7 @@ const ContactForm: React.FC = () => {
     console.log("contact me");
     console.log(values, "contact");
 
-    axios("http://portal.day2daywholesale.comus", {
+    axios("https://portal.day2daywholesale.comus", {
       method: "POST",
       data: {
         contact_name: values.name,

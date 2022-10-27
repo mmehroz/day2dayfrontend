@@ -42,7 +42,7 @@ const BannerCard2: FC<BannerProps> = ({
 
 	console.log('selecetd image: ', selectedImage)
 	const myLoader = ({ src }) => {
-    return `http://portal.day2daywholesale.com/${selectedImage?.url}`;
+    return `https://portal.day2daywholesale.com/${selectedImage?.url}`;
   };
 	console.log(banner)
 	console.log('in banner card')
@@ -59,7 +59,7 @@ const BannerCard2: FC<BannerProps> = ({
 					// loader={myLoader}
 					// src={`${ROUTES.BANNER}/${selectedImage.url}`}
 					// src={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}${selectedImage.url}`}
-					src={`http://portal.day2daywholesale.com/${selectedImage?.url}`}
+					src={`https://portal.day2daywholesale.com/${selectedImage?.url}`}
 					width={selectedImage.width}
 					height={selectedImage.height}
 					alt={title}

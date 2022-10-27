@@ -81,7 +81,7 @@ const Layout: React.FC = ({ children }) => {
     };
 
   async function fetchResetCred(verify_token: any) {
-    return await axios("http://portal.day2daywholesale.com/api/verifycode",{
+    return await axios("https://portal.day2daywholesale.com/api/verifycode",{
       method: "POST",
       data: {
         verify_token,
@@ -111,7 +111,7 @@ const Layout: React.FC = ({ children }) => {
 
       setLoading(true);
       const res = await axios(
-        "http://portal.day2daywholesale.com/api/resetpassword",
+        "https://portal.day2daywholesale.com/api/resetpassword",
         {
           method: "POST",
           data: {

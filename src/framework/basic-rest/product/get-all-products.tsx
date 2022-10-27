@@ -18,57 +18,57 @@ const fetchProducts = async ({ queryKey }: any) => {
     product_id?.toString()?.includes("product_id") &&
     product_id?.toString() !== "product_id=sales"
   ) {
-    route = `http://portal.day2daywholesale.com/api/product/${product_id}`;
+    route = `https://portal.day2daywholesale.com/api/product/${product_id}`;
   }
 
   if (product_id?.toString()?.includes("product_sub")) {
     const id = product_id?.split("=")[1];
 
-    route = `http://portal.day2daywholesale.com/api/productsub/product_id=${id}`;
+    route = `https://portal.day2daywholesale.com/api/productsub/product_id=${id}`;
   }
 
   if (product_id?.toString()?.includes("product_inner")) {
     const id = product_id?.split("=")[1];
 
-    route = `http://portal.day2daywholesale.com/api/productinner/product_id=${id}`;
+    route = `https://portal.day2daywholesale.com/api/productinner/product_id=${id}`;
   }
 
   if (product_id?.toString()?.includes("brand-id")) {
     const id = product_id.split("=")[1];
 
-    route = `http://portal.day2daywholesale.com/api/brandproduct/brand_id=${id}`;
+    route = `https://portal.day2daywholesale.com/api/brandproduct/brand_id=${id}`;
   }
 
   // console.log("productid: ", product_id);
 
   if (product_id === "product_id=sales") {
-    route = "http://portal.day2daywholesale.com/api/getsale/type=all";
+    route = "https://portal.day2daywholesale.com/api/getsale/type=all";
   }
 
   if (product_id === "product_sub=1000") {
-    route = `http://portal.day2daywholesale.com/api/getsale/type=featured`;
+    route = `https://portal.day2daywholesale.com/api/getsale/type=featured`;
   }
 
   if (product_id === "product_sub=1001") {
-    route = `http://portal.day2daywholesale.com/api/getsale/type=flash`;
+    route = `https://portal.day2daywholesale.com/api/getsale/type=flash`;
   }
   if (product_id === "product_sub=1003") {
-    route = "http://portal.day2daywholesale.com/api/getsale/type=new";
+    route = "https://portal.day2daywholesale.com/api/getsale/type=new";
   }
 
   if (product_id === "product_sub=1004") {
-    route = "http://portal.day2daywholesale.com/api/getsale/type=Specialoffer";
+    route = "https://portal.day2daywholesale.com/api/getsale/type=Specialoffer";
   }
 
   if (product_id === "product_sub=1005") {
-    route = "http://portal.day2daywholesale.com/api/getsale/type=Specialdeal";
+    route = "https://portal.day2daywholesale.com/api/getsale/type=Specialdeal";
   }
 
   console.log(route);
 
   route = route
     ? route
-    : "http://portal.day2daywholesale.com/api/product/product_id=all";
+    : "https://portal.day2daywholesale.com/api/product/product_id=all";
 
   console.log("final: ", route);
 
