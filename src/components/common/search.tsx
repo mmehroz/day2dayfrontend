@@ -17,7 +17,7 @@ import axios from "axios";
 export default function Search() {
   const { displaySearch, closeSearch } = useUI();
   const [searchText, setSearchText] = React.useState("");
-
+  const [loading, setLoading] = useState(false);
 
   const [searchData, setSearchData] = useState([]);
 
@@ -25,16 +25,20 @@ export default function Search() {
     e.preventDefault();
   }
   async function handleAutoSearch(e: React.FormEvent<HTMLInputElement>) {
+    setLoading(true);
     setSearchText(e.currentTarget.value);
     const res = await axios(
       `https://portal.day2daywholesale.com/api/searchproduct/searchname=${e.currentTarget.value}`,
       {
         method: "GET",
       }
-    );
+    ).catch((err) => {
+      setLoading(false);
+    });
 
     console.log("data: ", res);
     setSearchData(res?.data?.data);
+    setLoading(false);
   }
   function clear() {
     setSearchText("");
@@ -87,7 +91,7 @@ export default function Search() {
               <div className="bg-white flex flex-col rounded-md overflow-hidden h-full max-h-64vh lg:max-h-[550px]">
                 <Scrollbar className="os-host-flexbox">
                   <div className="h-full">
-                    {isLoading ? (
+                    {loading ? (
                       <div className="p-5 border-b border-gray-300 border-opacity-30 last:border-b-0">
                         {Array.from({ length: 5 }).map((_, idx) => (
                           <SearchResultLoader

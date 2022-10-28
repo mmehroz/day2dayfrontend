@@ -11,7 +11,7 @@ import { ROUTES } from "@utils/routes";
 import { useTranslation } from "next-i18next";
 
 const SignUpForm: React.FC = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const { mutate: signUp, isLoading } = useSignUpMutation();
   const { setModalView, openModal, closeModal } = useUI();
   const {
@@ -32,7 +32,6 @@ const SignUpForm: React.FC = () => {
       username,
       password,
     });
-    console.log(name, email, username, password, "sign form values");
   }
   return (
     <div className="py-5 px-5 sm:px-8 bg-gray-700 mx-auto rounded-lg w-full sm:w-96 md:w-450px">
@@ -85,7 +84,7 @@ const SignUpForm: React.FC = () => {
               },
             })}
             errorKey={errors.email?.message}
-            id='email-id-register'
+            id="email-id-register"
           />
           <Input
             labelKey="forms:label-username"
@@ -118,7 +117,7 @@ const SignUpForm: React.FC = () => {
       <div className="flex flex-col items-center justify-center relative text-sm text-heading mt-6 mb-3.5">
         <hr className="w-full border-gray-300" />
         <span className="absolute -top-2.5 px-2 bg-gray-800 rounded-md">
-         OR
+          OR
         </span>
       </div>
 

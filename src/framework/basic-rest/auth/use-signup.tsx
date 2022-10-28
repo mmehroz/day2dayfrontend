@@ -32,3 +32,8 @@ export const useSignUpMutation = () => {
     },
   });
 };
+
+
+const arr =  ['id', '2323'];
+
+arr.filter((el) => el?.toLowerCase().includes("2"));

@@ -13,7 +13,6 @@ import { GoogleLogin } from "react-google-login";
 import { SignUpInputType, useSignUpMutation } from "@framework/auth/use-signup";
 
 const LoginForm: React.FC = () => {
-  const [resetPasswordModal, setResetPasswordModal] = useState(false);
   let gpi: {
     client: { init: (arg0: { clientId: string; scope: string }) => void };
     load: (arg0: string, arg1: () => void) => void;
