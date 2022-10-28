@@ -46,14 +46,14 @@ const fetchProducts = async ({ queryKey }: any) => {
   }
 
   if (product_id === "product_sub=1000") {
-    route = `https://portal.day2daywholesale.com/api/getsale/type=featured`;
+    route = `https://portal.day2daywholesale.com/api/featuredproducts`;
   }
 
   if (product_id === "product_sub=1001") {
-    route = `https://portal.day2daywholesale.com/api/getsale/type=flash`;
+    route = `https://portal.day2daywholesale.com/api/flashsale`;
   }
   if (product_id === "product_sub=1003") {
-    route = "https://portal.day2daywholesale.com/api/getsale/type=new";
+    route = "https://portal.day2daywholesale.com/api/newarrival";
   }
 
   if (product_id === "product_sub=1004") {
