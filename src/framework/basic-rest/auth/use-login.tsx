@@ -31,6 +31,7 @@ export const useLoginMutation = () => {
       // console.log(Cookies.get('auth_token'), "authtoken")
       authorize();
       closeModal();
+      window.location.assign("/");
     },
     onError: (data) => {
       console.log(data, "login error response");

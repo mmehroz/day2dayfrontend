@@ -92,8 +92,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
   };
 
   const { t } = useTranslation("common");
-  console.log(products);
-  console.log("data here in component: ", products);
+
   return (
     <>
       <div

@@ -81,7 +81,7 @@ const Layout: React.FC = ({ children }) => {
     };
 
   async function fetchResetCred(verify_token: any) {
-    return await axios("https://portal.day2daywholesale.com/api/verifycode",{
+    return await axios("https://portal.day2daywholesale.com/api/verifycode", {
       method: "POST",
       data: {
         verify_token,
@@ -227,12 +227,12 @@ const Layout: React.FC = ({ children }) => {
         }
       />
       {!isAdult && (
-        <div className="w-[100rem] h-[100rem] bg-black/60  absolute z-[999999] overflow-x-hidden">
+        <div className="w-screen h-screen bg-black/60  absolute z-[999999] overflow-x-hidden flex items-center justify-center ">
           <div
             id="modal-verify"
-            className="fixed w-[25rem] h-[15rem] bg-gray-800 rounded-xl  top-[40%] bottom-0 left-[35%] right-0 flex flex-col py-10 items-center custom-shadow"
+            className="absolute w-[25rem] h-[15rem] bg-gray-800 rounded-xl  top-[40%] bottom-0 left-[40%] right-0 flex flex-col py-10 items-center custom-shadow"
           >
-            <h2 className="text-white text-[1.8rem] font-semibold text-orange-500">
+            <h2 className=" text-[1.8rem] font-semibold text-orange-500">
               Age Verification
             </h2>
             <h2 className="font-semibold mt-5">

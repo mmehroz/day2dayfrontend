@@ -38,8 +38,6 @@ const LoginForm: React.FC = () => {
       remember_me,
     });
     console.clear();
-    console.log("response of login");
-    console.log(res);
   }
   function handelSocialLogin() {
     login({
@@ -49,7 +47,7 @@ const LoginForm: React.FC = () => {
     });
   }
   function handleSignUp() {
-    console.log('clicking handle signup')
+    console.log("clicking handle signup");
     setModalView("SIGN_UP_VIEW");
     return openModal();
   }
@@ -207,7 +205,7 @@ const LoginForm: React.FC = () => {
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
-        style={{backgroundColor: 'black', textAlign: 'center'}}
+        style={{ backgroundColor: "black", textAlign: "center" }}
       />
       <Button
         loading={isLoading}

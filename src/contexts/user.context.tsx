@@ -9,6 +9,7 @@ export const Provider = ({ children }) => {
   const [name, setName] = useState("");
 
   const getDetails = () => {
+    console.log('im herere 12')
     console.log(Cookies.get("auth_token"));
     return http
       .get(API_ENDPOINTS.ACCOUNT_DETAILS, {
