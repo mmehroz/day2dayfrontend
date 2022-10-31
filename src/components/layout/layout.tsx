@@ -7,16 +7,19 @@ import CookieBar from "@components/common/cookie-bar";
 import { useAcceptCookies } from "@utils/use-accept-cookies";
 import Button from "@components/ui/button";
 import { useTranslation } from "next-i18next";
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, useContext } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Logo from "@components/ui/logo";
 import { motion, AnimatePresence } from "framer-motion";
+import { userContext } from "@contexts/user.context";
 
 const Layout: React.FC = ({ children }) => {
   const [isAdult, setIsAdult] = useState(false);
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies();
+  //@ts-ignore
+  const { hideHeader } = useContext(userContext);
   const { t } = useTranslation("common");
   const router = useRouter();
   const [tokenCred, setTokenCred] = useState({
@@ -199,7 +202,7 @@ const Layout: React.FC = ({ children }) => {
           ],
         }}
       />
-      <Header />
+      {hideHeader ? null : <Header />}
       <main
         className="relative flex-grow"
         style={{
@@ -227,10 +230,10 @@ const Layout: React.FC = ({ children }) => {
         }
       />
       {!isAdult && (
-        <div className="w-screen h-screen bg-black/60  absolute z-[999999] overflow-x-hidden flex items-center justify-center ">
+        <div className="w-screen h-screen bg-black/60  absolute z-[999999] overflow-x-hidden flex items-center justify-center p-10 md:p-0  ">
           <div
             id="modal-verify"
-            className="absolute w-[25rem] h-[15rem] bg-gray-800 rounded-xl  top-[40%] bottom-0 left-[40%] right-0 flex flex-col py-10 items-center custom-shadow"
+            className="md:absolute w-[25rem] h-[15rem] bg-gray-800 rounded-xl  top-[40%] bottom-0 left-[40%] right-0 flex flex-col py-10 items-center custom-shadow"
           >
             <h2 className=" text-[1.8rem] font-semibold text-orange-500">
               Age Verification
@@ -238,18 +241,18 @@ const Layout: React.FC = ({ children }) => {
             <h2 className="font-semibold mt-5">
               Are you atleast 21 years old?
             </h2>
-            <div className="w-full mt-6 flex gap-4 px-10">
+            <div className="w-full md:mt-6 mt-10 flex gap-4 px-10 items-center justify-center">
               <button
                 onClick={handleAgree}
-                className="font-semibold rounded-md bg-gradient-to-tr to-orange-500 from-pink-500 px-10 py-4 text-white hover:opacity-80 duration-300 transition"
+                className="font-semibold rounded-md bg-gradient-to-tr to-orange-500 from-pink-500 px-10 md:py-4 text-white hover:opacity-80 duration-300 transition text-sm md:text-base py-3"
               >
                 Yes
               </button>
               <button
                 onClick={handleDisagree}
-                className="font-semibold rounded-md bg-gradient-to-tr to-red-500 from-pink-500 px-10 py-4 text-white hover:opacity-80 duration-300 transition"
+                className="font-semibold rounded-md bg-gradient-to-tr to-red-500 from-pink-500 px-10 md:py-4 text-white hover:opacity-80 duration-300 transition text-sm md:text-base py-3"
               >
-                Disagree & Exit
+                Disagree
               </button>
             </div>
           </div>

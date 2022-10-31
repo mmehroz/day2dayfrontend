@@ -7,9 +7,10 @@ export const userContext = createContext(null);
 
 export const Provider = ({ children }) => {
   const [name, setName] = useState("");
+  const [hideHeader, setHideHeader] = useState(false);
 
   const getDetails = () => {
-    console.log('im herere 12')
+    console.log("im herere 12");
     console.log(Cookies.get("auth_token"));
     return http
       .get(API_ENDPOINTS.ACCOUNT_DETAILS, {
@@ -32,12 +33,23 @@ export const Provider = ({ children }) => {
       });
   };
 
+  const handleHideHeader = () => {
+    setHideHeader(true);
+  };
+
+  const closeHideHeader = () => {
+    setHideHeader(false);
+  };
+
   useEffect(() => {
     getDetails()?.catch((err) => {});
   }, []);
 
   const value = {
     name,
+    handleHideHeader,
+    closeHideHeader,
+    hideHeader,
   };
 
   return <userContext.Provider value={value}>{children}</userContext.Provider>;

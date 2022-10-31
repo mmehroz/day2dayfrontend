@@ -50,11 +50,13 @@ const Header: React.FC = () => {
       ref={siteHeaderRef}
       className="w-full h-16 sm:h-20 lg:h-24 relative z-20"
     >
-      <div className="text-white bg-gradient-to-r from-orange-500  to-pink-500 w-full my-0 fixed top-0 text-center py-2 ">
-        <p className="text-sm">
-          WARNING! Some products contains nicotine. Nicotine is an addictive
-          chemical.
-        </p>
+      <div className="text-white bg-gradient-to-r from-orange-500  to-pink-500 w-full my-0 fixed top-0 text-center py-2">
+        <div className=" overflow-x-scroll flex flex-row w-full hidescrollbar items-center justify-center text-sm px-4 pl-36 sm:p-0">
+          <h2 className=" flex-shrink-0" >
+            WARNING! Some products contains nicotine. Nicotine is an addictive
+            chemical.
+          </h2>
+        </div>
       </div>
 
       <div className="innerSticky mt-8 text-white body-font fixed bg-gray-700 w-full h-16 sm:h-20 lg:h-15 z-20 ps-4 md:ps-0 lg:ps-6 pe-4 lg:pe-6 transition duration-200 ease-in-out">
