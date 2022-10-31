@@ -73,13 +73,13 @@ export const BrandFilter = () => {
             name={item.name.toLowerCase()}
             checked={formState.includes(item.slug)}
             value={item.slug}
-            onChange={() => router?.push(`/product/brand-id=${item.id}`)}
+            onChange={() => router?.push(`/product/brands/${item.brand_slug}`)}
           />
         );
       });
     }
+
     if (data?.length) {
-      console.log("im heerererer: ", data);
       return data?.map((item, i) => {
         if (dataSecondary?.pages[0]?.brandname === item.brand_name) {
           return;
@@ -92,7 +92,7 @@ export const BrandFilter = () => {
             name={item.brand_name.toLowerCase()}
             checked={formState.includes(item.brand_slug)}
             value={item.brand_slug}
-            onChange={() => router?.push(`/product/brand-id=${item.id}`)}
+            onChange={() => router?.push(`/product/brands/${item.brand_slug}`)}
           />
         );
       });

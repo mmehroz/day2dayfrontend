@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import ProductCard from "@components/product/product-card";
 import Button from "@components/ui/button";
 import type { FC } from "react";
@@ -14,7 +12,8 @@ interface ProductGridProps {
   className?: string;
 }
 export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
-  const { query } = useRouter();
+  const router = useRouter();
+  const { query } = router;
   const [products, setProducts] = useState([]);
   const [pages, setPages] = useState<number>(1);
   const {
@@ -26,39 +25,57 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     error,
   } = useProductsQuery({ limit: 10, ...query });
 
-  console.log("products state: ", products);
-
   useEffect(() => {
     if (!data?.pages?.length || products?.length) return;
 
     //@ts-ignore
     setProducts(data?.pages[0]?.data);
-
-    return () => {
-      setProducts([]);
-    };
   }, [data]);
 
   const fetchMore = async () => {
     try {
-      const product_id = query?.product_id;
-      const type = product_id?.split("=")[0];
-      const p_id = product_id?.split("=")[1];
-      let endpoint: string = "";
+      let endpoint = "";
 
-      if (type === "product_id") {
-        endpoint = `https://portal.day2daywholesale.com/api/product/product_id=${p_id}?page=${
+      console.log("query 39: ", query);
+
+      if (router?.pathname === "/products") {
+        endpoint = `https://portal.day2daywholesale.com/api/product/product_id=all?page=${
           pages + 1
         }`;
       }
 
-      if (type === "product_sub") {
-        endpoint = `https://portal.day2daywholesale.com/api/productsub/product_id=${p_id}?page=${
-          pages + 1
-        }`;
+      if (query?.tag_product) {
+        endpoint = `https://portal.day2daywholesale.com/api/tagproduct/tagname=${
+          query?.tag_product
+        }?page=${pages + 1}`;
+      }
+
+      if (query?.product_brand) {
+        endpoint = `https://portal.day2daywholesale.com/api/brandproduct/brand_id=${
+          query?.product_brand
+        }?page=${pages + 1}`;
+      }
+
+      if (query?.product_sub) {
+        endpoint = `https://portal.day2daywholesale.com/api/productsub/product_id=${
+          query?.product_sub
+        }?page=${pages + 1}`;
+      }
+
+      if (query?.product_inner) {
+        endpoint = `https://portal.day2daywholesale.com/api/productinner/product_id=${
+          query?.product_inner
+        }?page=${pages + 1}`;
+      }
+      if (query?.product_main) {
+        endpoint = `https://portal.day2daywholesale.com/api/product/product_id=${
+          query?.product_main
+        }?page=${pages + 1}`;
       }
 
       const res = await axios(endpoint);
+      console.log(res?.data?.data);
+      console.log("response res");
 
       setPages((prev) => prev + 1);
       setProducts((prev) => prev.concat(res?.data?.data));
@@ -93,6 +110,10 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 
   const { t } = useTranslation("common");
 
+  console.log("router: ", router);
+  console.log(data);
+  console.log("data 95");
+
   return (
     <>
       <div
@@ -104,7 +125,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
           render()
         )}
       </div>
-      {data?.pages?.length ? (
+      {data?.pages[0]?.data?.length ? (
         <div className="w-full mt-40 justify-center flex">
           <Button
             onClick={fetchMore}
@@ -115,19 +136,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         </div>
       ) : null}
 
-      <div className="text-center pt-8 xl:pt-14">
-        {/* {hasNextPage && (
-					<Button
-						loading={loadingMore}
-						disabled={loadingMore}
-						onClick={() => fetchNextPage()}
-						variant="slim"
-						className="bg-gradient-to-r from-orange-500  to-pink-500"
-					>
-						{t("button-load-more")}
-					</Button>
-				)} */}
-      </div>
+      <div className="text-center pt-8 xl:pt-14"></div>
     </>
   );
 };

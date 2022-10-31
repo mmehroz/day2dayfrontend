@@ -21,8 +21,6 @@ export const ShopFilters: React.FC = () => {
     error,
   } = useProductsQuery({ limit: 10, ...router?.query });
 
-  console.log(data);
-
   const { pathname, query } = router;
   const { t } = useTranslation("common");
   return (
@@ -52,7 +50,11 @@ export const ShopFilters: React.FC = () => {
                   itemKey={
                     Object.keys(query).find((k) => query[k]?.includes(v))!
                   }
-                  itemValue={data?.pages[0]?.filtername ? data?.pages[0]?.filtername : data?.pages[0]?.brandname}
+                  itemValue={
+                    data?.pages[0]?.filtername
+                      ? data?.pages[0]?.filtername
+                      : data?.pages[0]?.brandname
+                  }
                   key={idx}
                 />
               ))}

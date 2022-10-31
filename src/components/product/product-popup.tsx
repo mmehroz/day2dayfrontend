@@ -1,6 +1,6 @@
 //@ts-nocheck
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import isEmpty from "lodash/isEmpty";
 import { ROUTES } from "@utils/routes";
@@ -15,6 +15,7 @@ import { getVariations } from "@framework/utils/get-variations";
 import { useTranslation } from "next-i18next";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { toast } from "react-toastify";
+import { userContext } from "@contexts/user.context";
 
 export default function ProductPopup() {
   const { t } = useTranslation("common");
@@ -22,7 +23,10 @@ export default function ProductPopup() {
     modalData: { data },
     closeModal,
     openCart,
+    openModal,
+    setModalView,
   } = useUI();
+  const { name: userName } = useContext(userContext);
   const router = useRouter();
   const { addItemToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -49,18 +53,6 @@ export default function ProductPopup() {
     short_description,
   } = data;
 
-  // function addToCart() {
-  //   if (!isSelected) return;
-  //   // to show btn feedback while product carting
-  //   setAddToCartLoader(true);
-  //   setTimeout(() => {
-  //     setAddToCartLoader(false);
-  //     setViewCartBtn(true);
-  //   }, 600);
-  //   const item = generateCartItem(data!, attributes);
-  //   addItemToCart(item, quantity);
-  //   console.log(item, 'item');
-  // }
   function addToCart() {
     const dataVariantsKeys = data?.variants?.map((el: any) => {
       return el?.name;
@@ -134,7 +126,10 @@ export default function ProductPopup() {
   console.log("product--popup-data111");
 
   const renderImage = () => {
-    if (product_thumbnail?.toString()?.includes("shopify") || product_thumbnail?.toString()?.includes('repziocdn')) {
+    if (
+      product_thumbnail?.toString()?.includes("shopify") ||
+      product_thumbnail?.toString()?.includes("repziocdn")
+    ) {
       return product_thumbnail;
     }
 
@@ -143,6 +138,11 @@ export default function ProductPopup() {
       "/assets/placeholder/products/product-thumbnail.svg"
     );
   };
+
+  function onPriceClick() {
+    setModalView("LOGIN_VIEW");
+    return openModal();
+  }
 
   return (
     <div className="rounded-lg bg-gray-800">
@@ -171,16 +171,27 @@ export default function ProductPopup() {
               className="text-sm leading-6 md:text-white md:leading-7"
             />
 
-            <div className="flex items-center mt-3">
-              <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
-                ${data?.discount_price}.00
+            {userName ? (
+              <div className="flex items-center mt-3">
+                <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
+                  ${data?.discount_price}.00
+                </div>
+                {data?.selling_price && (
+                  <del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
+                    ${data?.selling_price}.00
+                  </del>
+                )}
               </div>
-              {data?.selling_price && (
-                <del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
-                  ${data?.selling_price}.00
-                </del>
-              )}
-            </div>
+            ) : (
+              <div className="flex items-center mt-4">
+                <div
+                  onClick={onPriceClick}
+                  className="cursor-pointer font-semibold text-sm md:text-xl lg:text-xs text-red-500"
+                >
+                  View Price
+                </div>
+              </div>
+            )}
           </div>
 
           {data?.variants?.map((variation: any) => {

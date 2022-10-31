@@ -23,6 +23,7 @@ const Card: React.FC<Props> = ({
   effectActive = false,
   href,
 }) => {
+  console.log("brands 26: ", item);
   const { brand_name, brand_image } = item ?? {};
   const imageSize: any =
     (size === "small" && 180) || (size === "medium" && 198);
@@ -35,7 +36,7 @@ const Card: React.FC<Props> = ({
   };
   return (
     <Link
-      href={`/product/brand-id=${item?.id}`}
+      href={`/product/brands/${item?.brand_slug}`}
       className="group flex justify-center text-center flex-col"
     >
       <div

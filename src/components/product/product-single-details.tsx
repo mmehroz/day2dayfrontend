@@ -1,6 +1,6 @@
 //@ts-nocheck
-
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { BiLeftArrowAlt } from "react-icons/bi";
 import Button from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useRouter } from "next/router";
@@ -17,6 +17,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProductMetaReview from "./product-meta-review";
 import { AiFillStar } from "react-icons/ai";
 import axios from "axios";
+import { userContext } from "@contexts/user.context";
+import { useUI } from "@contexts/ui.context";
+import Image from "next/image";
 
 const productGalleryCarouselResponsive = {
   "768": {
@@ -33,6 +36,8 @@ const ProductSingleDetails: React.FC = () => {
   } = useRouter();
 
   const { width } = useWindowSize();
+  const { openModal, setModalView } = useUI();
+  const { name: userName } = useContext(userContext);
   const { data, isLoading } = useProductQuery(slug as string);
   const { addItemToCart } = useCart();
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
@@ -47,6 +52,8 @@ const ProductSingleDetails: React.FC = () => {
     4: false,
   });
   const [clickedStar, setClickedStar] = useState(false);
+  const [totalScrolled, setTotalScrolled] = useState(0);
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState("");
 
   const [valuesReview, setValuesReview] = useState({
     rating: 0,
@@ -142,7 +149,7 @@ const ProductSingleDetails: React.FC = () => {
 
     return tags?.map((el: string, _i: number) => (
       <Link
-        href={`/${el}`}
+        href={`/product/tagproduct/${el?.toLowerCase()?.split(" ")?.join("-")}`}
         className="inline-block pe-1.5 transition hover:underline hover:text-heading last:pe-0"
       >
         {el}
@@ -273,14 +280,13 @@ const ProductSingleDetails: React.FC = () => {
     }
   };
 
-  console.log("data: ", data);
-  console.log("object keys: ", Object.keys(attributes)?.length);
-  console.log("sort variatns: ", data?.sortvariants?.length);
-
   const sortvariantsLengths = getSortVariationsLength();
 
   const renderImage = () => {
-    if (data?.details?.product_thumbnail?.toString()?.includes("shopify") || data?.details?.product_thumbnail?.toString()?.includes('repziocdn')) {
+    if (
+      data?.details?.product_thumbnail?.toString()?.includes("shopify") ||
+      data?.details?.product_thumbnail?.toString()?.includes("repziocdn")
+    ) {
       return data?.details?.product_thumbnail;
     }
 
@@ -290,53 +296,110 @@ const ProductSingleDetails: React.FC = () => {
     );
   };
 
+  function handleViewPrice() {
+    setModalView("LOGIN_VIEW");
+    return openModal();
+  }
+
+  const handleScrollLeft = () => {
+    const el = document.getElementById("gallery-images");
+    let scrollAmount = totalScrolled;
+    const sliderTimer = setInterval(() => {
+      if (el) el.scrollLeft -= 12;
+      scrollAmount -= 12;
+      if (scrollAmount <= 0) {
+        clearInterval(sliderTimer);
+      }
+    }, 15);
+
+    setTotalScrolled(0);
+    return true;
+  };
+
+  const handleScrollRight = () => {
+    const el = document.getElementById("gallery-images");
+    let scrollAmount = 0;
+    const sliderTimer = setInterval(() => {
+      if (el) el.scrollLeft += 12;
+      scrollAmount += 12;
+      if (scrollAmount >= 100) {
+        setTotalScrolled(totalScrolled + scrollAmount);
+
+        clearInterval(sliderTimer);
+      }
+    }, 15);
+
+    return true;
+  };
+
+  const handleSelectGalleryImage = (uri) => () => {
+    console.log("selected uri: ", uri);
+    setSelectedGalleryImage(uri);
+  };
+
+  const galleryImageLoader = (picture) => () => {
+    return `https://portal.day2daywholesale.com/public/assets/img/products/${picture}`;
+  };
+
+  const renderGalleryImage = () => {
+    return data?.gallery?.map((el, i) => {
+      return (
+        <div
+          onClick={handleSelectGalleryImage(el.pictures)}
+          className="galleryImageCard"
+        >
+          <Image
+            className="object-cover"
+            src={`${el.pictures}`}
+            alt="profile-image"
+            layout="fill"
+            loader={galleryImageLoader(el.pictures)}
+          />
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start 2xl:pl-52 2xl:px-40">
-      {
-        // width < 1025 ? (
-        // 	<Carousel
-        // 		pagination={{
-        // 			clickable: true,
-        // 		}}
-        // 		breakpoints={productGalleryCarouselResponsive}
-        // 		className="product-gallery"
-        // 		buttonGroupClassName="hidden"
-        // 	>
-        // 		{data?.gallery?.map((item, index: number) => (
-        // 			<SwiperSlide key={`product-gallery-key-${index}`}>
-        // 				<div className="col-span-1 transition duration-150 ease-in hover:opacity-90">
-        // 					<img
-        // 						src={
-        // 							item?.original ??
-        // 							"/assets/placeholder/products/product-gallery.svg"
-        // 						}
-        // 						alt={`${data?.name}--${index}`}
-        // 						className="object-cover w-full"
-        // 					/>
-        // 				</div>
-        // 			</SwiperSlide>
-        // 		))}
-        // 	</Carousel>
-        // ) :
-        <div className="col-span-5 grid grid-cols-2 gap-2.5 ">
-          {/* {data?.details?.map(( index: number) => ( */}
-          <div
-            // key={index}
-            className="col-span-2 transition duration-150 ease-in hover:opacity-90"
-          >
-            <img
-              src={renderImage()}
-              // src={
-              // 	item?.original ??
-              // 	"/assets/placeholder/products/product-gallery.svg"
-              // }
-              alt={`${data?.details?.product_name}`}
-              className="object-cover w-full h-[80%]"
-            />
+      <div className="col-span-5 grid grid-cols-2 gap-2.5 ">
+        <div className="col-span-2 transition duration-150 ease-in">
+          <img
+            src={
+              selectedGalleryImage
+                ? `https://portal.day2daywholesale.com/public/assets/img/products/${selectedGalleryImage}`
+                : renderImage()
+            }
+            alt={`${data?.details?.product_name}`}
+            className="object-cover w-full h-[80%]"
+          />
+          <div className="mt-4 flex relative items-center gap-4 ">
+            {data?.gallery?.length ? (
+              <div
+                onClick={handleScrollLeft}
+                className="w-14 h-12 rounded-full bg-black  ml-2 flex items-center justify-center  duration-300 transition cursor-pointer"
+              >
+                <BiLeftArrowAlt size={32} />
+              </div>
+            ) : null}
+
+            <div
+              id="gallery-images"
+              className="w-full flex gap-4 overflow-x-scroll hidescrollbar"
+            >
+              {renderGalleryImage()}
+            </div>
+            {data?.gallery?.length ? (
+              <div
+                onClick={handleScrollRight}
+                className="w-14 h-12 rounded-full bg-black  ml-2 flex items-center justify-center  duration-300 transition cursor-pointer"
+              >
+                <BiLeftArrowAlt size={32} className="rotate-180" />
+              </div>
+            ) : null}
           </div>
-          {/* // ))} */}
         </div>
-      }
+      </div>
 
       <div className="col-span-4 pt-8 lg:pt-0">
         <div className="pb-7 mb-7 border-b border-gray-300">
@@ -350,13 +413,24 @@ const ProductSingleDetails: React.FC = () => {
             className="text-body text-sm lg:text-base leading-6 lg:leading-8"
           ></p>
           <div className="flex items-center mt-5">
-            <div className="text-heading font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-              ${data?.details?.discount_price}.00
-            </div>
+            {userName ? (
+              <React.Fragment>
+                <div className="text-heading font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
+                  ${data?.details?.discount_price}.00
+                </div>
 
-            <span className="line-through font-segoe text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl ps-2">
-              ${data?.details?.selling_price}.00
-            </span>
+                <span className="line-through font-segoe text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl ps-2">
+                  ${data?.details?.selling_price}.00
+                </span>
+              </React.Fragment>
+            ) : (
+              <div
+                onClick={handleViewPrice}
+                className="text-red-500 font-bold text-base cursor-pointer "
+              >
+                View Price
+              </div>
+            )}
           </div>
         </div>
 
@@ -376,7 +450,7 @@ const ProductSingleDetails: React.FC = () => {
               );
             })}
           </div>
-        ): null}
+        ) : null}
 
         <div className="flex items-center space-s-4 md:pe-32 lg:pe-12 2xl:pe-32 3xl:pe-48 border-b border-gray-300 py-8">
           <Counter
@@ -429,25 +503,6 @@ const ProductSingleDetails: React.FC = () => {
             </span>
 
             {renderTags()}
-
-            {/* Not working right now  */}
-            {/* {data?.tags && Array.isArray(data.tags) && (
-              <li className="productTags">
-                <span className="font-semibold text-heading inline-block pe-2">
-                  Tags:
-                </span>
-                {data.tags.map((tag) => (
-                  <Link
-                    key={tag.id}
-                    href={tag.slug}
-                    className="inline-block pe-1.5 transition hover:underline hover:text-heading last:pe-0"
-                  >
-                    {tag.name}
-                    <span className="text-heading">,</span>
-                  </Link>
-                ))}
-              </li>
-            )} */}
           </ul>
           <div className="w-full h-2 border-t mt-6 mb-6" />
 

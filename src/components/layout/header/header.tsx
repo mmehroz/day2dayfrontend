@@ -73,7 +73,6 @@ const Header: React.FC = () => {
           <Logo />
           <HeaderMenu
             // data={site_header.menu}
-            data={site_header.menu}
             className="hidden lg:flex md:ms-6 xl:ms-10"
           />
 

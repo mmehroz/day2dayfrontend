@@ -21,17 +21,17 @@ const IconCard: React.FC<Props> = ({
 }) => {
   const [hoverCard, setHoverCard] = useState<boolean>(false);
 
-  const { category_name, category_icon, tags, productCount } = item ?? {};
+  const { category_name, category_icon, _tags, _productCount } = item ?? {};
   const { t } = useTranslation("common");
 
-  console.log("category_icon: ", category_icon);
+  console.log("category item: ", item);
   return (
     <div
       onMouseLeave={() => setHoverCard(false)}
       onMouseEnter={() => setHoverCard(true)}
     >
-      <div
-        // href={href}
+      <Link
+        href={`product/product-main/${item.category_slug}`}
         className={cn("group flex justify-center flex-col rounded-lg  ", {
           "h-28 sm:h-[8.5rem] md:h-40 xl:h-[11.5rem] 2xl:h-44 3xl:h-60 bg-gray-200":
             variant === "default",
@@ -101,7 +101,7 @@ const IconCard: React.FC<Props> = ({
 					</div>
 				</>
 			)} */}
-      </div>
+      </Link>
     </div>
   );
 };

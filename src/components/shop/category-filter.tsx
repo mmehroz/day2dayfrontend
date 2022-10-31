@@ -15,35 +15,27 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   useEffect(() => {
     let subscribe: boolean = false;
     if (subscribe) return;
+    let id, postType;
 
-    if (!router?.query?.product_id) return;
+    if (router?.query?.product_main) {
+      postType = "parent";
+      id = router?.query?.product_main;
+    }
 
-    const product_id = router?.query?.product_id;
-    console.log(product_id);
-    console.log("product_id 21: ", product_id);
-    let id = product_id?.split("=")[1];
-    const type = product_id?.split("=")[0];
-    console.log("type 24: ", type);
-    let postType;
-
-    if (type === "product_sub") {
+    if (router?.query?.product_sub) {
       postType = "child";
+      id = router?.query?.product_sub;
     }
 
-    if (type === "product_inner") {
+    if (router?.query?.product_inner) {
       postType = "sub";
+      id = router?.query?.product_inner;
     }
 
-    if (type === "product_id") {
+    if (router?.query?.product_brand) {
       postType = "parent";
+      id = "ashtrays";
     }
-
-    if (type === "brand-id") {
-      postType = "parent";
-      id = 1;
-    }
-
-    console.log("current category: ", currentCategory);
 
     axios("https://portal.day2daywholesale.com/api/subnav", {
       method: "POST",
@@ -84,6 +76,12 @@ export const CategoryFilter = ({ currentCategory }: any) => {
           />
         ) : null}
         {categories?.map((el, i) => {
+          if (
+            el?.subcategory_name === currentCategory ||
+            el?.category_name === currentCategory
+          ) {
+            return;
+          }
           return (
             <CheckBox
               key={i}

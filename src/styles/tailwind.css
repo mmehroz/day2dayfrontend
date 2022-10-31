@@ -29,6 +29,10 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
   margin-top: 24px;
 }
 @layer components {
+  .galleryImageCard {
+    @apply w-32 h-20 rounded-md bg-white flex-shrink-0 cursor-pointer border-2 border-transparent hover:border-2 hover:border-orange-500 p-2 relative;
+  }
+
   .menuIcon {
     width: 26px;
     height: auto;
@@ -64,7 +68,7 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
   }
   .headerMenu .menuItem > a::before {
     @apply absolute end-0 w-0 bg-heading -bottom-7;
-    content: '';
+    content: "";
     height: 3px;
     transition: all 0.3s ease-in-out 0s;
   }
@@ -122,7 +126,7 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
     @apply text-black font-semibold;
   }
   .mobileMenu .menu-item.active::before {
-    content: '';
+    content: "";
     width: 3px;
     @apply flex absolute h-full bg-heading top-0 start-0 bottom-0;
   }
@@ -133,7 +137,7 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
     @apply relative py-2.5 text-body;
   }
   .mobileMenu li > ul > li > div > a:before {
-    content: '';
+    content: "";
     height: 1px;
     @apply flex absolute bg-body top-1/2 start-1.5 md:start-3 w-1.5 md:w-2;
   }
@@ -204,7 +208,7 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
   }
   .slider:before {
     position: absolute;
-    content: '';
+    content: "";
     height: 16px;
     width: 16px;
     left: 4px;
@@ -325,13 +329,10 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
   filter: brightness(0) invert(1);
 }
 
-
-
-
 ::-webkit-scrollbar {
   width: 5px;
   border-radius: 1rem;
-
+  height: 5px;
 }
 
 /* Track */
@@ -343,15 +344,12 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
 ::-webkit-scrollbar-thumb {
   background: #374151;
   border-radius: 1rem;
-
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
-
 
 body {
   overflow-x: hidden !important;
@@ -362,11 +360,18 @@ body {
   width: 100% !important;
   display: flex !important;
   flex-direction: row !important;
-  justify-content: center ;
-
+  justify-content: center;
 }
 
 .facebook-color {
   --tw-bg-opacity: 1;
   background-color: rgba(57, 95, 173, var(--tw-bg-opacity));
+}
+
+.hidescrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
+.hidescrollbar::-webkit-scrollbar-thumb {
+  display: none !important;
 }

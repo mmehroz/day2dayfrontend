@@ -38,18 +38,18 @@ const SearchTopBar = () => {
       <Text variant="pageHeading" className="hidden lg:inline-flex pb-1">
         {data?.pages[0]?.filtername ? data?.pages[0]?.filtername : data?.pages[0]?.brandname}
       </Text>
-      <button
+      {/* <button
         className="lg:hidden text-heading text-sm px-4 py-2 font-semibold border border-gray-300 rounded-md flex items-center transition duration-200 ease-in-out focus:outline-none hover:bg-gray-200"
         onClick={openFilter}
       >
         <FilterIcon />
         <span className="ps-2.5"></span>
-      </button>
+      </button> */}
       <div className="flex items-center justify-end">
-        <div className="flex-shrink-0 text-body text-xs md:text-sm leading-4 pe-4 md:me-6 ps-2 hidden lg:block">
+        {/* <div className="flex-shrink-0 text-body text-xs md:text-sm leading-4 pe-4 md:me-6 ps-2 hidden lg:block">
           {data?.pages[0]?.data?.length} {t("text-items")}
-        </div>
-        <ListBox
+        </div> */}
+        {/* <ListBox
           options={[
             { name: "text-sorting-options", value: "options" },
             { name: "text-newest", value: "newest" },
@@ -57,7 +57,7 @@ const SearchTopBar = () => {
             { name: "text-price-low-high", value: "low-high" },
             { name: "text-price-high-low", value: "high-low" },
           ]}
-        />
+        /> */}
       </div>
       <Drawer
         placement={dir === "rtl" ? "right" : "left"}
