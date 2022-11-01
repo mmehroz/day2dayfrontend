@@ -10,22 +10,36 @@ type PaginatedProduct = {
 const fetchProducts = async ({ queryKey }: any) => {
   let route = "";
   const [_key, _params] = queryKey;
-  console.log(queryKey);
-  console.log("query key");
-  const { product_id } = queryKey[1];
 
-  console.log("query key 17: ", queryKey);
+  const { product_id } = queryKey[1];
 
   if (queryKey[1]?.product_sub) {
     route = `https://portal.day2daywholesale.com/api/productsub/product_id=${queryKey[1]?.product_sub}`;
+
+    const data = queryKey[1]?.product_sub?.toString()?.split("+")?.join(",");
+
+    if (queryKey[1]?.product_sub?.includes("+")) {
+      route = `http://207.244.250.143/day2day/api/getmultifilter?sub_slug=${data}`;
+    }
   }
 
   if (queryKey[1]?.product_inner) {
     route = `https://portal.day2daywholesale.com/api/productinner/product_id=${queryKey[1]?.product_inner}`;
+
+    const data = queryKey[1]?.product_inner?.toString()?.split("+")?.join(",");
+    if (queryKey[1]?.product_inner?.includes("+")) {
+      route = `http://207.244.250.143/day2day/api/getmultifilter?inner_slug=${data}`;
+    }
   }
 
   if (queryKey[1]?.product_main) {
     route = `https://portal.day2daywholesale.com/api/product/product_id=${queryKey[1]?.product_main}`;
+
+    const data = queryKey[1]?.product_main?.toString()?.split("+")?.join(",");
+
+    if (queryKey[1]?.product_main?.includes("+")) {
+      route = `http://207.244.250.143/day2day/api/getmultifilter?cat_slug=${data}`;
+    }
   }
 
   if (queryKey[1]?.product_brand) {
@@ -46,6 +60,17 @@ const fetchProducts = async ({ queryKey }: any) => {
 
   const { data } = await http.get(route);
   console.log("im hererer 86");
+
+  const obj = {
+    haris: {
+      name: "haris",
+      fatherName: "iqbal",
+      age: 12,
+    },
+  };
+
+  ///@ts-ignore
+  obj.haris["age"] = 12;
 
   console.log("query data: ", data);
   return {

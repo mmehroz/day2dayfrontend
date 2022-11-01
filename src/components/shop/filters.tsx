@@ -34,7 +34,7 @@ export const ShopFilters: React.FC = () => {
             className="flex-shrink text-xs mt-0.5 transition duration-150 ease-in focus:outline-none hover:text-heading"
             aria-label="Clear All"
             onClick={() => {
-              router.push(pathname);
+              router.push("/");
             }}
           >
             {t("text-clear-all")}

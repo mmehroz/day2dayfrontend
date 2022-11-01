@@ -60,17 +60,41 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         endpoint = `https://portal.day2daywholesale.com/api/productsub/product_id=${
           query?.product_sub
         }?page=${pages + 1}`;
+
+        //product-sub-multi
+        if (query?.product_sub?.includes("+")) {
+          const data = query?.product_sub?.toString()?.split("+")?.join(",");
+          endpoint = `http://207.244.250.143/day2day/api/getmultifilter?sub_slug=${data}&page=${
+            pages + 1
+          }`;
+        }
       }
 
       if (query?.product_inner) {
         endpoint = `https://portal.day2daywholesale.com/api/productinner/product_id=${
           query?.product_inner
         }?page=${pages + 1}`;
+
+        //product-inner
+        if (query?.product_inner?.includes("+")) {
+          const data = query?.product_inner?.toString()?.split("+")?.join(",");
+          endpoint = `http://207.244.250.143/day2day/api/getmultifilter?inner_slug=${data}&page=${
+            pages + 1
+          }`;
+        }
       }
       if (query?.product_main) {
         endpoint = `https://portal.day2daywholesale.com/api/product/product_id=${
           query?.product_main
         }?page=${pages + 1}`;
+
+        //product-main
+        if (query?.product_main?.includes("+")) {
+          const data = query?.product_main?.toString()?.split("+")?.join(",");
+          endpoint = `http://207.244.250.143/day2day/api/getmultifilter?cat_slug=${data}&page=${
+            pages + 1
+          }`;
+        }
       }
 
       const res = await axios(endpoint);
