@@ -41,41 +41,52 @@ export default function Home() {
 
   const getBannerBlock = async () => {
     try {
+      const promises: any[] = [];
+      const data = [
+        "https://portal.day2daywholesale.com/api/slider/type=2",
+        "https://portal.day2daywholesale.com/api/slider/type=3",
+        "https://portal.day2daywholesale.com/api/slider/type=4",
+      ];
 
-    const promises: any[] = [];
-    const data = [
-      "https://portal.day2daywholesale.com/api/slider/type=2",
-      "https://portal.day2daywholesale.com/api/slider/type=3",
-      "https://portal.day2daywholesale.com/api/slider/type=4",
-    ];
+      data.forEach((el) => {
+        const promise = axios(el);
+        promises.push(promise);
+      });
 
-    data.forEach((el) => {
-      const promise = axios(el);
-      promises.push(promise);
-    });
+      const res = await Promise.all(promises);
+      console.log(res);
+      console.log("response off banners: ");
 
-    const res = await Promise.all(promises);
-    console.log(res);
-    console.log("response off banners: ");
+      const sorted = res?.map((el, i) => {
+        return {
+          ...el?.data?.data[0],
+          type: i === 0 ? "medium" : "small",
+        };
+      });
 
-    const sorted = res?.map((el, i) => {
-      return {
-        ...el?.data?.data[0],
-        type: i === 0 ? "medium" : "small",
-      };
-    });
-
-    console.log("sorted banner: ", sorted);
-    //@ts-ignore
-    setBannersBlock(sorted);
-  }catch(err) {
-
-  }
+      console.log("sorted banner: ", sorted);
+      //@ts-ignore
+      setBannersBlock(sorted);
+    } catch (err) {}
   };
 
   useEffect(() => {
-    getBannerBlock().catch(err => {})
-    getBanners().catch(err => {})
+    let subscribe: boolean = false;
+
+    if (subscribe) return;
+
+    axios("https://portal.day2daywholesale.com/api/webvisitors")
+      .then((res) => {})
+      .catch((err) => {});
+
+    return () => {
+      subscribe = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    getBannerBlock().catch((err) => {});
+    getBanners().catch((err) => {});
     console.log(banners);
   }, []);
 

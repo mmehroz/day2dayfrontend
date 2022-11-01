@@ -59,7 +59,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
       id = "ashtrays";
     }
 
-    axios("http://207.244.250.143/day2day/api/subnav", {
+    axios("https://portal.day2daywholesale.com/api/subnav", {
       method: "POST",
       data: {
         category_id: id,

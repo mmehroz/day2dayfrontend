@@ -19,7 +19,7 @@ const fetchProducts = async ({ queryKey }: any) => {
     const data = queryKey[1]?.product_sub?.toString()?.split("+")?.join(",");
 
     if (queryKey[1]?.product_sub?.includes("+")) {
-      route = `http://207.244.250.143/day2day/api/getmultifilter?sub_slug=${data}`;
+      route = `https://portal.day2daywholesale.com/api/getmultifilter?sub_slug=${data}`;
     }
   }
 
@@ -28,7 +28,7 @@ const fetchProducts = async ({ queryKey }: any) => {
 
     const data = queryKey[1]?.product_inner?.toString()?.split("+")?.join(",");
     if (queryKey[1]?.product_inner?.includes("+")) {
-      route = `http://207.244.250.143/day2day/api/getmultifilter?inner_slug=${data}`;
+      route = `https://portal.day2daywholesale.com/api/getmultifilter?inner_slug=${data}`;
     }
   }
 
@@ -38,7 +38,7 @@ const fetchProducts = async ({ queryKey }: any) => {
     const data = queryKey[1]?.product_main?.toString()?.split("+")?.join(",");
 
     if (queryKey[1]?.product_main?.includes("+")) {
-      route = `http://207.244.250.143/day2day/api/getmultifilter?cat_slug=${data}`;
+      route = `https://portal.day2daywholesale.com/api/getmultifilter?cat_slug=${data}`;
     }
   }
 

@@ -64,7 +64,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         //product-sub-multi
         if (query?.product_sub?.includes("+")) {
           const data = query?.product_sub?.toString()?.split("+")?.join(",");
-          endpoint = `http://207.244.250.143/day2day/api/getmultifilter?sub_slug=${data}&page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getmultifilter?sub_slug=${data}&page=${
             pages + 1
           }`;
         }
@@ -78,7 +78,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         //product-inner
         if (query?.product_inner?.includes("+")) {
           const data = query?.product_inner?.toString()?.split("+")?.join(",");
-          endpoint = `http://207.244.250.143/day2day/api/getmultifilter?inner_slug=${data}&page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getmultifilter?inner_slug=${data}&page=${
             pages + 1
           }`;
         }
@@ -91,7 +91,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         //product-main
         if (query?.product_main?.includes("+")) {
           const data = query?.product_main?.toString()?.split("+")?.join(",");
-          endpoint = `http://207.244.250.143/day2day/api/getmultifilter?cat_slug=${data}&page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getmultifilter?cat_slug=${data}&page=${
             pages + 1
           }`;
         }
