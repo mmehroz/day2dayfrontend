@@ -7,6 +7,8 @@ import { useUI } from "@contexts/ui.context";
 import usePrice from "@framework/product/use-price";
 import { Product } from "@framework/types";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { useContext } from "react";
+import { userContext } from "@contexts/user.context";
 
 interface ProductProps {
   product: Product;
@@ -30,6 +32,7 @@ const ProductRelatedCard: FC<ProductProps> = ({
   imgLoading,
 }) => {
   const { openModal, setModalView, setModalData } = useUI();
+  const { name: username } = useContext(userContext);
   // const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
   const { selling_price, purchase_price, discount_price } = usePrice({
@@ -42,6 +45,11 @@ const ProductRelatedCard: FC<ProductProps> = ({
   function handlePopupView() {
     setModalData({ data: product });
     setModalView("PRODUCT_VIEW");
+    return openModal();
+  }
+
+  function handlePopupLogin() {
+    setModalView("LOGIN_VIEW");
     return openModal();
   }
   // console.log(product, 'prooo');
@@ -64,7 +72,6 @@ const ProductRelatedCard: FC<ProductProps> = ({
         },
         className
       )}
-      onClick={handlePopupView}
       role="button"
       title={product?.product_name}
     >
@@ -79,6 +86,7 @@ const ProductRelatedCard: FC<ProductProps> = ({
           },
           imageContentClassName
         )}
+        onClick={handlePopupView}
       >
         <Image
           loader={myLoader}
@@ -120,29 +128,43 @@ const ProductRelatedCard: FC<ProductProps> = ({
             "text-sm sm:text-base md:text-sm lg:text-base xl:text-lg md:mb-1.5":
               variant === "list",
           })}
+          onClick={handlePopupView}
         >
           {product?.product_name}
         </h2>
         {product?.short_description && (
           <p
+            onClick={handlePopupView}
             dangerouslySetInnerHTML={{ __html: product?.short_description }}
             className="text-gray-500 text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate"
           ></p>
         )}
-        <div
-          className={`text-pink-500 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
-            variant === "grid"
-              ? "lg:text-lg lg:mt-2.5"
-              : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
-          }`}
-        >
-          <span className="inline-block">${product?.discount_price}.00</span>
-          {product?.selling_price && (
-            <del className="sm:text-base font-normal text-gray-600">
-              ${product?.selling_price}.00
-            </del>
-          )}
-        </div>
+        {username ? (
+          <div
+            onClick={handlePopupView}
+            className={`text-pink-500 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
+              variant === "grid"
+                ? "lg:text-lg lg:mt-2.5"
+                : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
+            }`}
+          >
+            <span className="inline-block">${product?.discount_price}.00</span>
+            {product?.selling_price && (
+              <del className="sm:text-base font-normal text-gray-600">
+                ${product?.selling_price}.00
+              </del>
+            )}
+          </div>
+        ) : (
+          <div
+            onClick={handlePopupLogin}
+            className={`text-pink-500 text-sm font-semibold cursor-pointer mt-1.5 space-s-2 ${
+              variant === "grid" ? " lg:mt-2.5" : "- md:mt-2.5 2xl:mt-3"
+            }`}
+          >
+            <span>View Price</span>
+          </div>
+        )}
       </div>
     </div>
   );

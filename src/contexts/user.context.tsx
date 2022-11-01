@@ -6,7 +6,7 @@ import { createContext, useState, useEffect } from "react";
 export const userContext = createContext(null);
 
 export const Provider = ({ children }) => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState<string | null>("");
   const [hideHeader, setHideHeader] = useState(false);
 
   const getDetails = () => {

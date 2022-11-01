@@ -12,6 +12,8 @@ import { ROUTES } from "@utils/routes";
 import { generateCartItemName } from "@utils/generate-cart-item-name";
 import { useTranslation } from "next-i18next";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { useContext } from "react";
+import { userContext } from "@contexts/user.context";
 
 type CartItemProps = {
   item: any;
@@ -19,6 +21,7 @@ type CartItemProps = {
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { t } = useTranslation("common");
+  const { name: username } = useContext(userContext);
   const { addItemToCart, removeItemFromCart, clearItemFromCart } = useCart();
   const { price } = usePrice({
     amount: item.selling_price,
@@ -79,10 +82,12 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         >
           {generateCartItemName(item?.product_name, item.attributes)}
         </Link>
-        <span className="text-sm text-gray-400 mb-2.5">
-          {t("text-unit-price")} : &nbsp;
-          {totalPrice}
-        </span>
+        {username ? (
+          <span className="text-sm text-gray-400 mb-2.5">
+            {t("text-unit-price")} : &nbsp;
+            {totalPrice}
+          </span>
+        ) : null}
 
         <div className="flex items-end justify-between">
           <Counter
@@ -91,9 +96,11 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             onDecrement={() => removeItemFromCart(item.id)}
             variant="dark"
           />
-          <span className="font-semibold text-sm md:text-base text-heading leading-5">
-            {totalPrice}
-          </span>
+          {username ? (
+            <span className="font-semibold text-sm md:text-base text-heading leading-5">
+              {totalPrice}
+            </span>
+          ) : null}
         </div>
       </div>
     </motion.div>

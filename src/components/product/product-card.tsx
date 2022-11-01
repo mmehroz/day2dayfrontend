@@ -121,7 +121,7 @@ const ProductCard: FC<ProductProps> = ({
     >
       <div
         className={cn(
-          "flex",
+          "flex ",
           {
             "mb-3 md:mb-3.5": variant === "grid",
             "mb-3 md:mb-3.5 pb-0": variant === "gridSlim",
@@ -142,7 +142,7 @@ const ProductCard: FC<ProductProps> = ({
           quality={100}
           onClick={handlePopupView}
           alt={product?.product_name || "Product Image"}
-          className={cn("bg-gray-650 object-fill rounded-s-md", {
+          className={cn("bg-gray-650 rounded-s-md object-contain ", {
             "w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
               variant === "grid",
             "rounded-md transition duration-150 ease-linear transform group-hover:scale-105":

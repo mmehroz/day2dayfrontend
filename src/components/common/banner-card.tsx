@@ -38,10 +38,12 @@ const BannerCard: FC<BannerProps> = ({
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`;
   };
 
+  console.log("banner href custom: ", banner);
+
   return (
     <div className={cn("", className)}>
       <Link
-        href={href}
+        href={`${banner?.link ?? "/"}`}
         className={cn(
           "group flex justify-center  overflow-hidden w-full bg-orange-500 ",
           classNameInner

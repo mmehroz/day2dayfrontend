@@ -21,6 +21,26 @@ const fetchProducts = async ({ queryKey }: any) => {
     if (queryKey[1]?.product_sub?.includes("+")) {
       route = `https://portal.day2daywholesale.com/api/getmultifilter?sub_slug=${data}`;
     }
+
+    if (queryKey[1]?.product_sub === "featured-products") {
+      route = `http://207.244.250.143/day2day/api/getsale/type=Featured`;
+    }
+
+    if (queryKey[1]?.product_sub === "flash-sale") {
+      route = `http://207.244.250.143/day2day/api/getsale/type=Flash`;
+    }
+
+    if (queryKey[1]?.product_sub === "new-arrivals") {
+      route = `http://207.244.250.143/day2day/api/getsale/type=New`;
+    }
+
+    if (queryKey[1]?.product_sub === "special-offer") {
+      route = `http://207.244.250.143/day2day/api/getsale/type=Specialoffer`;
+    }
+
+    if (queryKey[1]?.product_sub === "special-deal") {
+      route = `http://207.244.250.143/day2day/api/getsale/type=Specialdeal`;
+    }
   }
 
   if (queryKey[1]?.product_inner) {

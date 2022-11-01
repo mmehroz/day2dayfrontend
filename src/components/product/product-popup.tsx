@@ -75,7 +75,9 @@ export default function ProductPopup() {
       return;
     }
 
+    console.log("before data: ", data);
     const item = generateCartItem(data!, attributes);
+    console.log("item cart data: ", item);
     addItemToCart(item, quantity);
     toast("Added to the bag", {
       progressClassName: "fancy-progress-bar",
