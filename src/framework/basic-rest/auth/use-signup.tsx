@@ -20,14 +20,20 @@ export const useSignUpMutation = () => {
   const { authorize, closeModal } = useUI();
   return useMutation((input: SignUpInputType) => signUp(input), {
     onSuccess: (data) => {
+      // console.log("response from server 23: ", data?.data?.data?.token, {
+      //   path: "/",
+      // });
       // Cookies.set("auth_token", data.token);
-      Cookies.set("auth_token", data);
+      Cookies.set("auth_token", data?.data?.data?.token, { path: "/" });
+      Cookies.set("current_user_id", data?.data?.user_id.toString(), {
+        path: "/",
+      });
       authorize();
       closeModal();
       window.location.assign("/");
     },
     onError: (data) => {
-      alert("login error response");
+      window.location.assign("/");
     },
   });
 };

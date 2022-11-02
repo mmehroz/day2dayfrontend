@@ -36,8 +36,6 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     try {
       let endpoint = "";
 
-
-
       if (router?.pathname === "/products") {
         endpoint = `https://portal.day2daywholesale.com/api/product/product_id=all?page=${
           pages + 1
@@ -54,6 +52,21 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         endpoint = `https://portal.day2daywholesale.com/api/brandproduct/brand_id=${
           query?.product_brand
         }?page=${pages + 1}`;
+
+        if (query?.product_brand?.toString()?.includes("+")) {
+          console.log("im hererer 57");
+          const brands = query?.product_brand
+            ?.toString()
+            ?.split("+")
+            ?.join(",");
+
+          console.log("brands: ", brands);
+          endpoint = `http://207.244.250.143/day2day/api/getmultibrand?brand_slug=${brands}&page=${
+            pages + 1
+          }`;
+
+          console.log("endpoint: ", endpoint);
+        }
       }
 
       if (query?.product_sub) {
@@ -136,7 +149,6 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 
       const res = await axios(endpoint);
 
-
       setPages((prev) => prev + 1);
       setProducts((prev) => prev.concat(res?.data?.data));
     } catch (err) {}
@@ -169,8 +181,6 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
   };
 
   const { t } = useTranslation("common");
-
-
 
   return (
     <>

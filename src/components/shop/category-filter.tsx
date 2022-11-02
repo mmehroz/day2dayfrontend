@@ -25,7 +25,6 @@ export const CategoryFilter = ({ currentCategory }: any) => {
       router?.query?.product_sub?.includes("+") ||
       router?.query?.product_main?.includes("+")
     ) {
-
       const data =
         router?.query?.product_sub?.toString()?.split("+") ??
         router?.query?.product_main?.toString()?.split("+");
@@ -40,8 +39,6 @@ export const CategoryFilter = ({ currentCategory }: any) => {
     if (router?.query?.product_sub) {
       postType = "child";
       id = router?.query?.product_sub;
-
-    
     }
 
     if (router?.query?.product_inner) {
@@ -64,14 +61,12 @@ export const CategoryFilter = ({ currentCategory }: any) => {
       .then((res) => {
         setCategories(res?.data?.subnav);
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
 
     return () => {
       subscribe = true;
     };
   }, [router?.query]);
-
 
   return (
     <div className="block border-b border-gray-300 pb-7 mb-7">
@@ -80,7 +75,8 @@ export const CategoryFilter = ({ currentCategory }: any) => {
       </h3>
       <div className="mt-2 flex flex-col space-y-4">
         {currentCategory?.length
-          ? currentCategory !== "Multi Product" && (
+          ? currentCategory !== "Multi Product" ||
+            (currentCategory !== "Multi Brand Product" && (
               <CheckBox
                 key={1}
                 label={currentCategory}
@@ -89,7 +85,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
                 value={""}
                 onChange={() => {}}
               />
-            )
+            ))
           : null}
         {categories?.map((el, i) => {
           if (

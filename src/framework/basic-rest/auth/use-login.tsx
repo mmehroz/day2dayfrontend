@@ -19,7 +19,6 @@ export const useLoginMutation = () => {
   const { authorize, closeModal } = useUI();
   return useMutation((input: LoginInputType) => login(input), {
     onSuccess: (data) => {
- 
       Cookies.set("auth_token", data?.data?.data?.token, { path: "/" });
 
       Cookies.set("current_user_id", data?.data?.data?.user_id?.toString(), {
@@ -34,7 +33,7 @@ export const useLoginMutation = () => {
       window.location.assign("/");
     },
     onError: (data) => {
-   
+      alert("Invalid password or email");
     },
   });
 };

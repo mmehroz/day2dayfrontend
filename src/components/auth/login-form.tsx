@@ -31,13 +31,19 @@ const LoginForm: React.FC = () => {
     formState: { errors },
   } = useForm<LoginInputType>();
 
-  function onSubmit({ email, password, remember_me }: LoginInputType) {
-    const res = login({
-      email,
-      password,
-      remember_me,
-    });
-    console.clear();
+  async function onSubmit({ email, password, remember_me }: LoginInputType) {
+    try {
+      const res = await login({
+        email,
+        password,
+        remember_me,
+      });
+      console.log(res);
+      console.log("login response");
+    } catch (err) {
+      console.log("login errr");
+      console.log(err);
+    }
   }
   function handelSocialLogin() {
     login({

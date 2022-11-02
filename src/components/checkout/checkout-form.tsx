@@ -8,7 +8,12 @@ import Button from "@components/ui/button";
 import Router from "next/router";
 import { ROUTES } from "@utils/routes";
 import { useTranslation } from "next-i18next";
-import React, { ChangeEvent, MouseEventHandler, useState } from "react";
+import React, {
+  ChangeEvent,
+  MouseEventHandler,
+  useState,
+  useEffect,
+} from "react";
 import { useCart } from "@contexts/cart/cart.context";
 import StripeForm from "./stripeform";
 import usePrice from "@framework/product/use-price";
@@ -17,6 +22,7 @@ import Cookies from "js-cookie";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const stripePromise = loadStripe(
   "pk_test_51LlCssCVRAHAPBm9moh5aAbTUwjSTPLBzLS7YzORjpqZNsgqegAsBfGbQEDJRJT9DwooY66Peu1O7TYA4oDJowJt00ncXw0GvS"
@@ -53,6 +59,20 @@ const CheckoutForm: React.FC = () => {
     postCode: "",
   });
 
+  useEffect(() => {
+    const accountDetailsRaw = localStorage.getItem("account-details");
+    if (!accountDetailsRaw) return;
+    const accDetails = JSON.parse(accountDetailsRaw);
+    console.log("account details: ", accDetails);
+
+    updateUser(accDetails);
+    setOrders({
+      ...accDetails,
+      phone: accDetails?.phoneNumber,
+      postCode: accDetails?.postcode,
+    });
+  }, []);
+
   const handleChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
     setOrders({ ...orders, [name]: e.target.value });
   };
@@ -81,26 +101,22 @@ const CheckoutForm: React.FC = () => {
       });
 
       const input = orders;
-
-      const res = await axios(
-        "https://portal.day2daywholesale.com/api/createorder",
-        {
-          method: "POST",
-          data: {
-            item: filteredArr,
-            name: input.firstName + input.lastName,
-            email: input.email,
-            phone: input.phone,
-            address: input.address,
-            shipping_method: "null",
-            payment_method: "stripe",
-            amount: total,
-            shipping_fee: 0,
-            total_amount: total,
-            user_id: parseInt(userId),
-          },
-        }
-      );
+      await axios("https://portal.day2daywholesale.com/api/createorder", {
+        method: "POST",
+        data: {
+          item: filteredArr,
+          name: input.firstName + input.lastName,
+          email: input.email,
+          phone: input.phone,
+          address: input.address,
+          shipping_method: "null",
+          payment_method: "stripe",
+          amount: total,
+          shipping_fee: 0,
+          total_amount: total,
+          user_id: parseInt(userId),
+        },
+      });
 
       setOrders({
         firstName: "",
@@ -117,8 +133,27 @@ const CheckoutForm: React.FC = () => {
   }
 
   async function onSubmit(input: CheckoutInputType) {
-    updateUser(input);
-    await payWithCard();
+    try {
+      if (!orders.firstName) throw new Error("First Name Required");
+
+      if (!orders?.lastName) throw new Error("Last Name Required");
+      if (!orders?.address) throw new Error("Address Required");
+      if (!orders?.email) throw new Error("Email Required");
+      if (!orders?.phone) throw new Error("Number required");
+
+      updateUser(input);
+      await payWithCard();
+    } catch (err) {
+      toast(err?.message, {
+        progressClassName: "fancy-progress-bar",
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
   }
 
   const payWithCard = async () => {
@@ -132,7 +167,6 @@ const CheckoutForm: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         data: JSON.stringify({ amount: parseFloat(total?.toString() + "00") }),
       });
-
       setClientSecret(res?.data?.clientSecret);
       setShowStripe(true);
     } catch (err) {
@@ -159,18 +193,19 @@ const CheckoutForm: React.FC = () => {
             <Input
               labelKey="forms:label-first-name"
               {...register("firstName", {
-                required: "forms:first-name-required",
+                // required: "forms:first-name-required",
               })}
               errorKey={errors.firstName?.message}
               variant="solid"
               className="w-full lg:w-1/2 "
               onChange={handleChange("firstName")}
               value={orders.firstName}
+              defaultValue={orders.firstName}
             />
             <Input
               labelKey="forms:label-last-name"
               {...register("lastName", {
-                required: "forms:last-name-required",
+                // required: "forms:last-name-required",
               })}
               errorKey={errors.lastName?.message}
               variant="solid"
@@ -182,7 +217,7 @@ const CheckoutForm: React.FC = () => {
           <Input
             labelKey="forms:label-address"
             {...register("address", {
-              required: "forms:address-required",
+              // required: "forms:address-required",
             })}
             errorKey={errors.address?.message}
             variant="solid"
@@ -194,7 +229,7 @@ const CheckoutForm: React.FC = () => {
               type="tel"
               labelKey="forms:label-phone"
               {...register("phone", {
-                required: "forms:phone-required",
+                // required: "forms:phone-required",
               })}
               errorKey={errors.phone?.message}
               variant="solid"
@@ -207,7 +242,7 @@ const CheckoutForm: React.FC = () => {
               type="email"
               labelKey="forms:label-email-star"
               {...register("email", {
-                required: "forms:email-required",
+                // required: "forms:email-required",
                 pattern: {
                   value:
                     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,

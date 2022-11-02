@@ -64,22 +64,25 @@ const fetchProducts = async ({ queryKey }: any) => {
 
   if (queryKey[1]?.product_brand) {
     route = `https://portal.day2daywholesale.com/api/brandproduct/brand_id=${queryKey[1]?.product_brand}`;
+
+    if (queryKey[1]?.product_brand?.toString()?.includes("+")) {
+      console.log("multi brand slug detected");
+      route = `http://207.244.250.143/day2day/api/getmultibrand?brand_slug=${queryKey[1]?.product_brand
+        ?.toString()
+        ?.split("+")
+        ?.join(",")}`;
+    }
   }
 
   if (queryKey[1]?.tag_product) {
     route = `https://portal.day2daywholesale.com/api/tagproduct/tagname=${queryKey[1]?.tag_product}`;
   }
 
-
-
   route = route
     ? route
     : "https://portal.day2daywholesale.com/api/product/product_id=all";
 
-
-
   const { data } = await http.get(route);
-
 
   const obj = {
     haris: {
@@ -91,7 +94,6 @@ const fetchProducts = async ({ queryKey }: any) => {
 
   ///@ts-ignore
   obj.haris["age"] = 12;
-
 
   return {
     data: shuffle(data.data),

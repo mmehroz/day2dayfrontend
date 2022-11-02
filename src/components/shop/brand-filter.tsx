@@ -19,17 +19,20 @@ export const BrandFilter = () => {
     error: errorSecondary,
   } = useProductsQuery({ ...router.query });
 
-
-
   const { pathname, query } = router;
   const { data, isLoading, error } = useBrandsQuery({
     limit: 10,
   });
   const selectedBrands = query?.brand ? (query.brand as string).split(",") : [];
   const [formState, setFormState] = React.useState<string[]>(selectedBrands);
+  const [brands, setBrands] = React.useState([]);
+
   React.useEffect(() => {
     setFormState(selectedBrands);
-  }, [query?.brand]);
+    const fetchBrands = query?.product_brand?.toString()?.split("+");
+    setBrands(fetchBrands);
+    console.log("query brand: ", fetchBrands);
+  }, [query?.product_brand]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
@@ -70,9 +73,18 @@ export const BrandFilter = () => {
             key={item.id}
             label={item.name}
             name={item.name.toLowerCase()}
-            checked={formState.includes(item.slug)}
+            checked={
+              formState.includes(item.slug) ||
+              brands?.find((br, i) => br === item?.brand_slug)
+            }
             value={item.slug}
-            onChange={() => router?.push(`/product/brands/${item.brand_slug}`)}
+            onChange={() => {
+              if (router?.asPath?.includes("product/brands")) {
+                return router?.push(router?.asPath + `+${item.brand_slug}`);
+              }
+
+              router?.push(`/product/brands/${item.brand_slug}`);
+            }}
           />
         );
       });
@@ -89,9 +101,18 @@ export const BrandFilter = () => {
             key={item.id}
             label={item.brand_name}
             name={item.brand_name.toLowerCase()}
-            checked={formState.includes(item.brand_slug)}
+            checked={
+              formState.includes(item.brand_slug) ||
+              brands?.find((br, i) => br === item?.brand_slug)
+            }
             value={item.brand_slug}
-            onChange={() => router?.push(`/product/brands/${item.brand_slug}`)}
+            onChange={() => {
+              if (router?.asPath?.includes("product/brands")) {
+                return router?.push(router?.asPath + `+${item.brand_slug}`);
+              }
+
+              router?.push(`/product/brands/${item.brand_slug}`);
+            }}
           />
         );
       });

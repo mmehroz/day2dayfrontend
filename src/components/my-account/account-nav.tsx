@@ -18,6 +18,11 @@ const accountMenu = [
     icon: <IoCartOutline className="w-5 h-5" />,
   },
   {
+    slug: ROUTES.ACCOUNT_DETAILS,
+    name: "text-account-details",
+    icon: <IoPersonOutline className="w-5 h-5" />,
+  },
+  {
     slug: ROUTES.CHANGE_PASSWORD,
     name: "text-change-password",
     icon: <IoSettingsOutline className="w-5 h-5" />,

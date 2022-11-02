@@ -123,7 +123,7 @@ const SignUpForm: React.FC = () => {
 
       <Button
         type="submit"
-        loading={isLoading}
+        // loading={isLoading}
         disabled={isLoading}
         className="h-11 md:h-12 w-full mt-2.5 facebook-color"
       >
@@ -132,7 +132,7 @@ const SignUpForm: React.FC = () => {
       </Button>
       <Button
         type="submit"
-        loading={isLoading}
+        // loading={isLoading}
         disabled={isLoading}
         className="h-11 md:h-12 w-full mt-2.5 "
       >
