@@ -20,6 +20,7 @@ export function generateCartItem(item: Item, attributes: object) {
     product_thumbnail,
     purchase_price,
     selling_price,
+    discount_price,
   } = item;
   return {
     id: !isEmpty(attributes)
@@ -28,7 +29,7 @@ export function generateCartItem(item: Item, attributes: object) {
     product_name,
     product_slug,
     image: product_thumbnail,
-    price: selling_price ? selling_price : purchase_price,
+    price: discount_price ? discount_price : purchase_price,
     attributes,
   };
 }

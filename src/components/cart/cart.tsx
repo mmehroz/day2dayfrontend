@@ -30,6 +30,8 @@ export default function Cart() {
     return openModal();
   };
 
+  console.log("items in cart: ", items);
+
   return (
     <div className="flex flex-col w-full h-full justify-between bg-gray-750">
       <div className=" w-full flex justify-between items-center relative ps-5 md:ps-7 py-0.5 border-b border-gray-600">
