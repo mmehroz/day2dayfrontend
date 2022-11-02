@@ -34,7 +34,7 @@ const ChangePassword: React.FC = () => {
       console.log("input fields: ", input);
       const user_id = Cookies.get("current_user_id");
       if (!user_id) throw new Error("Someting went wrong");
-      await axios("http://207.244.250.143/day2day/api/changepassword", {
+      await axios("https://portal.day2daywholesale.com/api/changepassword", {
         method: "POST",
         data: {
           user_id: parseInt(user_id),

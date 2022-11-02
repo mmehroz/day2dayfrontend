@@ -61,7 +61,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
             ?.join(",");
 
           console.log("brands: ", brands);
-          endpoint = `http://207.244.250.143/day2day/api/getmultibrand?brand_slug=${brands}&page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getmultibrand?brand_slug=${brands}&page=${
             pages + 1
           }`;
 
@@ -84,21 +84,21 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 
         //Featured-products
         if (query?.product_sub === "featured-products") {
-          endpoint = `http://207.244.250.143/day2day/api/getsale/type=Featured?page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getsale/type=Featured?page=${
             pages + 1
           }`;
         }
 
         //Flash-sale
         if (query?.product_sub === "flash-sale") {
-          endpoint = `http://207.244.250.143/day2day/api/getsale/type=Flash?page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getsale/type=Flash?page=${
             pages + 1
           }`;
         }
 
         //new arrivals
         if (query?.product_sub === "new-arrivals") {
-          endpoint = `http://207.244.250.143/day2day/api/getsale/type=New?page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getsale/type=New?page=${
             pages + 1
           }`;
         }
@@ -106,7 +106,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         //special offers
 
         if (query?.product_sub === "special-offer") {
-          endpoint = `http://207.244.250.143/day2day/api/getsale/type=Specialoffer?page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getsale/type=Specialoffer?page=${
             pages + 1
           }`;
         }
@@ -114,7 +114,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         //special deals
 
         if (query?.product_sub === "special-deal") {
-          endpoint = `http://207.244.250.143/day2day/api/getsale/type=Specialdeal?page=${
+          endpoint = `https://portal.day2daywholesale.com/api/getsale/type=Specialdeal?page=${
             pages + 1
           }`;
         }
