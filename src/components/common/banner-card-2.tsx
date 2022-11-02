@@ -40,12 +40,10 @@ const BannerCard2: FC<BannerProps> = ({
 	// 	return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`
 	//   }
 
-	console.log('selecetd image: ', selectedImage)
 	const myLoader = ({ src }) => {
     return `https://portal.day2daywholesale.com/${selectedImage?.url}`;
   };
-	console.log(banner)
-	console.log('in banner card')
+
 	return (
 		<div className={cn("mx-auto", className)}>
 			<Link

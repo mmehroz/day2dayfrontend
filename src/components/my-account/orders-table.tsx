@@ -13,16 +13,11 @@ const OrdersTable: React.FC = () => {
   const { t } = useTranslation("common");
   const [orders, setOrders] = useState<Array<any>>();
 
-  useEffect(() => {
-    console.log("orders: ", orders);
-  }, [orders]);
+
 
   useEffect(() => {
-    let subscribe: boolean = false;
-    if (subscribe) return;
-
     const userId: any = Cookies.get("current_user_id");
-    console.log(userId);
+
 
     axios(API_ENDPOINTS?.ORDER_DETAILS, {
       method: "POST",
@@ -32,13 +27,9 @@ const OrdersTable: React.FC = () => {
     })
       .then((res) => {
         setOrders(res?.data?.orders);
-        console.log("response: ", res);
+  
       })
-      .catch((err) => console.log("errror", err));
-
-    return () => {
-      subscribe = true;
-    };
+      .catch((err) => {});
   }, []);
 
   return (
@@ -98,7 +89,7 @@ const OrdersTable: React.FC = () => {
                   </td>
                   <td className="text-end px-4 py-5 text-heading">
                     <Link
-                      href="/my-account/orders/3203"
+                      href={`/my-account/orders/${el?.id}`}
                       className="text-sm leading-4 bg-gradient-to-r from-orange-500  to-pink-500 text-white px-4 py-2.5 inline-block rounded-md hover:text-white hover:bg-gray-600"
                     >
                       {t("button-view")}
@@ -108,82 +99,7 @@ const OrdersTable: React.FC = () => {
               ))}
             </tbody>
           </table>
-        ) : (
-          <div className="w-full space-y-4">
-            <ul className="text-sm font-semibold text-heading border border-gray-300 rounded-md flex flex-col px-4 pt-5 pb-6 space-y-5">
-              <li className="flex items-center justify-between">
-                {t("text-order")}
-                <span className="font-normal">
-                  <Link
-                    href="/my-account/orders/3203"
-                    className="underline hover:no-underline text-body"
-                  >
-                    #3203
-                  </Link>
-                </span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-date")}
-                <span className="font-normal">March 18, 2021</span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-status")}
-                <span className="font-normal">Completed</span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-total")}
-                <span className="font-normal">$16,950.00 for 93 items</span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-actions")}
-                <span className="font-normal">
-                  <Link
-                    href="/my-account/orders/3203"
-                    className="text-sm leading-4 bg-heading text-white px-4 py-2.5 inline-block rounded-md hover:text-white hover:bg-gray-600"
-                  >
-                    {t("button-view")}
-                  </Link>
-                </span>
-              </li>
-            </ul>
-            <ul className="text-sm font-semibold text-heading border border-gray-300 rounded-md flex flex-col px-4 pt-5 pb-6 space-y-5">
-              <li className="flex items-center justify-between">
-                {t("text-order")}
-                <span className="font-normal">
-                  <Link
-                    href="/my-account/orders/3204"
-                    className="underline hover:no-underline text-body"
-                  >
-                    #3204
-                  </Link>
-                </span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-date")}
-                <span className="font-normal">March 18, 2021</span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-status")}
-                <span className="font-normal">Completed</span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-total")}
-                <span className="font-normal">$16,950.00 for 93 items</span>
-              </li>
-              <li className="flex items-center justify-between">
-                {t("text-actions")}
-                <span className="font-normal">
-                  <Link
-                    href="/my-account/orders/3204"
-                    className="text-sm leading-4 bg-heading text-white px-4 py-2.5 inline-block rounded-md hover:text-white hover:bg-gray-600"
-                  >
-                    {t("button-view")}
-                  </Link>
-                </span>
-              </li>
-            </ul>
-          </div>
-        )}
+        ) : null}
       </motion.div>
     </>
   );

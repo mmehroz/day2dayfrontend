@@ -46,9 +46,7 @@ const BrandBlock: React.FC<BrandProps> = ({
 }) => {
   const { data, isLoading, error } = useBrandsQuery({});
   const brands = data?.topbrands;
-  console.log("brands data: ", data);
 
-  console.log("brands data in brand block: ", data);
   return (
     <div className={className}>
       <SectionHeader sectionHeading={sectionHeading} />

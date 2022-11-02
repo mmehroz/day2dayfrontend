@@ -36,7 +36,6 @@ export default function Search() {
       setLoading(false);
     });
 
-    console.log("data: ", res);
     setSearchData(res?.data?.data);
     setLoading(false);
   }

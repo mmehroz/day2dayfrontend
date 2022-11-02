@@ -19,7 +19,7 @@ export const BrandFilter = () => {
     error: errorSecondary,
   } = useProductsQuery({ ...router.query });
 
-  console.log("data in brand filter: ", dataSecondary);
+
 
   const { pathname, query } = router;
   const { data, isLoading, error } = useBrandsQuery({
@@ -56,7 +56,6 @@ export const BrandFilter = () => {
     );
   }
 
-  console.log("data in brands ", data);
   const items = data?.brands;
 
   const render = () => {

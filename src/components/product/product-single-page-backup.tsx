@@ -73,7 +73,7 @@ const ProductSingleDetailsBackup: React.FC = () => {
 			pauseOnHover: true,
 			draggable: true,
 		});
-		console.log(item, "item");
+
 	}
 
 	function handleAttribute(attribute: any) {

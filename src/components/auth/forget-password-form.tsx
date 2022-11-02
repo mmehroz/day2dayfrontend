@@ -38,7 +38,6 @@ const ForgetPasswordForm = () => {
     try {
       setLoading(true);
       console.clear();
-      console.log(values, "token");
       if (!values?.email) return;
 
       await axios("https://portal.day2daywholesale.com/api/forgetpassword", {
@@ -59,7 +58,6 @@ const ForgetPasswordForm = () => {
       });
       setLoading(false);
     } catch (err) {
-      console.log(err);
       setLoading(false);
     }
   };
@@ -95,7 +93,11 @@ const ForgetPasswordForm = () => {
           errorKey={errors.email?.message}
         />
 
-        <Button type="submit" className="h-11 md:h-12 w-full mt-2 bg-gradient-to-tr to-orange-500 from-orange-800" loading={loading}>
+        <Button
+          type="submit"
+          className="h-11 md:h-12 w-full mt-2 bg-gradient-to-tr to-orange-500 from-orange-800"
+          loading={loading}
+        >
           {t("common:text-reset-password")}
         </Button>
       </form>

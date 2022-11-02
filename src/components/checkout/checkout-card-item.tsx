@@ -7,7 +7,7 @@ export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
     amount: item.itemTotal,
     currencyCode: "USD",
   });
-  console.log(item, "cartt");
+
   return (
     <div className="flex py-4 items-center lg:px-3 border-b border-gray-300">
       <div className="flex bg-gray-700 rounded-md  w-16 h-16 flex-shrink-0">

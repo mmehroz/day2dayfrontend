@@ -23,7 +23,7 @@ const Card: React.FC<Props> = ({
   effectActive = false,
   href,
 }) => {
-  console.log("brands 26: ", item);
+
   const { brand_name, brand_image } = item ?? {};
   const imageSize: any =
     (size === "small" && 180) || (size === "medium" && 198);
@@ -31,7 +31,7 @@ const Card: React.FC<Props> = ({
   const placeholderImage = `/assets/placeholder/card-${size}.svg`;
   const { t } = useTranslation("common");
   const myLoader = ({ src }) => {
-    console.log("href of cards: ", item);
+
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/brands/${src}`;
   };
   return (

@@ -53,17 +53,16 @@ const OrderDetails: React.FC<{
       method: "POST",
       data: {
         //@ts-ignore
-        order_id: 8,
+        order_id: parseInt(id),
       },
     })
       .then((res) => {
-        console.log(res);
+        (res);
         setOrderDetails(res?.data);
-        console.log("response from order details");
+      
       })
       .catch((err) => {
-        console.log("error at order details ");
-        console.log(err);
+   
       });
 
     return () => {
@@ -72,8 +71,6 @@ const OrderDetails: React.FC<{
   }, [id]);
 
   const { t } = useTranslation("common");
-
-  console.log(orderDetails);
 
   return (
     <div className={className}>
@@ -108,10 +105,7 @@ const OrderDetails: React.FC<{
         <tfoot>
           <tr className="odd:bg-gray-700">
             <td className="p-4 italic">{t("text-sub-total")}:</td>
-            <td className="p-4">
-              {" "}
-              ${orderDetails?.paymetdetails?.subtotal}
-            </td>
+            <td className="p-4"> ${orderDetails?.paymetdetails?.subtotal}</td>
           </tr>
           <tr className="odd:bg-gray-700">
             <td className="p-4 italic">{t("text-shipping")}:</td>

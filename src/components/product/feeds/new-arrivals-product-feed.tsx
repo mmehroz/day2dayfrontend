@@ -6,7 +6,7 @@ export default function NewArrivalsProductFeed() {
     limit: 10,
   });
 
-  // console.log(data, 'newARR');
+
   return (
     <ProductsBlock
       sectionHeading="text-new-arrivals"

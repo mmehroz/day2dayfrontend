@@ -19,22 +19,22 @@ export const useLoginMutation = () => {
   const { authorize, closeModal } = useUI();
   return useMutation((input: LoginInputType) => login(input), {
     onSuccess: (data) => {
-      console.log("im logged in ", data);
+ 
       Cookies.set("auth_token", data?.data?.data?.token, { path: "/" });
-      console.log("userId: ", data?.data?.user_id);
+
       Cookies.set("current_user_id", data?.data?.data?.user_id?.toString(), {
         path: "/",
       });
-      // console.log(data.data.data.token,"TOKEN")
+      // (data.data.data.token,"TOKEN")
       Cookies.get("auth_token");
 
-      // console.log(Cookies.get('auth_token'), "authtoken")
+      // (Cookies.get('auth_token'), "authtoken")
       authorize();
       closeModal();
       window.location.assign("/");
     },
     onError: (data) => {
-      console.log(data, "login error response");
+   
     },
   });
 };

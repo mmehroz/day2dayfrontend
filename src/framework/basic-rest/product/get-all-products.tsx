@@ -70,16 +70,16 @@ const fetchProducts = async ({ queryKey }: any) => {
     route = `https://portal.day2daywholesale.com/api/tagproduct/tagname=${queryKey[1]?.tag_product}`;
   }
 
-  console.log(route);
+
 
   route = route
     ? route
     : "https://portal.day2daywholesale.com/api/product/product_id=all";
 
-  console.log("final: ", route);
+
 
   const { data } = await http.get(route);
-  console.log("im hererer 86");
+
 
   const obj = {
     haris: {
@@ -92,7 +92,7 @@ const fetchProducts = async ({ queryKey }: any) => {
   ///@ts-ignore
   obj.haris["age"] = 12;
 
-  console.log("query data: ", data);
+
   return {
     data: shuffle(data.data),
     paginatorInfo: {

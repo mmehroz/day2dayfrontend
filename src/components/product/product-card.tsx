@@ -87,7 +87,7 @@ const ProductCard: FC<ProductProps> = ({
         <span
           onClick={() => {
             setBlock(!block);
-            console.log("clicking view price");
+   
             setModalView("LOGIN_VIEW");
 
             return openModal();

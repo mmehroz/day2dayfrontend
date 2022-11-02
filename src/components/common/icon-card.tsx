@@ -24,7 +24,6 @@ const IconCard: React.FC<Props> = ({
   const { category_name, category_icon, _tags, _productCount } = item ?? {};
   const { t } = useTranslation("common");
 
-  console.log("category item: ", item);
   return (
     <div
       onMouseLeave={() => setHoverCard(false)}

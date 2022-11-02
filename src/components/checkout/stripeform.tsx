@@ -39,6 +39,7 @@ const CheckoutForm = ({ handleClose, price, placeOrder }: any): JSX.Element => {
     }
     const { error } = await stripe.confirmPayment({
       elements,
+      
       confirmParams: {
         return_url:
           process?.env?.NODE_ENV === "development"

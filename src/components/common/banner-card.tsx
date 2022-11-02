@@ -38,8 +38,6 @@ const BannerCard: FC<BannerProps> = ({
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`;
   };
 
-  console.log("banner href custom: ", banner);
-
   return (
     <div className={cn("", className)}>
       <Link

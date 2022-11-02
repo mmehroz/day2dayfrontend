@@ -51,7 +51,7 @@ const social = [
 export default function MobileMenu() {
   const [activeMenus, setActiveMenus] = useState<any>([]);
   const { site_header } = siteSettings;
-  console.log("site header mobile: ", site_header);
+
   const { closeSidebar } = useUI();
   const { t } = useTranslation("menu");
 
@@ -149,14 +149,13 @@ export default function MobileMenu() {
     );
 
   const SubMenu = ({ dept, data, toggle, menuIndex }: any) => {
-    console.log("submenu mobile: ", data);
+
     if (!toggle) {
       return null;
     }
 
     dept = dept + 1;
-    console.log(data);
-    console.log("data submeny");
+
 
     return (
       <ul className="pt-0.5">
@@ -183,8 +182,7 @@ export default function MobileMenu() {
 
   React.useEffect(() => {
     http.get(API_ENDPOINTS.MENU).then((response) => {
-      console.log("api mobile response 148");
-      console.log(response);
+
       setParentNavData(response.data.menu);
     });
   }, []);
@@ -202,7 +200,7 @@ export default function MobileMenu() {
       };
     });
 
-    console.log("array mobile: ", arr);
+
 
     return arr.map((menu, index) => {
       const dept: number = 1;

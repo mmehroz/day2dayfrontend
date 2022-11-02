@@ -58,7 +58,6 @@ export default function ProductPopup() {
       return el?.name;
     });
 
-    console.log(dataVariantsKeys);
     if (Object.keys(attributes)?.length !== variantsLength) {
       return;
     }
@@ -75,9 +74,8 @@ export default function ProductPopup() {
       return;
     }
 
-    console.log("before data: ", data);
     const item = generateCartItem(data!, attributes);
-    console.log("item cart data: ", item);
+
     addItemToCart(item, quantity);
     toast("Added to the bag", {
       progressClassName: "fancy-progress-bar",
@@ -88,7 +86,6 @@ export default function ProductPopup() {
       pauseOnHover: true,
       draggable: true,
     });
-    console.log(item, "item");
     setQuantitySelected((prev) => prev + 1);
   }
 
@@ -124,8 +121,7 @@ export default function ProductPopup() {
     return counter;
   }
 
-  console.log(data);
-  console.log("product--popup-data111");
+
 
   const renderImage = () => {
     if (

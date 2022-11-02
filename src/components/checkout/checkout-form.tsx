@@ -12,6 +12,7 @@ import React, { ChangeEvent, MouseEventHandler, useState } from "react";
 import { useCart } from "@contexts/cart/cart.context";
 import StripeForm from "./stripeform";
 import usePrice from "@framework/product/use-price";
+import Cookies from "js-cookie";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -65,63 +66,63 @@ const CheckoutForm: React.FC = () => {
   } = useForm<CheckoutInputType>();
 
   async function placeOrder() {
-    const filteredArr = items.map((el, _i) => {
-      return {
-        product_id: el.id,
-        variant: null,
-        size: null,
-        qty: el.quantity,
-        unit_price: el.price,
-      };
-    });
+    try {
+      const userId: any = Cookies.get("current_user_id");
+      if (!parseInt(userId)) throw new Error("user not loggin");
 
-    const input = orders;
+      const filteredArr = items.map((el, _i) => {
+        return {
+          product_id: el.id,
+          variant: null,
+          size: null,
+          qty: el.quantity,
+          unit_price: el.price,
+        };
+      });
 
-    const res = await axios("https://portal.day2daywholesale.com/api/createorder", {
-      method: "POST",
-      data: {
-        item: filteredArr,
-        name: input.firstName + input.lastName,
-        email: input.email,
-        phone: input.phone,
-        address: input.address,
-        shipping_method: "null",
-        payment_method: "stripe",
-        amount: total,
-        shipping_fee: 0,
-        total_amount: total,
-      },
-    });
+      const input = orders;
 
-    console.log("order placed after payment successfull");
-    console.log(res);
-    setOrders({
-      firstName: "",
-      lastName: "",
-      address: "",
-      phone: "",
-      email: "",
-      city: "",
-      postCode: "",
-    });
+      const res = await axios(
+        "https://portal.day2daywholesale.com/api/createorder",
+        {
+          method: "POST",
+          data: {
+            item: filteredArr,
+            name: input.firstName + input.lastName,
+            email: input.email,
+            phone: input.phone,
+            address: input.address,
+            shipping_method: "null",
+            payment_method: "stripe",
+            amount: total,
+            shipping_fee: 0,
+            total_amount: total,
+            user_id: parseInt(userId),
+          },
+        }
+      );
 
-    items.map((el) => clearItemFromCart(el?.id));
+      setOrders({
+        firstName: "",
+        lastName: "",
+        address: "",
+        phone: "",
+        email: "",
+        city: "",
+        postCode: "",
+      });
+
+      items.map((el) => clearItemFromCart(el?.id));
+    } catch (err) {}
   }
 
   async function onSubmit(input: CheckoutInputType) {
     updateUser(input);
     await payWithCard();
-    console.log("im hrere stripe payment completed");
-
-    console.log("error occured");
-    console.log("items", items);
-
   }
 
   const payWithCard = async () => {
     try {
-      console.log("im hrerer pressing the button");
-      console.log(errors);
       if (errors.firstName) {
         return;
       }
@@ -134,13 +135,8 @@ const CheckoutForm: React.FC = () => {
 
       setClientSecret(res?.data?.clientSecret);
       setShowStripe(true);
-
-      console.log(res);
-      console.log("stripe res: ", res);
-      console.log("pay with card completed");
     } catch (err) {
       //@ts-ignore
-      console.log(err?.message);
     }
   };
 
@@ -223,7 +219,7 @@ const CheckoutForm: React.FC = () => {
               className="w-full lg:w-1/2 lg:ms-3 mt-2 md:mt-0"
               onChange={handleChange("email")}
               value={orders.email}
-              id='contact-us-email'
+              id="contact-us-email"
             />
           </div>
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0">
@@ -293,7 +289,7 @@ const CheckoutForm: React.FC = () => {
             animate={{ y: "10%" }}
             exit={{ y: "150%" }}
             transition={{ type: "keyframes" }}
-            className="w-[30rem] flex-col px-10 shadow-xl bg-white fixed h-[32rem] left-[35%] top-[12%] rounded-xl flex items-center justify-center"
+            className="w-[30rem] h-[80%] flex-col px-10 shadow-xl bg-white fixed left-[35%] top-14 rounded-xl flex items-center justify-center overflow-y-scroll z-[9999]"
           >
             <div className="w-full flex justify-end mb-1">
               <div
@@ -305,7 +301,10 @@ const CheckoutForm: React.FC = () => {
             </div>
             {clientSecret && (
               <Elements
-                options={{ appearance: { theme: "stripe" }, clientSecret }}
+                options={{
+                  appearance: { theme: "stripe", labels: "floating" },
+                  clientSecret,
+                }}
                 stripe={stripePromise}
               >
                 <StripeForm

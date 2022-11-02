@@ -36,7 +36,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     try {
       let endpoint = "";
 
-      console.log("query 39: ", query);
+
 
       if (router?.pathname === "/products") {
         endpoint = `https://portal.day2daywholesale.com/api/product/product_id=all?page=${
@@ -135,8 +135,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
       }
 
       const res = await axios(endpoint);
-      console.log(res?.data?.data);
-      console.log("response res");
+
 
       setPages((prev) => prev + 1);
       setProducts((prev) => prev.concat(res?.data?.data));
@@ -171,9 +170,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 
   const { t } = useTranslation("common");
 
-  console.log("router: ", router);
-  console.log(data);
-  console.log("data 95");
+
 
   return (
     <>

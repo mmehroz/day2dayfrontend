@@ -19,20 +19,16 @@ export const CategoryFilter = ({ currentCategory }: any) => {
     if (subscribe) return;
     let id, postType;
 
-    console.log("router query: ", router?.asPath);
     setHref(router?.asPath);
-    console.log("router query 24: ", router?.query);
+
     if (
       router?.query?.product_sub?.includes("+") ||
       router?.query?.product_main?.includes("+")
     ) {
-      console.log(router?.query?.product_sub);
-      console.log("router query product_sub");
-      console.log(router?.query?.product_sub?.toString()?.split("+"));
+
       const data =
         router?.query?.product_sub?.toString()?.split("+") ??
         router?.query?.product_main?.toString()?.split("+");
-      console.log("data 33: ", data);
       setSelectedCategories(data);
     }
 
@@ -45,8 +41,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
       postType = "child";
       id = router?.query?.product_sub;
 
-      console.log("im herererer");
-      console.log("href: ", href);
+    
     }
 
     if (router?.query?.product_inner) {
@@ -68,10 +63,8 @@ export const CategoryFilter = ({ currentCategory }: any) => {
     })
       .then((res) => {
         setCategories(res?.data?.subnav);
-        console.log("category response: ", res);
       })
       .catch((err) => {
-        console.log("error: ", err);
       });
 
     return () => {
@@ -79,7 +72,6 @@ export const CategoryFilter = ({ currentCategory }: any) => {
     };
   }, [router?.query]);
 
-  console.log("78 selected categories: ", selectedCategories);
 
   return (
     <div className="block border-b border-gray-300 pb-7 mb-7">
@@ -100,7 +92,6 @@ export const CategoryFilter = ({ currentCategory }: any) => {
             )
           : null}
         {categories?.map((el, i) => {
-          console.log("all categories: ", categories);
           if (
             el?.subcategory_name === currentCategory ||
             el?.category_name === currentCategory

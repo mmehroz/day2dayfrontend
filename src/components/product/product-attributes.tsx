@@ -20,8 +20,7 @@ export const ProductAttributes: React.FC<Props> = ({
   active,
   onClick,
 }) => {
-  console.log(attributes);
-  console.log("from attribute component");
+
 
   return (
     <div className={className}>

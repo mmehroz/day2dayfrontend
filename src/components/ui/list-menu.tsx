@@ -5,7 +5,6 @@ import Link from "./link";
 const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
   const { t } = useTranslation("menu");
 
-  console.log("header data 8 ", data);
 
   return (
     <li className="">

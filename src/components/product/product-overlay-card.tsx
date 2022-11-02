@@ -117,7 +117,7 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
     }
   };
 
-  console.log("size: ", size);
+  
 
   return (
     <div

@@ -137,7 +137,7 @@ const ProductSingleDetails: React.FC = () => {
       pauseOnHover: true,
       draggable: true,
     });
-    console.log(item, "item");
+ 
     setQuantitySelected((prev) => prev + 1);
   }
 
@@ -150,7 +150,7 @@ const ProductSingleDetails: React.FC = () => {
 
   function renderTags() {
     const tags = data?.details?.product_tags?.split(",");
-    console.log("tags: ", tags);
+   
 
     return tags?.map((el: string, _i: number) => (
       <Link
@@ -165,7 +165,7 @@ const ProductSingleDetails: React.FC = () => {
   const placeholderImage = `/assets/placeholder/products/product-gallery.svg`;
 
   const handleStarClick = (starName: string) => () => {
-    console.log("clicking: ", starName);
+  
     let data = {
       0: false,
       1: false,
@@ -178,7 +178,7 @@ const ProductSingleDetails: React.FC = () => {
       data[i] = true;
     }
 
-    console.log("click star: ", data);
+ 
     setStars({ ...data });
     setClickedStar(true);
   };
@@ -197,13 +197,11 @@ const ProductSingleDetails: React.FC = () => {
     }
 
     setStars(data);
-    console.log("hover start: ", data);
   };
 
   const leaveHover = (starName: string) => () => {
     if (clickedStar) return;
     setStars({ ...stars, [starName]: false });
-    console.log("leave hover: ");
   };
 
   function renderStars() {
@@ -241,7 +239,6 @@ const ProductSingleDetails: React.FC = () => {
         }
       }
 
-      console.log("isRating: ", rating);
       if (!valuesReview.message) throw new Error("Message field required");
 
       if (!valuesReview.name) throw new Error("Name field required");
@@ -338,7 +335,6 @@ const ProductSingleDetails: React.FC = () => {
   };
 
   const handleSelectGalleryImage = (uri) => () => {
-    console.log("selected uri: ", uri);
     setSelectedGalleryImage(uri);
   };
 
@@ -389,7 +385,6 @@ const ProductSingleDetails: React.FC = () => {
     );
   };
 
-  console.log("product data: ", data);
 
   if (showFullScreen) {
     return (
@@ -417,17 +412,22 @@ const ProductSingleDetails: React.FC = () => {
     );
   }
 
+  const renderSelectedImage = (): string => {
+
+    if(selectedGalleryImage?.includes('https')) {
+      return selectedGalleryImage;
+    }
+
+    return `https://portal.day2daywholesale.com/public/assets/img/products/${selectedGalleryImage}`;
+  };
+
   return (
     <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start 2xl:pl-52 2xl:px-40">
       <React.Fragment>
         <div className="col-span-5 grid grid-cols-2 gap-2.5 ">
           <div className="col-span-2 transition duration-150 ease-in">
             <img
-              src={
-                selectedGalleryImage
-                  ? `https://portal.day2daywholesale.com/public/assets/img/products/${selectedGalleryImage}`
-                  : renderImage()
-              }
+              src={selectedGalleryImage ? renderSelectedImage() : renderImage()}
               alt={`${data?.details?.product_name}`}
               className="object-cover w-full h-[80%] cursor-pointer"
               onClick={handleClickMainImage}
@@ -448,6 +448,18 @@ const ProductSingleDetails: React.FC = () => {
                 className="w-full flex gap-4 overflow-x-scroll hidescrollbar"
               >
                 {renderGalleryImage()}
+                <div
+                  onClick={handleSelectGalleryImage(renderImage)}
+                  className="galleryImageCard"
+                >
+                  <Image
+                    className="object-cover"
+                    src={renderImage()}
+                    alt="profile-image"
+                    layout="fill"
+                    loader={renderImage}
+                  />
+                </div>
               </div>
               {data?.gallery?.length ? (
                 <div
@@ -497,7 +509,7 @@ const ProductSingleDetails: React.FC = () => {
           {data?.sortvariants?.length ? (
             <div className="pb-3 border-b border-gray-300">
               {data?.sortvariants?.map((variation: any) => {
-                console.log("variations: ", variation);
+           
                 return (
                   <ProductAttributes
                     key={`popup-attribute-key${variation.id}`}
@@ -568,6 +580,12 @@ const ProductSingleDetails: React.FC = () => {
                   Quantity:
                 </span>
                 <span>{data?.details?.product_qty}</span>
+              </li>
+              <li>
+                <span className="font-semibold text-heading inline-block pe-2">
+                  Bar Code:
+                </span>
+                <span>{data?.details?.product_code}</span>
               </li>
             </ul>
             <div className="w-full h-2 border-t mt-6 mb-6" />

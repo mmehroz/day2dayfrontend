@@ -51,11 +51,13 @@ const Header: React.FC = () => {
       className="w-full h-16 sm:h-20 lg:h-24 relative z-20"
     >
       <div className="text-white bg-gradient-to-r from-orange-500  to-pink-500 w-full my-0 fixed top-0 text-center py-2">
-        <div className=" overflow-x-scroll flex flex-row w-full hidescrollbar items-center justify-center text-sm px-4 pl-36 sm:p-0">
-          <h2 className=" flex-shrink-0" >
-            WARNING! Some products contains nicotine. Nicotine is an addictive
-            chemical.
-          </h2>
+        <div class="marquee">
+          <div class="track">
+            <div class="content">
+              &nbsp;WARNING! Some products contains nicotine. Nicotine is an
+              addictive chemical
+            </div>
+          </div>
         </div>
       </div>
 

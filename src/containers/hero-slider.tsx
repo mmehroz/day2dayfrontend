@@ -20,7 +20,6 @@ const HeroSlider: React.FC<Props> = ({
   buttonGroupClassName = "",
   data,
 }) => {
-  console.log("sliderdata: ", data)
   return (
     <div
       className={cn(

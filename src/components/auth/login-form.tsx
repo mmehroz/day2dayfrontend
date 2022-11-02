@@ -47,7 +47,6 @@ const LoginForm: React.FC = () => {
     });
   }
   function handleSignUp() {
-    console.log("clicking handle signup");
     setModalView("SIGN_UP_VIEW");
     return openModal();
   }
@@ -69,8 +68,6 @@ const LoginForm: React.FC = () => {
 
   const importModule = async () => {
     gpi = await import("gapi-script").then((pack) => pack.gapi);
-    console.log("imported module");
-    console.log(gpi);
 
     const initClient = () => {
       gpi.client.init({
@@ -80,26 +77,18 @@ const LoginForm: React.FC = () => {
     };
 
     gpi.load("client:auth2", initClient);
-    console.log("loaded");
   };
 
   const onSuccess = (res: any, {}: SignUpInputType) => {
-    console.log("im herere signing with goo");
-
     signUp({
       name: res?.profileObj?.name,
       email: res?.profileObj?.email,
       username: res?.profileObj?.givenName,
       password: "12345678",
     });
-    console.log("success:", res);
   };
 
-  const onFailure = (err: any) => {
-    console.log("im failure");
-    console.log("failed:", err);
-    console.log("haris error");
-  };
+  const onFailure = (err: any) => {};
 
   const handleResetPassword = () => {
     closeModal();

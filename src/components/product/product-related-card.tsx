@@ -52,7 +52,7 @@ const ProductRelatedCard: FC<ProductProps> = ({
     setModalView("LOGIN_VIEW");
     return openModal();
   }
-  // console.log(product, 'prooo');
+  // (product, 'prooo');
   const myLoader = ({ src }) => {
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
   };

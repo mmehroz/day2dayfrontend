@@ -33,7 +33,7 @@ export default function Home() {
         // axios("http://127.0.0.1:8000/api/slider")
         .then((response) => {
           setBanners(response.data.data);
-          // console.log(response.data.data);
+          // (response.data.data);
         })
         .catch((err) => {})
     );
@@ -54,8 +54,7 @@ export default function Home() {
       });
 
       const res = await Promise.all(promises);
-      console.log(res);
-      console.log("response off banners: ");
+     
 
       const sorted = res?.map((el, i) => {
         return {
@@ -64,7 +63,7 @@ export default function Home() {
         };
       });
 
-      console.log("sorted banner: ", sorted);
+
       //@ts-ignore
       setBannersBlock(sorted);
     } catch (err) {}
@@ -87,11 +86,11 @@ export default function Home() {
   useEffect(() => {
     getBannerBlock().catch((err) => {});
     getBanners().catch((err) => {});
-    console.log(banners);
+
   }, []);
 
   // useEffect(() => {
-  // 	console.log(banners);
+  // 	(banners);
   // 	getBanners();
   //   });
 

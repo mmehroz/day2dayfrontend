@@ -33,7 +33,6 @@ const Layout: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("router query: ", router?.query);
     if (!router?.query?.resetPassword) return;
     toast("verfying user", {
       progressClassName: "fancy-progress-bar",
@@ -47,7 +46,6 @@ const Layout: React.FC = ({ children }) => {
 
     fetchResetCred(router?.query?.resetPassword)
       .then((res) => {
-        console.log("response of a function: ", res);
         setTokenCred({
           verifyToken: res?.data?.verify_token,
           id: res?.data?.id,
@@ -71,11 +69,10 @@ const Layout: React.FC = ({ children }) => {
     if (!adult) return;
 
     const obj = JSON.parse(adult);
-    console.log("object is adult: ", obj);
+
     if (obj?.isAdult) {
       setIsAdult(true);
     }
-    console.log("adult: ", adult);
   }, []);
 
   const handlePasswordChange =
@@ -125,8 +122,6 @@ const Layout: React.FC = ({ children }) => {
         }
       );
 
-      console.log("response of a api resetpassword: ", res);
-
       toast("Password Change Successfull", {
         progressClassName: "fancy-progress-bar",
         position: "bottom-right",
@@ -154,7 +149,6 @@ const Layout: React.FC = ({ children }) => {
 
       setLoading(false);
     } catch (err) {
-      console.log(err);
       //@ts-ignore
       toast(err?.message, {
         progressClassName: "fancy-progress-bar",

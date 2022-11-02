@@ -12,26 +12,26 @@ export default function AccountDetailsPage() {
   const [details, setDetails] = useState([]);
 
   const getDetails = () => {
-    console.log(Cookies.get('auth_token'));
+
     return http
       .get(API_ENDPOINTS.ACCOUNT_DETAILS, {
         headers: { Authorization: `Bearer ${Cookies.get('auth_token')}` },
       })
       .then((response) => {
-        // console.log(response, 'data');
+        // (response, 'data');
         // setDetails(response.data);
 
         let detail = [];
 
         detail.push(response.data);
-        console.log(detail, 'array');
+  
 
         setDetails(detail);
       });
   };
   useEffect(() => {
     getDetails();
-    console.log(details, 'details');
+   
   }, []);
 
   return (

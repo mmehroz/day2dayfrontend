@@ -10,21 +10,19 @@ export const Provider = ({ children }) => {
   const [hideHeader, setHideHeader] = useState(false);
 
   const getDetails = () => {
-    console.log("im herere 12");
-    console.log(Cookies.get("auth_token"));
+
     return http
       .get(API_ENDPOINTS.ACCOUNT_DETAILS, {
         headers: { Authorization: `Bearer ${Cookies.get("auth_token")}` },
       })
       .then((response) => {
-        // console.log(response, 'data');
+        // (response, 'data');
         // setDetails(response.data);
 
         let detail = [];
 
         detail.push(response.data);
-        console.log(detail, "array");
-        console.log("response of account : ", response);
+
         setName(response?.data?.name);
         // setDetails(detail);
       })

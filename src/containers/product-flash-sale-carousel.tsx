@@ -42,7 +42,7 @@ const ProductsFlashSaleCarousel: React.FC<ProductsProps> = ({
   const { data, isLoading, error } = useFlashSaleProductsQuery({
     limit: 10,
   });
-  // console.log(data, 'data');
+  // (data, 'data');
   return (
     <div className={`${className} 2xl:pt-2`}>
       <div className=" justify-between items-center flex-wrap mb-5 md:mb-6 hidden sm:flex">

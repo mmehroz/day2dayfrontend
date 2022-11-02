@@ -22,9 +22,6 @@ const ContactForm: React.FC = () => {
   } = useForm<ContactFormValues>();
 
   function onSubmit(values: ContactFormValues) {
-    console.log("contact me");
-    console.log(values, "contact");
-
     axios("https://portal.day2daywholesale.comus", {
       method: "POST",
       data: {
@@ -40,9 +37,7 @@ const ContactForm: React.FC = () => {
           router?.reload();
         }, 1000);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }
   const { t } = useTranslation();
 

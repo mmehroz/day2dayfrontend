@@ -21,7 +21,6 @@ export function generateCartItem(item: Item, attributes: object) {
     purchase_price,
     selling_price,
   } = item;
-  console.log(item, "item");
   return {
     id: !isEmpty(attributes)
       ? `${id}.${Object.values(attributes).join(".")}`

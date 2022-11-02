@@ -31,7 +31,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     amount: item.itemTotal,
     currencyCode: "USD",
   });
-  console.log(item, "item");
+
   const myLoader = ({ src }) => {
     if (
       src?.toString()?.includes("shopify") ||
