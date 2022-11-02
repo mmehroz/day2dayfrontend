@@ -87,7 +87,7 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
                   })}
                   variant="solid"
                   className="w-full sm:w-1/2"
-                  defaultValue={accountDetails.firstName}
+                  defaultValue={accountDetails?.firstName}
                   errorKey={errors.firstName?.message}
                 />
                 <Input
@@ -95,7 +95,7 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
                   {...register("lastName", {
                     required: "forms:last-name-required",
                   })}
-                  defaultValue={accountDetails.lastName}
+                  defaultValue={accountDetails?.lastName}
                   variant="solid"
                   className="w-full sm:w-1/2"
                   errorKey={errors.lastName?.message}
@@ -106,7 +106,7 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
                 {...register("address", {
                   required: "forms:address-required",
                 })}
-                defaultValue={accountDetails.address}
+                defaultValue={accountDetails?.address}
                 variant="solid"
                 errorKey={errors.address?.message}
               />
@@ -117,7 +117,7 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
                   {...register("phoneNumber", {
                     required: "forms:phone-required",
                   })}
-                  defaultValue={accountDetails.phoneNumber}
+                  defaultValue={accountDetails?.phoneNumber}
                   variant="solid"
                   className="w-full sm:w-1/2"
                   errorKey={errors.phoneNumber?.message}
@@ -133,7 +133,7 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
                       message: "forms:email-error",
                     },
                   })}
-                  defaultValue={details.email}
+                  defaultValue={details?.email}
                   variant="solid"
                   className="w-full sm:w-1/2"
                   errorKey={errors.email?.message}
@@ -143,14 +143,14 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
                 <Input
                   labelKey="forms:label-city"
                   {...register("city", {})}
-                  defaultValue={accountDetails.city}
+                  defaultValue={accountDetails?.city}
                   variant="solid"
                   className="w-full sm:w-1/2"
                 />
                 <Input
                   labelKey="forms:label-postcode"
                   {...register("postcode", {})}
-                  defaultValue={accountDetails.postcode}
+                  defaultValue={accountDetails?.postcode}
                   variant="solid"
                   className="w-full sm:w-1/2"
                 />

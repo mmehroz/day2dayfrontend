@@ -85,7 +85,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         {username ? (
           <span className="text-sm text-gray-400 mb-2.5">
             {t("text-unit-price")} : &nbsp;
-            {totalPrice}
+            ${item?.price}.00
           </span>
         ) : null}
 
