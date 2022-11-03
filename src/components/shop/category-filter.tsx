@@ -70,7 +70,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
 
   return (
     <div className="block border-b border-gray-300 pb-7 mb-7">
-      <h3 className="text-heading text-sm md:text-base font-semibold mb-7">
+      <h3 className="text-gray-900 text-sm md:text-base font-semibold mb-7">
         {t("text-category")}
       </h3>
       <div className="mt-2 flex flex-col space-y-4">

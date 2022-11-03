@@ -61,7 +61,7 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className="innerSticky mt-8 text-white body-font fixed bg-gray-700 w-full h-16 sm:h-20 lg:h-15 z-20 ps-4 md:ps-0 lg:ps-6 pe-4 lg:pe-6 transition duration-200 ease-in-out">
+      <div className="innerSticky mt-8 text-gray-900 body-font fixed bg-gray-200 w-full h-16 sm:h-20 lg:h-15 z-20 ps-4 md:ps-0 lg:ps-6 pe-4 lg:pe-6 transition duration-200 ease-in-out">
         <div className="flex items-center justify-center mx-auto max-w-[1920px] h-full w-full">
           <button
             aria-label="Menu"
@@ -95,10 +95,10 @@ const Header: React.FC = () => {
               <AuthMenu
                 isAuthorized={isAuthorized}
                 href={ROUTES.ACCOUNT}
-                className="text-sm xl:text-base text-heading font-semibold"
+                className="text-sm xl:text-base text-gray-900 font-semibold"
                 btnProps={{
                   className:
-                    "text-sm xl:text-base text-heading font-semibold focus:outline-none",
+                    "text-sm xl:text-base text-gray-900 font-semibold focus:outline-none",
                   children: t("text-sign-in"),
                   onClick: handleLogin,
                 }}

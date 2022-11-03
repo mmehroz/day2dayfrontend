@@ -68,7 +68,7 @@ const ProductCard: FC<ProductProps> = ({
         >
           <span className="inline-block">${product.discount_price}.00</span>
           {product.selling_price && (
-            <del className="sm:text-base font-normal text-gray-600">
+            <del className="sm:text-base font-normal text-gray-900">
               ${product.selling_price}.00
             </del>
           )}
@@ -105,13 +105,13 @@ const ProductCard: FC<ProductProps> = ({
       className={cn(
         "group box-border overflow-hidden flex rounded-md cursor-pointer",
         {
-          "pe-0 pb-2 lg:pb-3 flex-col items-start bg-gray-800 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:md:-translate-y-1.5 hover:shadow-product":
+          "pe-0 pb-2 lg:pb-3 flex-col items-start bg-white transition duration-200 ease-in-out transform hover:-translate-y-1 hover:md:-translate-y-1.5 hover:shadow-product":
             variant === "grid",
-          "pe-0 md:pb-1 flex-col items-start bg-gray-800":
+          "pe-0 md:pb-1 flex-col items-start bg-white":
             variant === "gridSlim",
           "items-center bg-transparent border border-gray-100 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-listProduct":
             variant === "listSmall",
-          "flex-row items-center transition-transform ease-linear bg-gray-200 pe-2 lg:pe-3 2xl:pe-4":
+          "flex-row items-center transition-transform ease-linear bg-white pe-2 lg:pe-3 2xl:pe-4":
             variant === "list",
         },
         className
@@ -142,7 +142,7 @@ const ProductCard: FC<ProductProps> = ({
           quality={100}
           onClick={handlePopupView}
           alt={product?.product_name || "Product Image"}
-          className={cn("bg-gray-650 rounded-s-md object-contain ", {
+          className={cn("bg-white rounded-s-md object-contain ", {
             "w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
               variant === "grid",
             "rounded-md transition duration-150 ease-linear transform group-hover:scale-105":
@@ -165,7 +165,7 @@ const ProductCard: FC<ProductProps> = ({
       >
         <h2
           onClick={handlePopupView}
-          className={cn("text-heading font-semibold truncate mb-1", {
+          className={cn("text-gray-900 font-semibold truncate mb-1", {
             "text-sm md:text-base": variant === "grid",
             "md:mb-1.5 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg":
               variant === "gridSlim",
@@ -179,7 +179,7 @@ const ProductCard: FC<ProductProps> = ({
         {product?.short_description && (
           <p
             dangerouslySetInnerHTML={{ __html: product?.short_description }}
-            className="text-gray-500 text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate"
+            className="text-gray-900 text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate"
           ></p>
         )}
         {rendeSellingPrice()}

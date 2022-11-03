@@ -122,7 +122,7 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
   return (
     <div
       onClick={handlePopupView}
-      className={`${classes} cursor-pointer group flex flex-col bg-gray-650 rounded-md relative items-center justify-between overflow-hidden`}
+      className={`${classes} cursor-pointer group flex flex-col bg-white rounded-md relative items-center justify-between overflow-hidden`}
     >
       <div
         className="flex justify-center items-center p-4 h-full 3xl:min-h-[330px] "
@@ -145,11 +145,11 @@ const ProductOverlayCard: React.FC<ProductProps> = ({
         title={product?.product_name}
       >
         <div className="md:pe-2 lg:pe-0 2xl:pe-2 overflow-hidden ">
-          <h2 className="text-white font-semibold text-sm md:text-base xl:text-lg mb-1 truncate">
+          <h2 className="text-gray-900 font-semibold text-sm md:text-base xl:text-lg mb-1 truncate">
             {product?.product_name}
           </h2>
 
-          <p className="text-white text-xs xl:text-sm leading-normal xl:leading-relaxed truncate max-w-[250px]">
+          <p className="text-gray-900 text-xs xl:text-sm leading-normal xl:leading-relaxed truncate max-w-[250px]">
             {product?.short_description}
           </p>
         </div>

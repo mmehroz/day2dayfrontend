@@ -34,7 +34,7 @@ const IconCard: React.FC<Props> = ({
         className={cn("group flex justify-center flex-col rounded-lg  ", {
           "h-28 sm:h-[8.5rem] md:h-40 xl:h-[11.5rem] 2xl:h-44 3xl:h-60 bg-gray-200":
             variant === "default",
-          "px-6 lg:px-8 pt-7 lg:pt-10 pb-5 lg:pb-8  bg-gray-650 hover:bg-gradient-to-r from-orange-500  to-pink-500":
+          "px-6 lg:px-8 pt-7 lg:pt-10 pb-5 lg:pb-8  bg-white hover:bg-gradient-to-r from-orange-500  to-pink-500":
             variant === "modern",
           "items-center": variant === "circle",
         })}

@@ -98,7 +98,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
           >
             <Link
               href={`/product/product-main/${item.category_slug}`}
-              className="inline-flex items-center text-sm xl:text-base text-heading px-3 xl:px-4 py-2 font-normal relative "
+              className="inline-flex items-center text-sm xl:text-base text-gray-900 px-3 xl:px-4 py-2 font-normal relative "
             >
               {t(item.category_name)}
               {item?.inner || item.subMenu ? (
