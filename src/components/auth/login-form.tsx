@@ -5,18 +5,15 @@ import { useForm } from "react-hook-form";
 import { useLoginMutation, LoginInputType } from "@framework/auth/use-login";
 import { useUI } from "@contexts/ui.context";
 import Logo from "@components/ui/logo";
-import { ImGoogle2, ImFacebook2 } from "react-icons/im";
+import { ImFacebook2 } from "react-icons/im";
 import { useTranslation } from "next-i18next";
-import { useState, useEffect } from "react";
-import { GoogleLogin } from "react-google-login";
+import { useEffect } from "react";
+import { FcGoogle } from "react-icons/fc";
 // import { gapi } from "gapi-script";
-import { SignUpInputType, useSignUpMutation } from "@framework/auth/use-signup";
+import { useSignUpMutation } from "@framework/auth/use-signup";
+import { signinWithGoogle } from "../../firebase/firebase";
 
 const LoginForm: React.FC = () => {
-  let gpi: {
-    client: { init: (arg0: { clientId: string; scope: string }) => void };
-    load: (arg0: string, arg1: () => void) => void;
-  };
   const { t } = useTranslation();
   const { setModalView, openModal, closeModal, setRememberMe, rememberMe } =
     useUI();
@@ -33,7 +30,7 @@ const LoginForm: React.FC = () => {
 
   async function onSubmit({ email, password, remember_me }: LoginInputType) {
     try {
-      const res = await login({
+      await login({
         email,
         password,
         remember_me,
@@ -60,46 +57,19 @@ const LoginForm: React.FC = () => {
     setRememberMe(false);
   }, []);
 
-  const clientId =
-    "764934816914-i9k3l79um38itcd6bfihi43hh6pi5usb.apps.googleusercontent.com";
-
-  useEffect(() => {
-    importModule();
-  }, []);
-
-  const importModule = async () => {
-    gpi = await import("gapi-script").then((pack) => pack.gapi);
-
-    const initClient = () => {
-      gpi.auth2.getAuthInstance({
-        clientId: clientId,
-        apiKey: "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",
+  const handleGoogleLogin = async () => {
+    try {
+      const res = await signinWithGoogle();
+      await signUp({
+        name: res?.displayName,
+        email: res?.email,
+        username: res?.email,
+        password: "haris123",
       });
-    };
-
-    gpi.load("client:auth2", initClient);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  const onSuccess = (res: any, {}: SignUpInputType) => {
-    console.log("google login succes: ", res);
-    signUp({
-      name: res?.profileObj?.name,
-      email: res?.profileObj?.email,
-      username: res?.profileObj?.givenName,
-      password: "12345678",
-    });
-  };
-
-  const onFailure = (err: any) => {
-    console.log("error google: ", err);
-  };
-
-  const handleResetPassword = () => {
-    closeModal();
-  };
-
-  console.log(clientId);
-  console.log("client id: ", clientId);
 
   return (
     <div className="overflow-hidden bg-gray-750 mx-auto rounded-lg w-full sm:w-96 md:w-450px  py-5 px-5 sm:px-8">
@@ -193,7 +163,14 @@ const LoginForm: React.FC = () => {
 					{t("common:text-or")}
 				</span> */}
       </div>
-      <GoogleLogin
+      <button
+        className="h-11 md:h-12 mt-2.5 text-center w-full google-text-button bg-white flex items-center rounded-md text-sm font-semibold gap-4"
+        onClick={handleGoogleLogin}
+      >
+        <FcGoogle size={22} />
+        <span>Sign in with Google</span>
+      </button>
+      {/* <GoogleLogin
         className="h-11 md:h-12 mt-2.5 text-center w-full google-text-button"
         clientId={clientId}
         buttonText="Sign in with Google" //@ts-ignore
@@ -202,7 +179,7 @@ const LoginForm: React.FC = () => {
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
         style={{ backgroundColor: "black", textAlign: "center" }}
-      />
+      /> */}
       <Button
         loading={isLoading}
         disabled={isLoading}
