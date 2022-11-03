@@ -24,12 +24,14 @@ export const useSignUpMutation = () => {
       //   path: "/",
       // });
       // Cookies.set("auth_token", data.token);
-      Cookies.set("auth_token", data?.data?.data?.token, { path: "/" });
-      Cookies.set("current_user_id", data?.data?.user_id.toString(), {
+      console.log("user data from db: ", data?.data);
+      Cookies.set("current_user_id", data?.data?.data?.user_id.toString(), {
         path: "/",
       });
+      Cookies.set("auth_token", data?.data?.data?.token, { path: "/" });
       authorize();
       closeModal();
+
       window.location.assign("/");
     },
     onError: (data) => {

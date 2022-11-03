@@ -37,7 +37,6 @@ const ForgetPasswordForm = () => {
   const onSubmit = async (values: FormValues) => {
     try {
       setLoading(true);
-      console.clear();
       if (!values?.email) return;
 
       await axios("https://portal.day2daywholesale.com/api/forgetpassword", {
