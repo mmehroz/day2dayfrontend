@@ -52,11 +52,11 @@ const BannerCard: FC<BannerProps> = ({
           // src={`${ROUTES.BANNER}/${selectedImage.url}`}
           // src={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}${selectedImage.url}`}
           src={selectedImage.url}
-          width={selectedImage.width}
+          width={selectedImage.width + 300}
           height={selectedImage.height}
           alt={title}
           quality={100}
-          className={cn(" object-cover w-full", {
+          className={cn("object-cover w-full", {
             "rounded-md": variant === "rounded",
           })}
         />
