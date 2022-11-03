@@ -18,8 +18,7 @@ interface BannerProps {
 }
 
 function getImage(deviceWidth: number, imgObj: any) {
-  console.log(imgObj);
-  console.log("image object");
+
   return deviceWidth < 480 ? imgObj.mobile : imgObj.desktop;
 }
 

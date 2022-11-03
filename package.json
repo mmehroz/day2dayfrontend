@@ -27,6 +27,7 @@
 		"next-i18next": "^9.1.0",
 		"next-pwa": "5.4.0",
 		"next-seo": "^4.28.1",
+		"nextjs-progressbar": "^0.0.16",
 		"overlayscrollbars": "^1.13.1",
 		"overlayscrollbars-react": "^0.2.3",
 		"rc-drawer": "^4.4.3",

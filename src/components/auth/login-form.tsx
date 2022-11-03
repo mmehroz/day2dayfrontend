@@ -38,12 +38,7 @@ const LoginForm: React.FC = () => {
         password,
         remember_me,
       });
-      console.log(res);
-      console.log("login response");
-    } catch (err) {
-      console.log("login errr");
-      console.log(err);
-    }
+    } catch (err) {}
   }
   function handelSocialLogin() {
     login({
@@ -76,9 +71,9 @@ const LoginForm: React.FC = () => {
     gpi = await import("gapi-script").then((pack) => pack.gapi);
 
     const initClient = () => {
-      gpi.client.init({
+      gpi.auth2.init({
         clientId: clientId,
-        scope: "",
+        apiKey: "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",
       });
     };
 
@@ -86,6 +81,7 @@ const LoginForm: React.FC = () => {
   };
 
   const onSuccess = (res: any, {}: SignUpInputType) => {
+    console.log("google login succes: ", res);
     signUp({
       name: res?.profileObj?.name,
       email: res?.profileObj?.email,
@@ -94,11 +90,16 @@ const LoginForm: React.FC = () => {
     });
   };
 
-  const onFailure = (err: any) => {};
+  const onFailure = (err: any) => {
+    console.log("error google: ", err);
+  };
 
   const handleResetPassword = () => {
     closeModal();
   };
+
+  console.log(clientId);
+  console.log("client id: ", clientId);
 
   return (
     <div className="overflow-hidden bg-gray-750 mx-auto rounded-lg w-full sm:w-96 md:w-450px  py-5 px-5 sm:px-8">

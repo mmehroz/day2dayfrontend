@@ -66,7 +66,7 @@ const fetchProducts = async ({ queryKey }: any) => {
     route = `https://portal.day2daywholesale.com/api/brandproduct/brand_id=${queryKey[1]?.product_brand}`;
 
     if (queryKey[1]?.product_brand?.toString()?.includes("+")) {
-      console.log("multi brand slug detected");
+
       route = `https://portal.day2daywholesale.com/api/getmultibrand?brand_slug=${queryKey[1]?.product_brand
         ?.toString()
         ?.split("+")

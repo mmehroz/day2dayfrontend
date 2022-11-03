@@ -28,7 +28,6 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
     const accDetailsRaw = localStorage.getItem("account-details");
     if (!accDetailsRaw) return;
     const accDetails = JSON.parse(accDetailsRaw);
-    console.log(accDetails);
     setAccountDetails(accDetails);
     updateUser(accDetails);
   }, []);
@@ -42,8 +41,7 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
     defaultValues,
   });
   function onSubmit(input: UpdateUserType) {
-    console.log(input);
-    console.log("input ");
+
 
     localStorage.setItem("account-details", JSON.stringify(input));
     toast("Details updated", {

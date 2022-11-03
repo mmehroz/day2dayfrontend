@@ -31,7 +31,6 @@ export const BrandFilter = () => {
     setFormState(selectedBrands);
     const fetchBrands = query?.product_brand?.toString()?.split("+");
     setBrands(fetchBrands);
-    console.log("query brand: ", fetchBrands);
   }, [query?.product_brand]);
 
   if (isLoading) return <p>Loading...</p>;

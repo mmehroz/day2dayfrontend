@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import OrdersTable from "@components/my-account/orders-table";
 
 const OrderItemCard = ({ product }: { product: OrderItem }) => {
   const { price: itemTotal } = usePrice({
@@ -57,13 +58,10 @@ const OrderDetails: React.FC<{
       },
     })
       .then((res) => {
-        (res);
+        res;
         setOrderDetails(res?.data);
-      
       })
-      .catch((err) => {
-   
-      });
+      .catch((err) => {});
 
     return () => {
       subscribe = true;
@@ -71,6 +69,8 @@ const OrderDetails: React.FC<{
   }, [id]);
 
   const { t } = useTranslation("common");
+
+  console.log(orderDetails);
 
   return (
     <div className={className}>

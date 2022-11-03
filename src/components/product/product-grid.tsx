@@ -54,18 +54,16 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
         }?page=${pages + 1}`;
 
         if (query?.product_brand?.toString()?.includes("+")) {
-          console.log("im hererer 57");
+  
           const brands = query?.product_brand
             ?.toString()
             ?.split("+")
             ?.join(",");
 
-          console.log("brands: ", brands);
           endpoint = `https://portal.day2daywholesale.com/api/getmultibrand?brand_slug=${brands}&page=${
             pages + 1
           }`;
 
-          console.log("endpoint: ", endpoint);
         }
       }
 

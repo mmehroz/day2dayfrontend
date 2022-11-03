@@ -63,7 +63,6 @@ const CheckoutForm: React.FC = () => {
     const accountDetailsRaw = localStorage.getItem("account-details");
     if (!accountDetailsRaw) return;
     const accDetails = JSON.parse(accountDetailsRaw);
-    console.log("account details: ", accDetails);
 
     updateUser(accDetails);
     setOrders({

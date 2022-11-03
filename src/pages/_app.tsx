@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import { appWithTranslation } from "next-i18next";
 import { DefaultSeo } from "@components/common/default-seo";
 import { Provider as UserContextProvider } from "../contexts/user.context";
+import NextNProgress from "nextjs-progressbar";
 
 // Load Open Sans and satisfy typeface font
 import "@fontsource/open-sans";
@@ -55,6 +56,12 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
             <ManagedUIContext>
               <Layout pageProps={pageProps}>
                 <DefaultSeo />
+                <NextNProgress
+                  color="#292929"
+                  showOnShallow={true}
+                  stopDelayMs={200}
+                  options={{ easing: "ease", speed: 500 }}
+                />
                 <Component {...pageProps} key={router.route} />
                 <ToastContainer />
               </Layout>

@@ -19,7 +19,7 @@ interface BannerProps {
 }
 
 function getImage(deviceWidth: number, imgObj: any) {
-  return deviceWidth < 480 ? imgObj.mobile : imgObj.desktop;
+  return deviceWidth < 480 ? imgObj.desktop : imgObj.desktop;
 }
 
 const BannerCard: FC<BannerProps> = ({
@@ -43,7 +43,7 @@ const BannerCard: FC<BannerProps> = ({
       <Link
         href={`${banner?.link ?? "/"}`}
         className={cn(
-          "group flex justify-center  overflow-hidden w-full bg-orange-500 ",
+          "group flex justify-center  overflow-hidden w-full bg-orange-500 mt-8 sm:mt-0",
           classNameInner
         )}
       >
@@ -52,7 +52,7 @@ const BannerCard: FC<BannerProps> = ({
           // src={`${ROUTES.BANNER}/${selectedImage.url}`}
           // src={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}${selectedImage.url}`}
           src={selectedImage.url}
-          width={width}
+          width={selectedImage.width}
           height={selectedImage.height}
           alt={title}
           quality={100}

@@ -58,7 +58,6 @@ export default function ProductPopup() {
       return el?.name;
     });
 
-    console.log("data to be in cart: ", data);
 
     if (Object.keys(attributes)?.length !== variantsLength) {
       return;

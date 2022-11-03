@@ -31,7 +31,6 @@ const ChangePassword: React.FC = () => {
   async function onSubmit(input: ChangePasswordInputType) {
     try {
       setLoading(true);
-      console.log("input fields: ", input);
       const user_id = Cookies.get("current_user_id");
       if (!user_id) throw new Error("Someting went wrong");
       await axios("https://portal.day2daywholesale.com/api/changepassword", {
