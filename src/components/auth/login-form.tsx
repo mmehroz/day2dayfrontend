@@ -71,7 +71,7 @@ const LoginForm: React.FC = () => {
     gpi = await import("gapi-script").then((pack) => pack.gapi);
 
     const initClient = () => {
-      gpi.auth2.init({
+      gpi.auth2.getAuthInstance({
         clientId: clientId,
         apiKey: "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",
       });
