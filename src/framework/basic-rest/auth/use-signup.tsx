@@ -35,7 +35,8 @@ export const useSignUpMutation = () => {
       window.location.assign("/");
     },
     onError: (data) => {
-      window.location.assign("/");
+      console.log(data);
+      // window.location.assign("/");
     },
   });
 };

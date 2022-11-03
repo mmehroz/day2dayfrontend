@@ -12,21 +12,21 @@ export const signinWithGoogle = () => {
   return new Promise((resolve, reject) => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        const cred = GoogleAuthProvider.credentialFromResult(result);
+        GoogleAuthProvider.credentialFromResult(result);
 
-        const token = cred?.accessToken;
+        // const token = cred?.accessToken;
         const user = result.user;
-        console.log(user);
-        console.log("signin successfull");
+        // console.log(user);
+        // console.log("signin successfull");
         resolve(user);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
         // The email of the user's account used.
-        const email = error.customData.email;
+        // const email = error.customData.email;
         // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        // const credential = GoogleAuthProvider.credentialFromError(error);
         reject(error);
       });
   });

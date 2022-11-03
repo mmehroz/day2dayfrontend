@@ -16,6 +16,7 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 import http from "@framework/utils/http";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { useRouter } from "next/router";
 
 const social = [
   {
@@ -51,6 +52,7 @@ const social = [
 export default function MobileMenu() {
   const [activeMenus, setActiveMenus] = useState<any>([]);
   const { site_header } = siteSettings;
+  const router = useRouter();
 
   const { closeSidebar } = useUI();
   const { t } = useTranslation("menu");
@@ -119,11 +121,16 @@ export default function MobileMenu() {
               href={`/product/product-sub/${data?.subcategory_slug}`}
               className="w-full text-[15px] menu-item relative  bg-gray-800 py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out"
             >
-              <span className="block w-full" onClick={closeSidebar}>
-                {t(`${data.subcategory_name}`)}
+              <span
+                className="block w-full"
+                onClick={() => {
+                  closeSidebar();
+                }}
+              >
+                {data.subcategory_name}
               </span>
             </Link>
-            {hasSubMenu && (
+            {data?.inner && (
               <div
                 className="cursor-pointer w-full h-full  text-lg flex items-center justify-end absolute start-0 top-0 pe-5"
                 onClick={() => handleArrowClick(menuName)}
@@ -136,42 +143,53 @@ export default function MobileMenu() {
               </div>
             )}
           </div>
-          {hasSubMenu && (
-            <SubMenu
-              dept={dept}
-              data={data.subMenu}
-              toggle={activeMenus.includes(menuName)}
-              menuIndex={menuIndex}
-            />
+          {activeMenus.includes(menuName) && (
+            <Link
+              href={`/product/product-sub/${data?.subcategory_slug}`}
+              className="w-full text-[15px] p-1"
+            >
+              <span className="block w-full px-9 font-semibold">{t(`${data.subcategory_name}`)}</span>
+            </Link>
+          )}
+          {data?.inner && (
+            <>
+              <SubMenu
+                dept={dept}
+                data={data.inner}
+                toggle={activeMenus.includes(menuName)}
+                menuIndex={menuIndex}
+              />
+            </>
           )}
         </li>
       )
     );
 
   const SubMenu = ({ dept, data, toggle, menuIndex }: any) => {
-
     if (!toggle) {
       return null;
     }
 
     dept = dept + 1;
 
-
     return (
       <ul className="pt-0.5">
         {data?.map((menu: any, index: number) => {
           const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
+          console.log("data navbar: ", data);
 
           return (
-            <ListMenu
-              dept={dept}
-              data={menu}
-              hasSubMenu={menu.subMenu}
-              menuName={menuName}
-              key={menuName}
-              menuIndex={index}
-              className={dept > 1 && "ps-4"}
-            />
+            <>
+              <ListMenu
+                dept={dept}
+                data={menu}
+                hasSubMenu={menu.subMenu}
+                menuName={menuName}
+                key={menuName}
+                menuIndex={index}
+                className={dept > 1 && "ps-4"}
+              />
+            </>
           );
         })}
       </ul>
@@ -182,7 +200,6 @@ export default function MobileMenu() {
 
   React.useEffect(() => {
     http.get(API_ENDPOINTS.MENU).then((response) => {
-
       setParentNavData(response.data.menu);
     });
   }, []);
@@ -199,8 +216,6 @@ export default function MobileMenu() {
         subMenu: menu,
       };
     });
-
-
 
     return arr.map((menu, index) => {
       const dept: number = 1;
