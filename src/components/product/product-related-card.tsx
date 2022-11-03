@@ -9,6 +9,7 @@ import { Product } from "@framework/types";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { useContext } from "react";
 import { userContext } from "@contexts/user.context";
+import { colorsContext } from "@contexts/colors.context";
 
 interface ProductProps {
   product: Product;
@@ -33,6 +34,7 @@ const ProductRelatedCard: FC<ProductProps> = ({
 }) => {
   const { openModal, setModalView, setModalData } = useUI();
   const { name: username } = useContext(userContext);
+  const { theme } = useContext(colorsContext);
   // const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
   const { selling_price, purchase_price, discount_price } = usePrice({
@@ -58,13 +60,16 @@ const ProductRelatedCard: FC<ProductProps> = ({
   };
   return (
     <div
+      style={{
+        backgroudColor: theme.cardBg,
+        color: theme.textColor,
+      }}
       className={cn(
         "group box-border overflow-hidden flex rounded-md cursor-pointer",
         {
-          "pe-0 pb-2 lg:pb-3 flex-col items-start bg-gray-800 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:md:-translate-y-1.5 hover:shadow-product":
+          "pe-0 pb-2 lg:pb-3 flex-col items-start  transition duration-200 ease-in-out transform hover:-translate-y-1 hover:md:-translate-y-1.5 hover:shadow-product":
             variant === "grid",
-          "pe-0 md:pb-1 flex-col items-start bg-gray-800":
-            variant === "gridSlim",
+          "pe-0 md:pb-1 flex-col items-start ": variant === "gridSlim",
           "items-center bg-transparent border border-gray-100 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-listProduct":
             variant === "listSmall",
           "flex-row items-center transition-transform ease-linear bg-gray-200 pe-2 lg:pe-3 2xl:pe-4":
@@ -97,8 +102,12 @@ const ProductRelatedCard: FC<ProductProps> = ({
           height={imgHeight}
           loading={imgLoading}
           quality={100}
+          style={{
+            backgroudColor: theme.cardBg,
+            color: theme.textColor,
+          }}
           alt={product?.product_name || "Product Image"}
-          className={cn("bg-gray-650 object-cover rounded-s-md", {
+          className={cn("object-cover rounded-s-md", {
             "w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
               variant === "grid",
             "rounded-md transition duration-150 ease-linear transform group-hover:scale-105":
@@ -120,7 +129,7 @@ const ProductRelatedCard: FC<ProductProps> = ({
         )}
       >
         <h2
-          className={cn("text-heading font-semibold truncate mb-1", {
+          className={cn("text- font-semibold truncate mb-1", {
             "text-sm md:text-base": variant === "grid",
             "md:mb-1.5 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg":
               variant === "gridSlim",

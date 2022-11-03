@@ -12,9 +12,12 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ROUTES } from "@utils/routes";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useContext } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 export default function Products() {
   const { t } = useTranslation("common");
+  const { theme } = useContext(colorsContext);
   return (
     <>
       {/* <ShopDiscount /> */}
@@ -24,17 +27,21 @@ export default function Products() {
             <StickyBox offsetTop={50} offsetBottom={20}>
               <div className="pb-7">
                 <BreadcrumbItems separator="/">
-                  <ActiveLink
-                    href={"/"}
-                    activeClassName="font-semibold text-heading"
-                  >
-                    <a>{t("breadcrumb-home")}</a>
+                  <ActiveLink href={"/"} activeClassName="font-semibold ">
+                    <a style={{ color: theme.textColor }}>
+                      {t("breadcrumb-home")}
+                    </a>
                   </ActiveLink>
                   <ActiveLink
                     href={ROUTES.PRODUCT}
-                    activeClassName="font-semibold text-heading"
+                    activeClassName="font-semibold "
                   >
-                    <a className="capitalize">{t("breadcrumb-products")}</a>
+                    <a
+                      style={{ color: theme.textColor }}
+                      className="capitalize"
+                    >
+                      {t("breadcrumb-products")}
+                    </a>
                   </ActiveLink>
                 </BreadcrumbItems>
               </div>

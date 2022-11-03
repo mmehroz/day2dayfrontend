@@ -14,6 +14,10 @@ import http from "@framework/utils/http";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import Cookies from "js-cookie";
 import { userContext } from "@contexts/user.context";
+import { colorsContext } from "@contexts/colors.context";
+import { IoCloudyNight } from "react-icons/io5";
+import { MdNightsStay } from "react-icons/md";
+
 const AuthMenu = dynamic(() => import("./auth-menu"), { ssr: false });
 const CartButton = dynamic(() => import("@components/cart/cart-button"), {
   ssr: false,
@@ -35,6 +39,7 @@ const Header: React.FC = () => {
   const siteHeaderRef = useRef() as DivElementRef;
   addActiveScroll(siteHeaderRef);
   const { name } = useContext(userContext);
+  const { theme, setNightMode, darkTheme, setLightMode } = useContext(colorsContext);
   function handleLogin() {
     setModalView("LOGIN_VIEW");
     return openModal();
@@ -61,7 +66,13 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className="innerSticky mt-8 text-white body-font fixed bg-gray-700 w-full h-16 sm:h-20 lg:h-15 z-20 ps-4 md:ps-0 lg:ps-6 pe-4 lg:pe-6 transition duration-200 ease-in-out">
+      <div
+        style={{
+          color: theme.textColor,
+          backgroundColor: theme.backgroundColorSecondary,
+        }}
+        className="innerSticky mt-8  body-font fixed w-full h-16 sm:h-20 lg:h-15 z-20 ps-4 md:ps-0 lg:ps-6 pe-4 lg:pe-6 transition duration-200 ease-in-out"
+      >
         <div className="flex items-center justify-center mx-auto max-w-[1920px] h-full w-full">
           <button
             aria-label="Menu"
@@ -81,7 +92,19 @@ const Header: React.FC = () => {
           />
 
           <div className="flex-shrink-0 ms-auto lg:me-5 xl:me-8 2xl:me-10">
-            {/* <LanguageSwitcher /> */}
+            {darkTheme ? (
+              <MdNightsStay
+                onClick={setLightMode}
+                size={22}
+                className="text-orange-500 cursor-pointer"
+              />
+            ) : (
+              <IoCloudyNight
+                onClick={setNightMode}
+                size={22}
+                className="text-orange-500 cursor-pointer"
+              />
+            )}
           </div>
           <div className="hidden md:flex justify-end items-center space-s-6 lg:space-s-5 xl:space-s-8 2xl:space-s-10 ms-auto flex-shrink-0">
             <button
@@ -95,10 +118,10 @@ const Header: React.FC = () => {
               <AuthMenu
                 isAuthorized={isAuthorized}
                 href={ROUTES.ACCOUNT}
-                className="text-sm xl:text-base text-heading font-semibold"
+                className="text-sm xl:text-base  font-semibold"
                 btnProps={{
                   className:
-                    "text-sm xl:text-base text-heading font-semibold focus:outline-none",
+                    "text-sm xl:text-base font-semibold focus:outline-none",
                   children: t("text-sign-in"),
                   onClick: handleLogin,
                 }}

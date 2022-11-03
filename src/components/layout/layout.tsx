@@ -14,12 +14,14 @@ import { toast } from "react-toastify";
 import Logo from "@components/ui/logo";
 import { motion, AnimatePresence } from "framer-motion";
 import { userContext } from "@contexts/user.context";
+import { colorsContext } from "@contexts/colors.context";
 
 const Layout: React.FC = ({ children }) => {
   const [isAdult, setIsAdult] = useState(false);
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies();
   //@ts-ignore
   const { hideHeader } = useContext(userContext);
+  const { theme, darkTheme } = useContext(colorsContext);
   const { t } = useTranslation("common");
   const router = useRouter();
   const [tokenCred, setTokenCred] = useState({
@@ -63,6 +65,17 @@ const Layout: React.FC = ({ children }) => {
         });
       });
   }, [router?.query]);
+
+  useEffect(() => {
+    if (darkTheme) {
+      const nightColor = "#111314";
+      document. body.style.backgroundColor = nightColor;
+      return;
+    }
+
+    const lightColor = "#fafafa";
+    document.body.style.backgroundColor = lightColor;
+  }, [darkTheme]);
 
   useEffect(() => {
     const adult = localStorage.getItem("isAdult");

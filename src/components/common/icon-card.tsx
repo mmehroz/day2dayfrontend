@@ -4,7 +4,8 @@ import { FaLink } from "react-icons/fa";
 import { LinkProps } from "next/link";
 import { useTranslation } from "next-i18next";
 import cn from "classnames";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 interface Props {
   item: any;
@@ -19,6 +20,7 @@ const IconCard: React.FC<Props> = ({
   variant = "default",
   href,
 }) => {
+  const { theme } = useContext(colorsContext);
   const [hoverCard, setHoverCard] = useState<boolean>(false);
 
   const { category_name, category_icon, _tags, _productCount } = item ?? {};
@@ -30,11 +32,14 @@ const IconCard: React.FC<Props> = ({
       onMouseEnter={() => setHoverCard(true)}
     >
       <Link
+        style={{
+          backgroundColor: theme.backgroundColorSecondary,
+        }}
         href={`product/product-main/${item.category_slug}`}
         className={cn("group flex justify-center flex-col rounded-lg  ", {
-          "h-28 sm:h-[8.5rem] md:h-40 xl:h-[11.5rem] 2xl:h-44 3xl:h-60 bg-gray-200":
+          "h-28 sm:h-[8.5rem] md:h-40 xl:h-[11.5rem] 2xl:h-44 3xl:h-60":
             variant === "default",
-          "px-6 lg:px-8 pt-7 lg:pt-10 pb-5 lg:pb-8  bg-gray-650 hover:bg-gradient-to-r from-orange-500  to-pink-500":
+          "px-6 lg:px-8 pt-7 lg:pt-10 pb-5 lg:pb-8 hover:bg-gradient-to-r from-orange-500  to-pink-500":
             variant === "modern",
           "items-center": variant === "circle",
         })}
@@ -47,7 +52,7 @@ const IconCard: React.FC<Props> = ({
               "mb-3.5 md:mb-4 lg:mb-5 xl:mb-2 2xl:mb-6 3xl:mb-8 lg:h-24 mx-auto":
                 variant === "default",
               "me-auto h-16": variant === "modern",
-              "bg-gray-200 justify-center rounded-full mb-3.5 md:mb-4 lg:mb-5 w-[105px] md:w-32 lg:w-[140px] xl:w-44 h-[105px] md:h-32 lg:h-[140px] xl:h-44 max-w-full":
+              "justify-center rounded-full mb-3.5 md:mb-4 lg:mb-5 w-[105px] md:w-32 lg:w-[140px] xl:w-44 h-[105px] md:h-32 lg:h-[140px] xl:h-44 max-w-full":
                 variant === "circle",
             }
           )}
@@ -67,12 +72,15 @@ const IconCard: React.FC<Props> = ({
             <>
               <div className="absolute top-0 left-0 bg-black w-full h-full opacity-0 transition-opacity duration-300 group-hover:opacity-30 rounded-full" />
               <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center rounded-full">
-                <FaLink className="text-white text-base sm:text-xl lg:text-2xl xl:text-3xl transform opacity-0 scale-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:scale-100" />
+                <FaLink className="text-base sm:text-xl lg:text-2xl xl:text-3xl transform opacity-0 scale-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:scale-100" />
               </div>
             </>
           )}
         </div>
         <Text
+          style={{
+            color: hoverCard ? '#fff' : theme.textColor,
+          }}
           variant="heading"
           className={cn("capitalize mt-10 text-center font-normal", {
             "absolute text-center bottom-4 sm:bottom-5 md:bottom-6 xl:bottom-8 inset-x-0":

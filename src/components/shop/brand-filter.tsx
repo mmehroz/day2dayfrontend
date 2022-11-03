@@ -3,9 +3,10 @@
 import { CheckBox } from "@components/ui/checkbox";
 import { useBrandsQuery } from "@framework/brand/get-all-brands";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useTranslation } from "next-i18next";
 import { useProductsQuery } from "@framework/product/get-all-products";
+import { colorsContext } from "@contexts/colors.context";
 
 export const BrandFilter = () => {
   const { t } = useTranslation("common");
@@ -26,6 +27,7 @@ export const BrandFilter = () => {
   const selectedBrands = query?.brand ? (query.brand as string).split(",") : [];
   const [formState, setFormState] = React.useState<string[]>(selectedBrands);
   const [brands, setBrands] = React.useState([]);
+  const { theme } = useContext(colorsContext);
 
   React.useEffect(() => {
     setFormState(selectedBrands);
@@ -119,8 +121,13 @@ export const BrandFilter = () => {
   };
 
   return (
-    <div className="block border-b border-gray-300 pb-7 mb-7">
-      <h3 className="text-heading text-sm md:text-base font-semibold mb-7">
+    <div
+      style={{
+        color: theme.textColor,
+      }}
+      className="block border-b border-gray-300 pb-7 mb-7"
+    >
+      <h3 className=" text-sm md:text-base font-semibold mb-7">
         {t("text-brands")}
       </h3>
       <div className="mt-2 flex flex-col space-y-4">

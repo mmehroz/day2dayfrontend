@@ -16,6 +16,7 @@ import { useTranslation } from "next-i18next";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { toast } from "react-toastify";
 import { userContext } from "@contexts/user.context";
+import { colorsContext } from "@contexts/colors.context";
 
 export default function ProductPopup() {
   const { t } = useTranslation("common");
@@ -34,6 +35,7 @@ export default function ProductPopup() {
   const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
   const [quantitySelected, setQuantitySelected] = useState(0);
+  const { theme } = useContext(colorsContext);
 
   const { selling_price, purchase_price, discount_price } = usePrice({
     amount: data.sale_price ? data.sale_price : data.selling_price,
@@ -57,7 +59,6 @@ export default function ProductPopup() {
     const dataVariantsKeys = data?.variants?.map((el: any) => {
       return el?.name;
     });
-
 
     if (Object.keys(attributes)?.length !== variantsLength) {
       return;
@@ -142,7 +143,13 @@ export default function ProductPopup() {
   }
 
   return (
-    <div className="rounded-lg bg-gray-800">
+    <div
+      style={{
+        backgroundColor: theme.backgroundColorSecondary,
+        color: theme.textColor,
+      }}
+      className="rounded-lg "
+    >
       <div className="flex flex-col lg:flex-row w-full md:w-[650px] lg:w-[960px] mx-auto overflow-hidden">
         <div className="flex-shrink-0 flex items-center justify-center w-full lg:w-430px max-h-500px  overflow-hidden bg-gray-650">
           <img
@@ -159,22 +166,22 @@ export default function ProductPopup() {
               onClick={navigateToProductPage}
               role="button"
             >
-              <h2 className="text-heading text-lg md:text-xl lg:text-2xl font-semibold hover:text-gray-500">
+              <h2 className="text- text-lg md:text-xl lg:text-2xl font-semibold hover:text--">
                 {product_name}
               </h2>
             </div>
             <p
               dangerouslySetInnerHTML={{ __html: short_description }}
-              className="text-sm leading-6 md:text-white md:leading-7"
+              className="text-sm leading-6 md:text- md:leading-7"
             />
 
             {userName ? (
               <div className="flex items-center mt-3">
-                <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
+                <div className="text- font-semibold text-base md:text-xl lg:text-2xl">
                   ${data?.discount_price}.00
                 </div>
                 {data?.selling_price && (
-                  <del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
+                  <del className="font-segoe  text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
                     ${data?.selling_price}.00
                   </del>
                 )}
@@ -240,7 +247,11 @@ export default function ProductPopup() {
               <Button
                 onClick={addToCart}
                 variant="slim"
-                className={`w-full md:w-6/12 xl:w-full bg-gray-700`}
+                style={{
+                  backgroundColor: theme.backgroundColor,
+                  color: theme.textColor,
+                }}
+                className={`w-full md:w-6/12 xl:w-full `}
                 disabled={
                   Object.keys(attributes)?.length !== variantsLength ||
                   quantitySelected >= parseInt(data?.product_qty) ||

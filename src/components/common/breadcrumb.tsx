@@ -2,6 +2,8 @@ import React from "react";
 import ActiveLink from "@components/ui/active-link";
 import useBreadcrumb, { convertBreadcrumbTitle } from "@utils/use-breadcrumb";
 import { useTranslation } from "next-i18next";
+import { useContext } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 interface Props {
   children: any;
@@ -58,13 +60,14 @@ export const BreadcrumbItems = (props: any) => {
 };
 
 const Breadcrumb: React.FC<{ separator?: string }> = ({ separator = "/" }) => {
+  const { theme } = useContext(colorsContext);
   const breadcrumbs = useBreadcrumb();
   const { t } = useTranslation("common");
   return (
-    <div className="2xl:px-40 2xl:pl-52" >
+    <div className="2xl:px-40 2xl:pl-52">
       <BreadcrumbItems separator={separator}>
         <ActiveLink href={"/"} activeClassName="font-semibold text-heading ">
-          <a>{t("breadcrumb-home")}</a>
+          <a style={{ color: theme.textColor }}>{t("breadcrumb-home")}</a>
         </ActiveLink>
 
         {breadcrumbs?.map((breadcrumb: any) => (
@@ -73,7 +76,7 @@ const Breadcrumb: React.FC<{ separator?: string }> = ({ separator = "/" }) => {
             activeClassName="font-semibold text-heading"
             key={breadcrumb.href}
           >
-            <a className="capitalize">
+            <a style={{ color: theme.textColor }} className="capitalize">
               {convertBreadcrumbTitle(breadcrumb.breadcrumb)}
             </a>
           </ActiveLink>

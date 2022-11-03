@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import { appWithTranslation } from "next-i18next";
 import { DefaultSeo } from "@components/common/default-seo";
 import { Provider as UserContextProvider } from "../contexts/user.context";
+import { Provider as ColorContextProvider } from "@contexts/colors.context";
 import NextNProgress from "nextjs-progressbar";
 
 // Load Open Sans and satisfy typeface font
@@ -51,25 +52,27 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
   return (
     <AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
       <QueryClientProvider client={queryClientRef.current}>
-        <UserContextProvider>
-          <Hydrate state={pageProps.dehydratedState}>
-            <ManagedUIContext>
-              <Layout pageProps={pageProps}>
-                <DefaultSeo />
-                <NextNProgress
-                  color="#292929"
-                  showOnShallow={true}
-                  stopDelayMs={200}
-                  options={{ easing: "ease", speed: 500 }}
-                />
-                <Component {...pageProps} key={router.route} />
-                <ToastContainer />
-              </Layout>
-              <ManagedModal />
-              <ManagedDrawer />
-            </ManagedUIContext>
-          </Hydrate>
-        </UserContextProvider>
+        <ColorContextProvider>
+          <UserContextProvider>
+            <Hydrate state={pageProps.dehydratedState}>
+              <ManagedUIContext>
+                <Layout pageProps={pageProps}>
+                  <DefaultSeo />
+                  <NextNProgress
+                    color="#292929"
+                    showOnShallow={true}
+                    stopDelayMs={200}
+                    options={{ easing: "ease", speed: 500 }}
+                  />
+                  <Component {...pageProps} key={router.route} />
+                  <ToastContainer />
+                </Layout>
+                <ManagedModal />
+                <ManagedDrawer />
+              </ManagedUIContext>
+            </Hydrate>
+          </UserContextProvider>
+        </ColorContextProvider>
 
         {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>

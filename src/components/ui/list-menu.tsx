@@ -1,13 +1,21 @@
 import { useTranslation } from "next-i18next";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "./link";
+import { useContext } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
   const { t } = useTranslation("menu");
-
+  const { theme } = useContext(colorsContext);
 
   return (
-    <li className="">
+    <li
+      style={{
+        color: theme.textColor,
+        backgroundColor: theme.backgroundColorSecondary,
+      }}
+      className=""
+    >
       <Link
         href={`/product/${data?.id ? "product-sub/" : "product_inner/"}${
           data?.id ? data?.subcategory_slug : data?.subcategory_slug
@@ -17,7 +25,12 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
         {t(data.subcategory_name)} {data?.subcategory_id}
         {data.inner?.length ? (
           <span className="text-sm mt-0.5 shrink-0">
-            <IoIosArrowForward className="text-white transition duration-300 ease-in-out group-hover:text-white" />
+            <IoIosArrowForward
+              style={{
+                color: theme.textColor,
+              }}
+              className=" transition duration-300 ease-in-out group-hover:text-white"
+            />
           </span>
         ) : null}
       </Link>
@@ -29,10 +42,17 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
 };
 
 const SubMenu: React.FC<any> = ({ dept, data, menuIndex }) => {
+  const { theme } = useContext(colorsContext);
   dept = dept + 1;
 
   return (
-    <ul className="subMenuChild  shadow-subMenu bg-gray-690  absolute z-[99999] end-full 2xl:end-auto 2xl:start-full opacity-0 invisible left-64 bottom-0 mt-3 top-0 right-0 w-56 py-3 overflow-y-scroll">
+    <ul
+      style={{
+        color: theme.textColor,
+        backgroundColor: theme.backgroundColorSecondary,
+      }}
+      className="subMenuChild  shadow-subMenu   absolute z-[99999] end-full 2xl:end-auto 2xl:start-full opacity-0 invisible left-64 bottom-0 mt-3 top-0 right-0 w-56 py-3 overflow-y-scroll"
+    >
       {data?.map((menu: any, index: number) => {
         const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
 

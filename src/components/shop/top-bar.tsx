@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { getDirection } from "@utils/get-direction";
 import { useProductsQuery } from "@framework/product/get-all-products";
+import { useContext } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 const SearchTopBar = () => {
   const { query } = useRouter();
@@ -22,6 +24,8 @@ const SearchTopBar = () => {
     error,
   } = useProductsQuery({ limit: 10, ...query });
 
+  const { theme } = useContext(colorsContext);
+
   const { openFilter, displayFilter, closeFilter } = useUI();
   const { t } = useTranslation("common");
   const router = useRouter();
@@ -31,7 +35,13 @@ const SearchTopBar = () => {
 
   return (
     <div className="flex justify-between items-center mb-7">
-      <Text variant="pageHeading" className="hidden lg:inline-flex pb-1">
+      <Text
+        style={{
+          color: theme.textColor,
+        }}
+        variant="pageHeading"
+        className="hidden lg:inline-flex pb-1"
+      >
         {data?.pages[0]?.filtername
           ? data?.pages[0]?.filtername
           : data?.pages[0]?.brandname}

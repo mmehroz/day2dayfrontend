@@ -14,6 +14,7 @@ import { useTranslation } from "next-i18next";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { useContext } from "react";
 import { userContext } from "@contexts/user.context";
+import { colorsContext } from "@contexts/colors.context";
 
 type CartItemProps = {
   item: any;
@@ -21,6 +22,7 @@ type CartItemProps = {
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { t } = useTranslation("common");
+  const { theme } = useContext(colorsContext);
   const { name: username } = useContext(userContext);
   const { addItemToCart, removeItemFromCart, clearItemFromCart } = useCart();
   const { price } = usePrice({
@@ -49,7 +51,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       animate="to"
       exit="from"
       variants={fadeInOut(0.25)}
-      className={`group w-full h-auto flex justify-start items-center bg-gray-750 py-4 md:py-7 border-b border-gray-600 relative last:border-b-0`}
+      style={{
+        color: theme.textColor,
+      }}
+      className={`group w-full h-auto flex justify-start items-center py-4 md:py-7 border-b border-gray-600 relative last:border-b-0`}
       title={item?.product_name}
     >
       <div className="relative flex w-24 md:w-28 h-24 md:h-28 rounded-md overflow-hidden bg-gray-200 flex-shrink-0 cursor-pointer me-4">
@@ -71,21 +76,20 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           onClick={() => clearItemFromCart(item.id)}
           role="button"
         >
-          <IoIosCloseCircle className="relative text-white text-2xl transform md:scale-0 md:opacity-0 transition duration-300 ease-in-out md:group-hover:scale-100 md:group-hover:opacity-100" />
+          <IoIosCloseCircle className="relative  text-2xl transform md:scale-0 md:opacity-0 transition duration-300 ease-in-out md:group-hover:scale-100 md:group-hover:opacity-100" />
         </div>
       </div>
 
       <div className="flex flex-col w-full overflow-hidden">
         <Link
           href={`${ROUTES.PRODUCT}/${item?.slug}`}
-          className="truncate text-sm text-heading mb-1.5 -mt-1"
+          className="truncate text-sm  mb-1.5 -mt-1"
         >
           {generateCartItemName(item?.product_name, item.attributes)}
         </Link>
         {username ? (
           <span className="text-sm text-gray-400 mb-2.5">
-            {t("text-unit-price")} : &nbsp;
-            ${item?.price}.00
+            {t("text-unit-price")} : &nbsp; ${item?.price}.00
           </span>
         ) : null}
 
@@ -97,7 +101,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             variant="dark"
           />
           {username ? (
-            <span className="font-semibold text-sm md:text-base text-heading leading-5">
+            <span className="font-semibold text-sm md:text-base leading-5">
               {totalPrice}
             </span>
           ) : null}

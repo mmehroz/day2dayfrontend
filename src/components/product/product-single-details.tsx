@@ -20,6 +20,7 @@ import { userContext } from "@contexts/user.context";
 import { useUI } from "@contexts/ui.context";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
+import { colorsContext } from "@contexts/colors.context";
 
 const productGalleryCarouselResponsive = {
   "768": {
@@ -42,6 +43,7 @@ const ProductSingleDetails: React.FC = () => {
     handleHideHeader,
     closeHideHeader,
   } = useContext(userContext);
+  const { theme } = useContext(colorsContext);
   const { data, isLoading } = useProductQuery(slug as string);
   const { addItemToCart } = useCart();
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
@@ -137,7 +139,7 @@ const ProductSingleDetails: React.FC = () => {
       pauseOnHover: true,
       draggable: true,
     });
- 
+
     setQuantitySelected((prev) => prev + 1);
   }
 
@@ -150,7 +152,6 @@ const ProductSingleDetails: React.FC = () => {
 
   function renderTags() {
     const tags = data?.details?.product_tags?.split(",");
-   
 
     return tags?.map((el: string, _i: number) => (
       <Link
@@ -165,7 +166,6 @@ const ProductSingleDetails: React.FC = () => {
   const placeholderImage = `/assets/placeholder/products/product-gallery.svg`;
 
   const handleStarClick = (starName: string) => () => {
-  
     let data = {
       0: false,
       1: false,
@@ -178,7 +178,6 @@ const ProductSingleDetails: React.FC = () => {
       data[i] = true;
     }
 
- 
     setStars({ ...data });
     setClickedStar(true);
   };
@@ -385,7 +384,6 @@ const ProductSingleDetails: React.FC = () => {
     );
   };
 
-
   if (showFullScreen) {
     return (
       <div className="w-full h-screen flex items-center justify-center flex-col py-10">
@@ -413,8 +411,7 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   const renderSelectedImage = (): string => {
-
-    if(selectedGalleryImage?.includes('https')) {
+    if (selectedGalleryImage?.includes("https")) {
       return selectedGalleryImage;
     }
 
@@ -473,9 +470,14 @@ const ProductSingleDetails: React.FC = () => {
           </div>
         </div>
 
-        <div className="col-span-4 pt-8 lg:pt-0">
+        <div
+          style={{
+            color: theme.textColor,
+          }}
+          className="col-span-4 pt-8 lg:pt-0"
+        >
           <div className="pb-7 mb-7 border-b border-gray-300">
-            <h2 className="text-heading text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-bold  mb-3.5">
+            <h2 className="text- text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-bold  mb-3.5">
               {data?.details?.product_name}
             </h2>
             <p
@@ -487,7 +489,7 @@ const ProductSingleDetails: React.FC = () => {
             <div className="flex items-center mt-5">
               {userName ? (
                 <React.Fragment>
-                  <div className="text-heading font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
+                  <div className="text- font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
                     ${data?.details?.discount_price}.00
                   </div>
 
@@ -509,7 +511,6 @@ const ProductSingleDetails: React.FC = () => {
           {data?.sortvariants?.length ? (
             <div className="pb-3 border-b border-gray-300">
               {data?.sortvariants?.map((variation: any) => {
-           
                 return (
                   <ProductAttributes
                     key={`popup-attribute-key${variation.id}`}
@@ -551,38 +552,36 @@ const ProductSingleDetails: React.FC = () => {
               <span className="py-2 3xl:px-8">Add to cart</span>
             </Button>
           </div>
-          <div className="py-6">
+          <div
+            style={{
+              color: theme.textColor,
+            }}
+            className="py-6"
+          >
             <ul className="text-sm space-y-5 pb-1">
               <li>
-                <span className="font-semibold text-heading inline-block pe-2">
-                  SKU:
-                </span>
+                <span className="font-semibold  inline-block pe-2">SKU:</span>
                 {data?.details?.product_sku}
               </li>
               <li>
-                <span className="font-semibold text-heading inline-block pe-2">
+                <span className="font-semibold  inline-block pe-2">
                   Category:
                 </span>
-                <Link
-                  href="/"
-                  className="transition hover:underline hover:text-heading"
-                >
+                <Link href="/" className="transition hover:underline ">
                   {data?.details?.category_name}
                 </Link>
               </li>
-              <span className="font-semibold text-heading inline-block pe-2">
-                Tags:
-              </span>
+              <span className="font-semibold  inline-block pe-2">Tags:</span>
 
               {renderTags()}
               <li>
-                <span className="font-semibold text-heading inline-block pe-2">
+                <span className="font-semibold  inline-block pe-2">
                   Quantity:
                 </span>
                 <span>{data?.details?.product_qty}</span>
               </li>
               <li>
-                <span className="font-semibold text-heading inline-block pe-2">
+                <span className="font-semibold text- inline-block pe-2">
                   Bar Code:
                 </span>
                 <span>{data?.details?.product_code}</span>
@@ -590,15 +589,20 @@ const ProductSingleDetails: React.FC = () => {
             </ul>
             <div className="w-full h-2 border-t mt-6 mb-6" />
 
-            <div className="flex flex-col">
+            <div
+              style={{
+                color: theme.textColor,
+              }}
+              className="flex flex-col"
+            >
               <div
                 onClick={handleFilters("productDetails")}
                 className="w-full flex justify-between items-center cursor-pointer"
               >
-                <span className="font-semibold text-heading inline-block pe-2">
+                <span className="font-semibold inline-block pe-2">
                   Product Details
                 </span>
-                <span className={`font-semibold text-white text-[32px] `}>
+                <span className={`font-semibold  text-[32px] `}>
                   {filters?.productDetails ? "-" : "+"}
                 </span>
               </div>
@@ -618,7 +622,7 @@ const ProductSingleDetails: React.FC = () => {
                     dangerouslySetInnerHTML={{
                       __html: data?.details?.long_description,
                     }}
-                    className="font-semibold text-heading inline-block pe-2"
+                    className="font-semibold  inline-block pe-2"
                   />
                 )}
               </AnimatePresence>
@@ -630,10 +634,10 @@ const ProductSingleDetails: React.FC = () => {
               className="flex flex-col cursor-pointer"
             >
               <div className="w-full flex justify-between items-center">
-                <span className="font-semibold text-heading inline-block pe-2">
+                <span className="font-semibold  inline-block pe-2">
                   Additional Information
                 </span>
-                <span className={`font-semibold text-white text-[32px] `}>
+                <span className={`font-semibold  text-[32px] `}>
                   {filters?.additionalInformation ? "-" : "+"}
                 </span>
               </div>
@@ -653,7 +657,7 @@ const ProductSingleDetails: React.FC = () => {
                     dangerouslySetInnerHTML={{
                       __html: data?.details?.additional_info,
                     }}
-                    className="font-semibold text-heading inline-block pe-2"
+                    className="font-semibold text- inline-block pe-2"
                   />
                 )}
               </AnimatePresence>
@@ -666,10 +670,10 @@ const ProductSingleDetails: React.FC = () => {
                 onClick={handleFilters("customerReviews")}
                 className="w-full flex justify-between items-center"
               >
-                <span className="font-semibold text-heading inline-block pe-2">
+                <span className="font-semibold text- inline-block pe-2">
                   Customer Reviews
                 </span>
-                <span className={`font-semibold text-white text-[32px] `}>
+                <span className={`font-semibold text- text-[32px] `}>
                   {filters?.customerReviews ? "-" : "+"}
                 </span>
               </div>
@@ -683,7 +687,7 @@ const ProductSingleDetails: React.FC = () => {
                     className="flex flex-col"
                   >
                     <div className="w-full flex mt-10">
-                      <span className="text-white/80 text-sm  font-light  tracking-wider">
+                      <span className=" text-sm  font-light  tracking-wider">
                         At first, Please check your internet connection . We
                         also have some online video tutorials regarding this
                         issue . If the problem remains, Please Open a ticket in

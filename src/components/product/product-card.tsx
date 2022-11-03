@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import http from "@framework/utils/http";
 import { userContext } from "@contexts/user.context";
 import { useState } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 interface ProductProps {
   product: Product;
@@ -36,6 +37,7 @@ const ProductCard: FC<ProductProps> = ({
 }) => {
   const { openModal, setModalView, setModalData } = useUI();
   const { name } = useContext(userContext);
+  const { theme } = useContext(colorsContext);
   const [block, setBlock] = useState<boolean>(false);
 
   // const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
@@ -60,7 +62,7 @@ const ProductCard: FC<ProductProps> = ({
     if (name) {
       return (
         <div
-          className={`text-pink-500 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
+          className={`text-pink-500 px-2 pb-2 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
             variant === "grid"
               ? "lg:text-lg lg:mt-2.5"
               : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
@@ -68,7 +70,7 @@ const ProductCard: FC<ProductProps> = ({
         >
           <span className="inline-block">${product.discount_price}.00</span>
           {product.selling_price && (
-            <del className="sm:text-base font-normal text-gray-600">
+            <del className="sm:text-base font-normal ">
               ${product.selling_price}.00
             </del>
           )}
@@ -78,7 +80,7 @@ const ProductCard: FC<ProductProps> = ({
 
     return (
       <div
-        className={`text-pink-500 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
+        className={`text-pink-500 px-2 font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
           variant === "grid"
             ? "lg:text-lg lg:mt-2.5"
             : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
@@ -87,12 +89,12 @@ const ProductCard: FC<ProductProps> = ({
         <span
           onClick={() => {
             setBlock(!block);
-   
+
             setModalView("LOGIN_VIEW");
 
             return openModal();
           }}
-          className="inline-block text-xs cursor-pointer"
+          className="inline-block text-xs cursor-pointer px-2"
         >
           view price
         </span>
@@ -102,16 +104,18 @@ const ProductCard: FC<ProductProps> = ({
 
   return (
     <div
+      style={{
+        color: theme.textColor,
+      }}
       className={cn(
         "group box-border overflow-hidden flex rounded-md cursor-pointer",
         {
-          "pe-0 pb-2 lg:pb-3 flex-col items-start bg-gray-800 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:md:-translate-y-1.5 hover:shadow-product":
+          "pe-0 pb-2 lg:pb-3 flex-col items-start  transition duration-200 ease-in-out transform hover:-translate-y-1 hover:md:-translate-y-1.5 hover:shadow-product":
             variant === "grid",
-          "pe-0 md:pb-1 flex-col items-start bg-gray-800":
-            variant === "gridSlim",
-          "items-center bg-transparent border border-gray-100 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-listProduct":
+          "pe-0 md:pb-1 flex-col items-start ": variant === "gridSlim",
+          "items-center bg-transparent border  transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-listProduct":
             variant === "listSmall",
-          "flex-row items-center transition-transform ease-linear bg-gray-200 pe-2 lg:pe-3 2xl:pe-4":
+          "flex-row items-center transition-transform ease-linear  pe-2 lg:pe-3 2xl:pe-4":
             variant === "list",
         },
         className
@@ -141,8 +145,12 @@ const ProductCard: FC<ProductProps> = ({
           loading={imgLoading}
           quality={100}
           onClick={handlePopupView}
+          style={{
+            backgroundColor: theme.cardBg,
+            color: theme.textColor,
+          }}
           alt={product?.product_name || "Product Image"}
-          className={cn("bg-gray-650 rounded-s-md object-contain ", {
+          className={cn(" rounded-s-md object-contain ", {
             "w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
               variant === "grid",
             "rounded-md transition duration-150 ease-linear transform group-hover:scale-105":
@@ -165,7 +173,7 @@ const ProductCard: FC<ProductProps> = ({
       >
         <h2
           onClick={handlePopupView}
-          className={cn("text-heading font-semibold truncate mb-1", {
+          className={cn(" font-semibold truncate mb-1 px-2", {
             "text-sm md:text-base": variant === "grid",
             "md:mb-1.5 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg":
               variant === "gridSlim",
@@ -179,7 +187,7 @@ const ProductCard: FC<ProductProps> = ({
         {product?.short_description && (
           <p
             dangerouslySetInnerHTML={{ __html: product?.short_description }}
-            className="text-gray-500 text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate"
+            className=" text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate px-2"
           ></p>
         )}
         {rendeSellingPrice()}

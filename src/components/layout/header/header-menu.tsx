@@ -7,8 +7,9 @@ import classNames from "classnames";
 import ListMenu from "@components/ui/list-menu";
 import { useTranslation } from "next-i18next";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
-import React from "react";
+import React, { useContext } from "react";
 import http from "@framework/utils/http";
+import { colorsContext } from "@contexts/colors.context";
 
 const salesData = [
   {
@@ -63,6 +64,7 @@ interface MenuProps {
 }
 
 const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
+  const { theme } = useContext(colorsContext);
   const { t } = useTranslation("menu");
 
   const [nevdata, setParentNavData] = React.useState([]);
@@ -98,12 +100,17 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
           >
             <Link
               href={`/product/product-main/${item.category_slug}`}
-              className="inline-flex items-center text-sm xl:text-base text-heading px-3 xl:px-4 py-2 font-normal relative "
+              className="inline-flex items-center text-sm xl:text-base px-3 xl:px-4 py-2 font-normal relative "
             >
               {t(item.category_name)}
               {item?.inner || item.subMenu ? (
                 <span className="opacity-30 text-xs mt-1 xl:mt-0.5 w-4 flex justify-end">
-                  <FaChevronDown className="transition duration-300 ease-in-out transform group-hover:-rotate-180" />
+                  <FaChevronDown
+                    style={{
+                      color: theme.textColor,
+                    }}
+                    className="transition duration-300 ease-in-out transform group-hover:-rotate-180"
+                  />
                 </span>
               ) : null}
             </Link>
@@ -113,8 +120,14 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
           )} */}
 
             {item?.subMenu && Array.isArray(item.subMenu) ? (
-              <div className="subMenu shadow-header bg-gray-650 absolute start-0 opacity-0 group-hover:opacity-100 ">
-                <ul className="text-white text-sm py-5 h-[25rem] overflow-y-scroll  overflow-x-hidden hidescrollbar ">
+              <div className="subMenu shadow-header  absolute start-0 opacity-0 group-hover:opacity-100 ">
+                <ul
+                  style={{
+                    color: theme.textColor,
+                    backgroundColor: theme.backgroundColorSecondary,
+                  }}
+                  className=" text-sm py-5 h-[25rem] overflow-y-scroll  overflow-x-hidden hidescrollbar "
+                >
                   {item.subMenu.map((menu: any, index: number) => {
                     const dept: number = 1;
                     const menuName: string = `sidebar-menu-${dept}-${index}`;
@@ -144,16 +157,22 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
             className={`menuItem group cursor-pointer py-7 ${
               item.subMenu ? "relative" : ""
             }`}
+            style={{}}
             key={item.category_id}
           >
             <Link
               href={`/product/product-main/${item.category_slug}`}
-              className="inline-flex items-center text-sm xl:text-base text-heading px-3 xl:px-4 py-2 font-normal relative "
+              className="inline-flex items-center text-sm xl:text-base  px-3 xl:px-4 py-2 font-normal relative "
             >
               {t(item.category_name)}
               {item?.inner || item.subMenu ? (
                 <span className="opacity-30 text-xs mt-1 xl:mt-0.5 w-4 flex justify-end">
-                  <FaChevronDown className="transition duration-300 ease-in-out transform group-hover:-rotate-180" />
+                  <FaChevronDown
+                    style={{
+                      color: theme.textColor,
+                    }}
+                    className="transition duration-300 ease-in-out transform group-hover:-rotate-180"
+                  />
                 </span>
               ) : null}
             </Link>
@@ -163,8 +182,14 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
           )} */}
 
             {item?.subMenu && Array.isArray(item.subMenu) ? (
-              <div className="subMenu shadow-header bg-gray-650 absolute start-0 opacity-0 group-hover:opacity-100 ">
-                <ul className="text-white text-sm py-5 h-[25rem] overflow-y-scroll  overflow-x-hidden hidescrollbar ">
+              <div
+                style={{
+                  backgroundColor: theme.backgroundColorSecondary,
+                  color: theme.textColor,
+                }}
+                className="subMenu shadow-header  absolute start-0 opacity-0 group-hover:opacity-100 "
+              >
+                <ul className=" text-sm py-5 h-[25rem] overflow-y-scroll  overflow-x-hidden hidescrollbar ">
                   {item.subMenu.map((menu: any, index: number) => {
                     const dept: number = 1;
                     const menuName: string = `sidebar-menu-${dept}-${index}`;

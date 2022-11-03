@@ -3,9 +3,10 @@
 import { useCategoriesQuery } from "@framework/category/get-all-categories";
 import { CheckBox } from "@components/ui/checkbox";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "next-i18next";
 import axios from "axios";
+import { colorsContext } from "@contexts/colors.context";
 
 export const CategoryFilter = ({ currentCategory }: any) => {
   const { t } = useTranslation("common");
@@ -13,6 +14,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   const [categories, setCategories] = useState([]);
   const [href, setHref] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const { theme } = useContext(colorsContext);
 
   useEffect(() => {
     let subscribe: boolean = false;
@@ -69,8 +71,11 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   }, [router?.query]);
 
   return (
-    <div className="block border-b border-gray-300 pb-7 mb-7">
-      <h3 className="text-heading text-sm md:text-base font-semibold mb-7">
+    <div
+      style={{ color: theme.textColor }}
+      className="block border-b border-gray-300 pb-7 mb-7"
+    >
+      <h3 className=" text-sm md:text-base font-semibold mb-7">
         {t("text-category")}
       </h3>
       <div className="mt-2 flex flex-col space-y-4">

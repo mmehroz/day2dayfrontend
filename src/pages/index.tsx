@@ -17,14 +17,16 @@ import http from "@framework/utils/http";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { useRouter } from "next/router";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import axios from "axios";
 import { useQuery } from "react-query";
+import { colorsContext } from "@contexts/colors.context";
 
 export default function Home() {
   const [banners, setBanners] = useState([]);
   const [bannersBlock, setBannersBlock] = useState([]);
+  const { theme } = useContext(colorsContext);
 
   const getBanners = () => {
     return (
@@ -54,7 +56,6 @@ export default function Home() {
       });
 
       const res = await Promise.all(promises);
-     
 
       const sorted = res?.map((el, i) => {
         return {
@@ -62,7 +63,6 @@ export default function Home() {
           type: i === 0 ? "medium" : "small",
         };
       });
-
 
       //@ts-ignore
       setBannersBlock(sorted);
@@ -86,7 +86,6 @@ export default function Home() {
   useEffect(() => {
     getBannerBlock().catch((err) => {});
     getBanners().catch((err) => {});
-
   }, []);
 
   // useEffect(() => {

@@ -40,7 +40,8 @@ const Card: React.FC<Props> = ({
       className="group flex justify-center text-center flex-col"
     >
       <div
-        className={`relative inline-flex mb-3.5 md:mb-4 lg:mb-5 xl:mb-6 mx-auto ${
+
+        className={`relative bg-white inline-flex mb-3.5 md:mb-4 lg:mb-5 xl:mb-6 mx-auto ${
           variant === "rounded" ? "rounded-md" : "rounded-full"
         }`}
       >
@@ -52,7 +53,7 @@ const Card: React.FC<Props> = ({
             width={imageSize}
             height={imageSize}
             quality={100}
-            className={`object-cover bg-gray-650 ${
+            className={`object-cover  ${
               variant === "rounded" ? "rounded-md" : "rounded-full"
             }`}
           />
@@ -60,7 +61,7 @@ const Card: React.FC<Props> = ({
         {effectActive === true && (
           <>
             <div
-              className={`absolute top left bg-black w-full h-full opacity-0 transition-opacity duration-300 group-hover:opacity-30 ${
+              className={`absolute top left  w-full h-full opacity-0 transition-opacity duration-300 group-hover:opacity-30 ${
                 variant === "rounded" ? "rounded-md" : "rounded-full"
               }`}
             />
