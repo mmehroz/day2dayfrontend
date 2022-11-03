@@ -79,7 +79,7 @@ const IconCard: React.FC<Props> = ({
         </div>
         <Text
           style={{
-            color: hoverCard ? '#fff' : theme.textColor,
+            color: hoverCard ? "#fff" : theme.textColor,
           }}
           variant="heading"
           className={cn("capitalize mt-10 text-center font-normal", {
