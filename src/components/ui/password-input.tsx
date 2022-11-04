@@ -52,6 +52,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
             style={{
               color: theme.textColor,
               backgroundColor: theme.backgroundColorThird,
+              borderColor: "transparent",
             }}
             id={name}
             name={name}

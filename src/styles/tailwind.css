@@ -329,6 +329,11 @@ button.text-\[13px\].md\:text-sm.leading-4.inline-flex.items-center.cursor-point
   filter: brightness(0) invert(1);
 }
 
+.brands-inverts {
+  filter: invert(100);
+}
+
+
 ::-webkit-scrollbar {
   width: 5px;
   border-radius: 1rem;

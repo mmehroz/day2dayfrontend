@@ -7,16 +7,18 @@ import { useUI } from "@contexts/ui.context";
 import Logo from "@components/ui/logo";
 import { ImFacebook2 } from "react-icons/im";
 import { useTranslation } from "next-i18next";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 // import { gapi } from "gapi-script";
 import { useSignUpMutation } from "@framework/auth/use-signup";
 import { signinWithGoogle } from "../../firebase/firebase";
+import { colorsContext } from "@contexts/colors.context";
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
   const { setModalView, openModal, closeModal, setRememberMe, rememberMe } =
     useUI();
+  const { theme } = useContext(colorsContext);
 
   const { mutate: signUp } = useSignUpMutation();
 
@@ -72,12 +74,18 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="overflow-hidden bg-gray-750 mx-auto rounded-lg w-full sm:w-96 md:w-450px  py-5 px-5 sm:px-8">
+    <div
+      style={{
+        backgroundColor: theme.backgroundColor,
+        color: theme.textColor,
+      }}
+      className="overflow-hidden  mx-auto rounded-lg w-full sm:w-96 md:w-450px  py-5 px-5 sm:px-8"
+    >
       <div className="text-center mb-6 pt-2.5">
         <div onClick={closeModal}>
           <Logo />
         </div>
-        <p className="text-sm md:text-base text-white mt-2 mb-8 sm:mb-10">
+        <p className="text-sm md:text-base mt-2 mb-8 sm:mb-10">
           {t("common:login-helper")}
         </p>
       </div>
@@ -130,7 +138,7 @@ const LoginForm: React.FC = () => {
               </label>
               <label
                 htmlFor="remember"
-                className="flex-shrink-0 text-sm text-heading ps-3 cursor-pointer"
+                className="flex-shrink-0 text-sm ps-3 cursor-pointer"
               >
                 {t("forms:label-remember-me")}
               </label>
@@ -157,14 +165,14 @@ const LoginForm: React.FC = () => {
           </div>
         </div>
       </form>
-      <div className="flex flex-col items-center justify-center relative text-sm text-black mt-6 mb-3.5">
+      <div className="flex flex-col items-center justify-center relative text-sm mt-6 mb-3.5">
         <hr className="w-full border-gray-600" />
         {/* <span className="absolute -top-2.5 px-2 bg-white">
 					{t("common:text-or")}
 				</span> */}
       </div>
       <button
-        className="h-11 md:h-12 mt-2.5 text-center w-full google-text-button bg-white flex items-center rounded-md text-sm font-semibold gap-4"
+        className="h-11 md:h-12 mt-2.5 text-center w-full google-text-button bg-white flex items-center rounded-md text-sm font-semibold gap-4 text-gray-750"
         onClick={handleGoogleLogin}
       >
         <FcGoogle size={22} />
@@ -199,7 +207,7 @@ const LoginForm: React.FC = () => {
         {t("common:text-login-with-google")}
       </Button> */}
       <div className="w-full flex flex-col">
-        <div className="text-sm sm:text-base text-white text-center mt-5 mb-1">
+        <div className="text-sm sm:text-base  text-center mt-5 mb-1">
           {t("common:text-no-account")}{" "}
           <button
             type="button"
@@ -209,7 +217,7 @@ const LoginForm: React.FC = () => {
             {t("common:text-register")}
           </button>
         </div>
-        <div className="text-sm sm:text-base text-white text-center mt-5 mb-1">
+        <div className="text-sm sm:text-base  text-center mt-5 mb-1">
           Forget your password?{" "}
           <button
             type="button"

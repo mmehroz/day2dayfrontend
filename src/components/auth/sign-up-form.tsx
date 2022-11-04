@@ -9,11 +9,15 @@ import { ImGoogle2, ImFacebook2 } from "react-icons/im";
 import Link from "@components/ui/link";
 import { ROUTES } from "@utils/routes";
 import { useTranslation } from "next-i18next";
+import { useContext } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 const SignUpForm: React.FC = () => {
   const { t } = useTranslation();
   const { mutate: signUp, isLoading } = useSignUpMutation();
   const { setModalView, openModal, closeModal } = useUI();
+  const { theme } = useContext(colorsContext);
+
   const {
     register,
     handleSubmit,
@@ -34,23 +38,28 @@ const SignUpForm: React.FC = () => {
     });
   }
   return (
-    <div className="py-5 px-5 sm:px-8 bg-gray-700 mx-auto rounded-lg w-full sm:w-96 md:w-450px">
+    <div
+      style={{
+        backgroundColor: theme.backgroundColor,
+      }}
+      className="py-5 px-5 sm:px-8 mx-auto rounded-lg w-full sm:w-96 md:w-450px"
+    >
       <div className="text-center mb-6 pt-2.5">
         <div onClick={closeModal}>
           <Logo />
         </div>
-        <p className="text-sm md:text-base text-body mt-2 mb-8 sm:mb-10">
+        <p className="text-sm md:text-base mt-2 mb-8 sm:mb-10">
           {t("common:registration-helper")}{" "}
           <Link
             href={ROUTES.TERMS}
-            className="text-heading underline hover:no-underline focus:outline-none"
+            className=" underline hover:no-underline focus:outline-none"
           >
             {t("common:text-terms")}
           </Link>{" "}
           &amp;{" "}
           <Link
             href={ROUTES.POLICY}
-            className="text-heading underline hover:no-underline focus:outline-none"
+            className="underline hover:no-underline focus:outline-none"
           >
             {t("common:text-policy")}
           </Link>
@@ -114,9 +123,20 @@ const SignUpForm: React.FC = () => {
           </div>
         </div>
       </form>
-      <div className="flex flex-col items-center justify-center relative text-sm text-heading mt-6 mb-3.5">
-        <hr className="w-full border-gray-300" />
-        <span className="absolute -top-2.5 px-2 bg-gray-800 rounded-md">
+      <div className="flex flex-col items-center justify-center relative text-sm mt-6 mb-3.5">
+        <hr
+          style={{
+            borderColor: theme.borderColor,
+          }}
+          className="w-full "
+        />
+        <span
+          style={{
+            backgroundColor: theme.backgroundColorSecondary,
+            color: theme.textColor,
+          }}
+          className="absolute -top-2.5 px-2 bg-gray-800 rounded-md"
+        >
           OR
         </span>
       </div>

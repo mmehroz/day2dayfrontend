@@ -7,6 +7,8 @@ import { FaLink } from "react-icons/fa";
 import { LinkProps } from "next/link";
 import { useTranslation } from "next-i18next";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+import { useContext } from "react";
+import { colorsContext } from "@contexts/colors.context";
 
 interface Props {
   item: any;
@@ -23,15 +25,15 @@ const Card: React.FC<Props> = ({
   effectActive = false,
   href,
 }) => {
-
   const { brand_name, brand_image } = item ?? {};
   const imageSize: any =
     (size === "small" && 180) || (size === "medium" && 198);
 
   const placeholderImage = `/assets/placeholder/card-${size}.svg`;
   const { t } = useTranslation("common");
-  const myLoader = ({ src }) => {
+  const { darkTheme } = useContext(colorsContext);
 
+  const myLoader = ({ src }) => {
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/brands/${src}`;
   };
   return (
@@ -40,7 +42,6 @@ const Card: React.FC<Props> = ({
       className="group flex justify-center text-center flex-col"
     >
       <div
-
         className={`relative bg-white inline-flex mb-3.5 md:mb-4 lg:mb-5 xl:mb-6 mx-auto ${
           variant === "rounded" ? "rounded-md" : "rounded-full"
         }`}
@@ -53,7 +54,7 @@ const Card: React.FC<Props> = ({
             width={imageSize}
             height={imageSize}
             quality={100}
-            className={`object-cover  ${
+            className={`object-cover ${!darkTheme && "brands-inverts"}    ${
               variant === "rounded" ? "rounded-md" : "rounded-full"
             }`}
           />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Link from "@components/ui/link";
 import { siteSettings } from "@settings/site-settings";
 import Scrollbar from "@components/common/scrollbar";
@@ -17,6 +17,7 @@ import React from "react";
 import http from "@framework/utils/http";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { useRouter } from "next/router";
+import { colorsContext } from "@contexts/colors.context";
 
 const social = [
   {
@@ -53,6 +54,7 @@ export default function MobileMenu() {
   const [activeMenus, setActiveMenus] = useState<any>([]);
   const { site_header } = siteSettings;
   const router = useRouter();
+  const { theme } = useContext(colorsContext);
 
   const { closeSidebar } = useUI();
   const { t } = useTranslation("menu");
@@ -81,11 +83,16 @@ export default function MobileMenu() {
     className = "",
   }: any): JSX.Element =>
     data.category_name ? (
-      <li className={`mb-0.5 ${className}`}>
-        <div className="flex items-center justify-between relative  bg-gray-800">
+      <li
+        style={{
+          color: theme.textColor,
+        }}
+        className={`mb-0.5 ${className}`}
+      >
+        <div className="flex items-center justify-between relative">
           <Link
             href={`/product/product-main/${data?.category_slug}`}
-            className="w-full text-[15px] menu-item relative  bg-gray-800 py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out"
+            className="w-full text-[15px] menu-item relative py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out"
           >
             <span className="block w-full" onClick={closeSidebar}>
               {t(`${data.category_name}`)}
@@ -97,7 +104,8 @@ export default function MobileMenu() {
               onClick={() => handleArrowClick(menuName)}
             >
               <IoIosArrowDown
-                className={`transition duration-200 ease-in-out transform  text-heading ${
+                style={{}}
+                className={`transition duration-200 ease-in-out transform ${
                   activeMenus.includes(menuName) ? "-rotate-180" : "rotate-0"
                 }`}
               />
@@ -116,10 +124,10 @@ export default function MobileMenu() {
     ) : (
       data?.subcategory_name && (
         <li className={`mb-0.5 ${className}`}>
-          <div className="flex items-center justify-between relative  bg-gray-800">
+          <div className="flex items-center justify-between relative  ">
             <Link
               href={`/product/product-sub/${data?.subcategory_slug}`}
-              className="w-full text-[15px] menu-item relative  bg-gray-800 py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out"
+              className="w-full text-[15px] menu-item relative py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out"
             >
               <span
                 className="block w-full"
@@ -136,7 +144,7 @@ export default function MobileMenu() {
                 onClick={() => handleArrowClick(menuName)}
               >
                 <IoIosArrowDown
-                  className={`transition duration-200 ease-in-out transform  text-heading ${
+                  className={`transition duration-200 ease-in-out transform ${
                     activeMenus.includes(menuName) ? "-rotate-180" : "rotate-0"
                   }`}
                 />
@@ -148,7 +156,9 @@ export default function MobileMenu() {
               href={`/product/product-sub/${data?.subcategory_slug}`}
               className="w-full text-[15px] p-1"
             >
-              <span className="block w-full px-9 font-semibold">{t(`${data.subcategory_name}`)}</span>
+              <span className="block w-full px-9 font-semibold">
+                {t(`${data.subcategory_name}`)}
+              </span>
             </Link>
           )}
           {data?.inner && (
@@ -237,30 +247,49 @@ export default function MobileMenu() {
 
   return (
     <>
-      <div className="flex flex-col justify-between w-full h-full">
-        <div className="w-full border-b border-gray-100  bg-gray-800 flex justify-between items-center relative ps-5 md:ps-7 flex-shrink-0 py-0.5">
+      <div className="flex flex-col justify-between w-full h-full ">
+        <div
+          style={{
+            borderColor: theme.borderColor,
+            backgroundColor: theme.backgroundColorSecondary,
+          }}
+          className="w-full border-b  flex justify-between items-center relative ps-5 md:ps-7 flex-shrink-0 py-0.5"
+        >
           <Logo />
 
           <button
-            className="flex text-2xl items-center justify-center text-gray-500 px-4 md:px-6 py-6 lg:py-8 focus:outline-none transition-opacity hover:opacity-60"
+            className="flex text-2xl items-center justify-center  px-4 md:px-6 py-6 lg:py-8 focus:outline-none transition-opacity hover:opacity-60"
             onClick={closeSidebar}
             aria-label="close"
           >
-            <IoClose className="text-white mt-1 md:mt-0.5" />
+            <IoClose className="mt-1 md:mt-0.5" />
           </button>
         </div>
 
-        <Scrollbar className="menu-scrollbar flex-grow mb-auto  bg-gray-800">
-          <div className="flex flex-col py-7 px-0 lg:px-2 text-heading">
+        <Scrollbar
+          style={{
+            backgroundColor: theme.backgroundColorSecondary,
+            color: theme.textColor,
+          }}
+          className="menu-scrollbar flex-grow mb-auto"
+        >
+          <div className="flex flex-col py-7 px-0 lg:px-2">
             <ul className="mobileMenu">{renderData()}</ul>
           </div>
         </Scrollbar>
 
-        <div className="flex items-center justify-center  bg-gray-800 bg-white border-t border-gray-100 px-7 flex-shrink-0 space-s-1">
+        <div
+          style={{
+            backgroundColor: theme.backgroundColorSecondary,
+            color: theme.textColor,
+            borderColor: theme.borderColor,
+          }}
+          className="flex items-center justify-center   border-t px-7 flex-shrink-0 space-s-1"
+        >
           {social?.map((item, index) => (
             <a
               href={item.link}
-              className={`text-heading p-5 opacity-60  first:-ms-4 transition duration-300 ease-in hover:opacity-100 ${item.className}`}
+              className={`p-5 opacity-60  first:-ms-4 transition duration-300 ease-in hover:opacity-100 ${item.className}`}
               target="_blank"
               key={index}
             >
