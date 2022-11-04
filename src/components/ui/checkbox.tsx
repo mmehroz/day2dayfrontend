@@ -20,15 +20,28 @@ export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
     useEffect(() => {
       console.log(router?.query);
       console.log("router query");
+
+
       if (router?.query?.product_sub?.toString()?.includes("+")) {
         const val = router?.query?.product_sub?.toString()?.split("+");
         setValues(val);
       }
+
+      if (router?.query?.product_main?.toString()?.includes("+")) {
+        const val = router?.query?.product_main?.toString()?.split("+");
+        setValues(val);
+      }
+      if (router?.query?.product_inner?.toString()?.includes("+")) {
+        const val = router?.query?.product_inner?.toString()?.split("+");
+        setValues(val);
+      }
+
+
     }, [router?.query]);
 
     const renderBackgrounColor = () => {
       if (!darkTheme) {
-        const isChecked = values.find(
+        const isChecked = values?.find(
           (el) =>
             el?.toLowerCase() === label?.toLowerCase()?.split(" ")?.join("-")
         );
