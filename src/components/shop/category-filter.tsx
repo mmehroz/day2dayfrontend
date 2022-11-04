@@ -70,6 +70,8 @@ export const CategoryFilter = ({ currentCategory }: any) => {
     };
   }, [router?.query]);
 
+  console.log("current category: ", currentCategory);
+
   return (
     <div
       style={{ color: theme.textColor }}
@@ -79,23 +81,12 @@ export const CategoryFilter = ({ currentCategory }: any) => {
         {t("text-category")}
       </h3>
       <div className="mt-2 flex flex-col space-y-4">
-        {currentCategory?.length
-          ? currentCategory !== "Multi Product" ||
-            (currentCategory !== "Multi Brand Product" && (
-              <CheckBox
-                key={1}
-                label={currentCategory}
-                name={currentCategory}
-                checked={currentCategory?.length >= 1}
-                value={""}
-                onChange={() => {}}
-              />
-            ))
-          : null}
+        
         {categories?.map((el, i) => {
           if (
             el?.subcategory_name === currentCategory ||
-            el?.category_name === currentCategory
+            el?.category_name === currentCategory ||
+            el?.subcategory_name === "Multi Product"
           ) {
             return;
           }

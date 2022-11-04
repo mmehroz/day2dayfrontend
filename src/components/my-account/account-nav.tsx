@@ -10,6 +10,8 @@ import {
 import { ROUTES } from "@utils/routes";
 import { useLogoutMutation } from "@framework/auth/use-logout";
 import { useTranslation } from "next-i18next";
+import { colorsContext } from "@contexts/colors.context";
+import { useContext } from "react";
 
 const accountMenu = [
   {
@@ -30,6 +32,7 @@ const accountMenu = [
 ];
 
 export default function AccountNav() {
+  const { theme } = useContext(colorsContext);
   const { mutate: logout } = useLogoutMutation();
   const { pathname } = useRouter();
   const newPathname = pathname.split("/").slice(2, 3);
@@ -44,10 +47,15 @@ export default function AccountNav() {
         return (
           <Link key={item.slug} href={item.slug}>
             <a
+              style={{
+                backgroundColor:
+                  mainPath === menuPath ? theme.backgroundColorThird : "",
+                color: theme.textColor,
+              }}
               className={
                 mainPath === menuPath
-                  ? "bg-gray-700 font-semibold flex items-center cursor-pointer text-sm lg:text-base text-heading py-3.5 px-4 lg:px-5 rounded mb-2 "
-                  : "flex items-center cursor-pointer text-sm lg:text-base text-heading font-normal py-3.5 px-4 lg:px-5 rounded mb-2"
+                  ? "bg-gray-700 font-semibold flex items-center cursor-pointer text-sm lg:text-base text- py-3.5 px-4 lg:px-5 rounded mb-2 "
+                  : "flex items-center cursor-pointer text-sm lg:text-base text- font-normal py-3.5 px-4 lg:px-5 rounded mb-2"
               }
             >
               {item.icon}
@@ -57,7 +65,10 @@ export default function AccountNav() {
         );
       })}
       <button
-        className="flex items-center cursor-pointer text-sm lg:text-base text-heading font-normal py-3.5 px-4 lg:px-5 focus:outline-none"
+        style={{
+          color: theme.textColor,
+        }}
+        className="flex items-center cursor-pointer text-sm lg:text-base text- font-normal py-3.5 px-4 lg:px-5 focus:outline-none"
         onClick={() => logout()}
       >
         <IoLogOutOutline className="w-5 h-5" />

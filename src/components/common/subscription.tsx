@@ -56,7 +56,7 @@ const Subscription: React.FC<Props> = ({
       <div className="-mt-1.5 lg:ml-10 lg:-mt-2 xl:-mt-0.5 text-center xl:text-start mb-7 md:mb-8 lg:mb-9 xl:mb-0">
         <Text
           variant="mediumHeading"
-          className="mb-2 md:mb-2.5 lg:mb-3 xl:mb-3.5"
+          className="mb-2 md:mb-2.5 lg:mb-3 xl:mb-3.5 text-white"
         >
           {t(`${title}`)}
         </Text>

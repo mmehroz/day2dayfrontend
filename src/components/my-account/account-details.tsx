@@ -66,7 +66,7 @@ const AccountDetails: React.FC<Props> = ({ data }) => {
       variants={fadeInTop(0.35)}
       className={`w-full flex flex-col`}
     >
-      <h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading xl:mb-8">
+      <h2 className="text-lg md:text-xl xl:text-2xl font-bold  xl:mb-8">
         {t("common:text-account-details")}
       </h2>
       <form

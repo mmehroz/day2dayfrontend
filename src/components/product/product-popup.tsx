@@ -245,10 +245,11 @@ export default function ProductPopup() {
                 {t('text-add-to-cart')}
               </Button> */}
               <Button
+
                 onClick={addToCart}
                 variant="slim"
                 style={{
-                  backgroundColor: theme.backgroundColor,
+                  backgroundColor: theme.backgroundColorThird,
                   color: theme.textColor,
                 }}
                 className={`w-full md:w-6/12 xl:w-full `}

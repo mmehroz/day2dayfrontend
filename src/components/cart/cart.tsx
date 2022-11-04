@@ -70,9 +70,7 @@ export default function Cart() {
           className="px-5 md:px-7 pt-8 pb-5 flex justify-center flex-col items-center"
         >
           <EmptyCart />
-          <h3 className="text-lg - font-bold pt-8">
-            {t("text-empty-cart")}
-          </h3>
+          <h3 className="text-lg - font-bold pt-8">{t("text-empty-cart")}</h3>
         </motion.div>
       )}
 
@@ -82,6 +80,10 @@ export default function Cart() {
       >
         {username ? (
           <Link
+            style={{
+              backgroundColor: theme.backgroundColorThird,
+              color: theme.textColor,
+            }}
             href={isEmpty === false ? ROUTES.CHECKOUT : "/"}
             className={cn(
               "w-full px-5 py-3 md:py-4 flex items-center justify-center bg-gray-650 rounded-md text-sm sm:text-base text-white focus:outline-none transition duration-300 hover:bg-gradient-to-tr hover:to-orange-500 hover:from-orange-800 ",
@@ -101,11 +103,15 @@ export default function Cart() {
           </Link>
         ) : (
           <div
+            style={{
+              backgroundColor: theme.backgroundColorThird,
+              color: theme.textColor,
+            }}
             onClick={handleLoginFormView}
             className={cn(
-              "w-full px-5 cursor-pointer py-3 md:py-4 flex items-center justify-center  rounded-md text-sm sm:text-base  focus:outline-none transition duration-300 hover:bg-gradient-to-tr hover:to-orange-500 hover:from-orange-800 ",
+              "w-full  px-5 cursor-pointer py-3 md:py-4 flex items-center justify-center  rounded-md text-sm sm:text-base  focus:outline-none transition duration-300 hover:bg-gradient-to-tr hover:to-orange-500 hover:from-orange-800 ",
               {
-                "cursor-not-allowed bg-gray-400 hover:bg-gradient-to-tr hover:to-orange-500 hover:from-orange-800 ":
+                "cursor-not-allowed  hover:bg-gradient-to-tr hover:to-orange-500 hover:from-orange-800 ":
                   isEmpty,
               }
             )}

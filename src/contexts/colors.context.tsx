@@ -7,6 +7,9 @@ const lightTheme = {
   textColor: "#1e293b",
   backgroundColorSecondary: "#f4f4f5",
   cardBg: "#fff",
+  secondaryTextColor: "#1e293b",
+  borderColor: "#4b5563",
+  backgroundColorThird: "#d4d4d8",
 };
 
 const darkThemeUi = {
@@ -14,10 +17,22 @@ const darkThemeUi = {
   textColor: "#fff",
   backgroundColorSecondary: "#292929",
   cardBg: "#292929",
+  secondaryTextColor: "#1e293b",
+  borderColor: "#d1d5db",
+  backgroundColorThird: "#292929",
 };
 
 export const Provider = ({ children }) => {
   const [darkTheme, setDarkTheme] = useState(false);
+  const [theme, setTheme] = useState({
+    backgroundColor: lightTheme.backgroundColor,
+    textColor: lightTheme.textColor,
+    backgroundColorSecondary: lightTheme.backgroundColorSecondary,
+    cardBg: lightTheme.cardBg,
+    secondaryTextColor: lightTheme.secondaryTextColor,
+    borderColor: lightTheme.borderColor,
+    backgroundColorThird: lightTheme.backgroundColorThird,
+  });
 
   useEffect(() => {
     const res = localStorage.getItem("nightMode");
@@ -33,6 +48,9 @@ export const Provider = ({ children }) => {
         textColor: lightTheme.textColor,
         backgroundColorSecondary: lightTheme.backgroundColorSecondary,
         cardBg: lightTheme.cardBg,
+        secondaryTextColor: lightTheme.secondaryTextColor,
+        borderColor: lightTheme.borderColor,
+        backgroundColorThird: lightTheme.backgroundColorThird,
       });
       return;
     }
@@ -42,6 +60,9 @@ export const Provider = ({ children }) => {
       textColor: darkThemeUi.textColor,
       backgroundColorSecondary: darkThemeUi.backgroundColorSecondary,
       cardBg: darkThemeUi.cardBg,
+      secondaryTextColor: darkThemeUi.secondaryTextColor,
+      borderColor: darkThemeUi.borderColor,
+      backgroundColorThird: darkThemeUi.backgroundColorThird,
     });
   }, [darkTheme]);
 
@@ -56,13 +77,6 @@ export const Provider = ({ children }) => {
     localStorage.setItem("nightMode", "");
     setDarkTheme(false);
   };
-
-  const [theme, setTheme] = useState({
-    backgroundColor: lightTheme.backgroundColor,
-    textColor: lightTheme.textColor,
-    backgroundColorSecondary: lightTheme.backgroundColorSecondary,
-    cardBg: lightTheme.cardBg,
-  });
 
   const val = {
     name: "haris",

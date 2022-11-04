@@ -476,7 +476,12 @@ const ProductSingleDetails: React.FC = () => {
           }}
           className="col-span-4 pt-8 lg:pt-0"
         >
-          <div className="pb-7 mb-7 border-b border-gray-300">
+          <div
+            style={{
+              borderColor: theme.borderColor,
+            }}
+            className="pb-7 mb-7 border-b "
+          >
             <h2 className="text- text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-bold  mb-3.5">
               {data?.details?.product_name}
             </h2>
@@ -509,7 +514,12 @@ const ProductSingleDetails: React.FC = () => {
           </div>
 
           {data?.sortvariants?.length ? (
-            <div className="pb-3 border-b border-gray-300">
+            <div
+              style={{
+                borderColor: theme.borderColor,
+              }}
+              className="pb-3 border-b"
+            >
               {data?.sortvariants?.map((variation: any) => {
                 return (
                   <ProductAttributes
@@ -525,7 +535,12 @@ const ProductSingleDetails: React.FC = () => {
             </div>
           ) : null}
 
-          <div className="flex items-center space-s-4 md:pe-32 lg:pe-12 2xl:pe-32 3xl:pe-48 border-b border-gray-300 py-8">
+          <div
+            style={{
+              borderColor: theme.borderColor,
+            }}
+            className="flex items-center space-s-4 md:pe-32 lg:pe-12 2xl:pe-32 3xl:pe-48 border-b py-8"
+          >
             <Counter
               quantity={quantity}
               onIncrement={() => {
@@ -587,7 +602,13 @@ const ProductSingleDetails: React.FC = () => {
                 <span>{data?.details?.product_code}</span>
               </li>
             </ul>
-            <div className="w-full h-2 border-t mt-6 mb-6" />
+
+            <div
+              style={{
+                borderColor: theme.borderColor,
+              }}
+              className="w-full h-2 border-t mt-6 mb-6 "
+            />
 
             <div
               style={{
@@ -627,7 +648,12 @@ const ProductSingleDetails: React.FC = () => {
                 )}
               </AnimatePresence>
             </div>
-            <div className="w-full h-2 border-t mt-6 mb-6" />
+            <div
+              style={{
+                borderColor: theme.borderColor,
+              }}
+              className="w-full h-2 border-t mt-6 mb-6"
+            />
 
             <div
               onClick={handleFilters("additionalInformation")}
@@ -663,7 +689,12 @@ const ProductSingleDetails: React.FC = () => {
               </AnimatePresence>
             </div>
 
-            <div className="w-full h-2 border-t mt-6 mb-6" />
+            <div
+              style={{
+                borderColor: theme.borderColor,
+              }}
+              className="w-full h-2 border-t mt-6 mb-6"
+            />
 
             <div className="flex flex-col cursor-pointer">
               <div
@@ -711,7 +742,7 @@ const ProductSingleDetails: React.FC = () => {
                     </div>
                     <div className="w-full flex mt-10 gap-4">
                       <div className="w-1/2 gap-2 flex-col flex">
-                        <span className="text-[15px] text-white font-semibold">
+                        <span className="text-[15px]  font-semibold">
                           Name *
                         </span>
                         <input
@@ -721,7 +752,7 @@ const ProductSingleDetails: React.FC = () => {
                         />
                       </div>
                       <div className="w-1/2 gap-2 flex-col flex">
-                        <span className="text-[15px] text-white font-semibold">
+                        <span className="text-[15px]  font-semibold">
                           Email *
                         </span>
                         <input

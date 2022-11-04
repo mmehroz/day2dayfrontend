@@ -13,6 +13,7 @@ import React, {
   MouseEventHandler,
   useState,
   useEffect,
+  useContext,
 } from "react";
 import { useCart } from "@contexts/cart/cart.context";
 import StripeForm from "./stripeform";
@@ -23,6 +24,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { colorsContext } from "@contexts/colors.context";
 
 const stripePromise = loadStripe(
   "pk_test_51LlCssCVRAHAPBm9moh5aAbTUwjSTPLBzLS7YzORjpqZNsgqegAsBfGbQEDJRJT9DwooY66Peu1O7TYA4oDJowJt00ncXw0GvS"
@@ -45,6 +47,7 @@ const CheckoutForm: React.FC = () => {
   const { total, items, clearItemFromCart } = useCart();
   const [clientSecret, setClientSecret] = useState<string>("");
   const [showStripe, setShowStripe] = useState<boolean>(false);
+  const { theme } = useContext(colorsContext);
   const { price } = usePrice({
     amount: total,
     currencyCode: "USD",
@@ -179,10 +182,18 @@ const CheckoutForm: React.FC = () => {
 
   return (
     <>
-      <h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading mb-6 xl:mb-8">
+      <h2
+        style={{
+          color: theme.colorText,
+        }}
+        className="text-lg md:text-xl xl:text-2xl font-bold  mb-6 xl:mb-8"
+      >
         {t("text-shipping-address")}
       </h2>
       <form
+        style={{
+          color: theme.colorText,
+        }}
         onSubmit={handleSubmit(onSubmit)}
         className="w-full mx-auto flex flex-col justify-center "
         noValidate

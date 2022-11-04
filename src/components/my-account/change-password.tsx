@@ -69,7 +69,7 @@ const ChangePassword: React.FC = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading mb-6 xl:mb-8">
+      <h2 className="text-lg md:text-xl xl:text-2xl font-bold mb-6 xl:mb-8">
         {t("common:text-change-password")}
       </h2>
       <motion.div

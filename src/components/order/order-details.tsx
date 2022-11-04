@@ -2,10 +2,11 @@ import usePrice from "@framework/product/use-price";
 import { OrderItem } from "@framework/types";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import OrdersTable from "@components/my-account/orders-table";
+import { colorsContext } from "@contexts/colors.context";
 
 const OrderItemCard = ({ product }: { product: OrderItem }) => {
   const { price: itemTotal } = usePrice({
@@ -33,7 +34,8 @@ const OrderDetails: React.FC<{
   } = useRouter();
 
   const [orderDetails, setOrderDetails] = useState<any>([]);
-  const [total, setTotal] = useState<number>(0);
+  const [_total, setTotal] = useState<number>(0);
+  const { theme } = useContext(colorsContext);
 
   useEffect(() => {
     if (!orderDetails?.length) return;
@@ -73,17 +75,37 @@ const OrderDetails: React.FC<{
   console.log(orderDetails);
 
   return (
-    <div className={className}>
-      <h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading mb-6 xl:mb-8">
+    <div
+      style={{
+        color: theme.textColor,
+      }}
+      className={className}
+    >
+      <h2 className="text-lg md:text-xl xl:text-2xl font-bold  mb-6 xl:mb-8">
         {t("text-order-details")}:
       </h2>
-      <table className="w-full text-heading font-semibold text-sm lg:text-base">
+      <table
+        style={{
+          color: theme.textColor,
+        }}
+        className="w-full font-semibold text-sm lg:text-base"
+      >
         <thead>
           <tr>
-            <th className="bg-gray-700 p-4 text-start first:rounded-ts-md w-1/2">
+            <th
+              style={{
+                backgroundColor: theme.backgroundColorThird,
+              }}
+              className="p-4 text-start first:rounded-ts-md w-1/2"
+            >
               {t("text-product")}
             </th>
-            <th className="bg-gray-700 p-4 text-start last:rounded-te-md w-1/2">
+            <th
+              style={{
+                backgroundColor: theme.backgroundColorThird,
+              }}
+              className="p-4 text-start last:rounded-te-md w-1/2"
+            >
               {t("text-total")}
             </th>
           </tr>
@@ -103,11 +125,21 @@ const OrderDetails: React.FC<{
           })}
         </tbody>
         <tfoot>
-          <tr className="odd:bg-gray-700">
+          <tr
+            style={{
+              backgroundColor: theme.backgroundColorThird,
+            }}
+            className=""
+          >
             <td className="p-4 italic">{t("text-sub-total")}:</td>
             <td className="p-4"> ${orderDetails?.paymetdetails?.subtotal}</td>
           </tr>
-          <tr className="odd:bg-gray-700">
+          <tr
+            style={{
+              backgroundColor: theme.backgroundColorThird,
+            }}
+            className="odd:bg-gray-700"
+          >
             <td className="p-4 italic">{t("text-shipping")}:</td>
             <td className="p-4">
               $0
@@ -116,19 +148,29 @@ const OrderDetails: React.FC<{
               </span>
             </td>
           </tr>
-          <tr className="odd:bg-gray-700">
+          <tr
+            style={{
+              backgroundColor: theme.backgroundColorThird,
+            }}
+            className="odd:bg-gray-700"
+          >
             <td className="p-4 italic">{t("text-payment-method")}:</td>
             <td className="p-4">
               {orderDetails?.paymetdetails?.payment_method}
             </td>
           </tr>
-          <tr className="odd:bg-gray-150">
+          <tr className="">
             <td className="p-4 italic">{t("text-total")}:</td>
             <td className="p-4">
               ${orderDetails?.paymetdetails?.total_amount}
             </td>
           </tr>
-          <tr className="odd:bg-gray-700">
+          <tr
+            style={{
+              backgroundColor: theme.backgroundColorThird,
+            }}
+            className=""
+          >
             <td className="p-4 italic">{t("text-note")}:</td>
             <td className="p-4">{orderDetails?.message}</td>
           </tr>

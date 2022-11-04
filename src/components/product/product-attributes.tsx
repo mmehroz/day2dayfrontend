@@ -32,6 +32,11 @@ export const ProductAttributes: React.FC<Props> = ({
         {/* {attributes?.map(({ id, value, meta }) => ( */}
         {attributes?.map(({ id, size, quantity }) => (
           <li
+            
+            style={{
+              borderColor: size === active ?  '#f97316' : theme.borderColor,
+       
+            }}
             key={`${size}-${id}`}
             className={cn(
               "cursor-pointer rounded-md border  p-2 mb-2 md:mb-3 me-2 md:me-3 flex justify-center items-center text- text-xs md:text-sm uppercase font-semibold transition duration-200 ease-in-out hover:border-orange-500",
