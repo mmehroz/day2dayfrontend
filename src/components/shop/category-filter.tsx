@@ -74,13 +74,12 @@ export const CategoryFilter = ({ currentCategory }: any) => {
 
   return (
     <div
-      style={{ color: theme.textColor }}
       className="block border-b border-gray-300 pb-7 mb-7"
     >
       <h3 className=" text-sm md:text-base font-semibold mb-7">
         {t("text-category")}
       </h3>
-      <div className="mt-2 flex flex-col space-y-4">
+      <div className="mt-2 flex flex-col space-y-4 h-[10rem] overflow-y-scroll">
         
         {categories?.map((el, i) => {
           if (

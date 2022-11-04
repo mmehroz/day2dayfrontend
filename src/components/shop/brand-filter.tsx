@@ -130,7 +130,7 @@ export const BrandFilter = () => {
       <h3 className=" text-sm md:text-base font-semibold mb-7">
         {t("text-brands")}
       </h3>
-      <div className="mt-2 flex flex-col space-y-4">
+      <div className="mt-2 flex flex-col space-y-4 h-[10rem] overflow-y-scroll">
         {dataSecondary?.pages[0]?.brandname ? (
           <CheckBox
             key={"brand-data"}
