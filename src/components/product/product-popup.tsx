@@ -36,6 +36,7 @@ export default function ProductPopup() {
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
   const [quantitySelected, setQuantitySelected] = useState(0);
   const { theme } = useContext(colorsContext);
+  const [variantPrice, setVariantPrice] = useState(0);
 
   const { selling_price, purchase_price, discount_price } = usePrice({
     amount: data.sale_price ? data.sale_price : data.selling_price,
@@ -76,7 +77,15 @@ export default function ProductPopup() {
       return;
     }
 
-    const item = generateCartItem(data!, attributes);
+    const item = generateCartItem(
+      {
+        ...data,
+        discount_price: variantPrice
+          ? variantPrice
+          : data?.details?.discount_price,
+      },
+      attributes
+    );
 
     addItemToCart(item, quantity);
     toast("Added to the bag", {
@@ -142,6 +151,10 @@ export default function ProductPopup() {
     return openModal();
   }
 
+  function handleVariantData(data) {
+    setVariantPrice(data?.variantprice);
+  }
+
   return (
     <div
       style={{
@@ -178,7 +191,7 @@ export default function ProductPopup() {
             {userName ? (
               <div className="flex items-center mt-3">
                 <div className="text- font-semibold text-base md:text-xl lg:text-2xl">
-                  ${data?.discount_price}.00
+                  ${variantPrice ? variantPrice : data?.discount_price}.00
                 </div>
                 {data?.selling_price && (
                   <del className="font-segoe  text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
@@ -207,6 +220,8 @@ export default function ProductPopup() {
                 // attributes={variation.attributes}
                 active={attributes[variation?.name]}
                 onClick={handleAttribute}
+                handleVariant={handleVariantData}
+                data={variation}
               />
             );
           })}
@@ -245,7 +260,6 @@ export default function ProductPopup() {
                 {t('text-add-to-cart')}
               </Button> */}
               <Button
-
                 onClick={addToCart}
                 variant="slim"
                 style={{

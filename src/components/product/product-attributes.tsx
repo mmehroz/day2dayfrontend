@@ -13,6 +13,8 @@ interface Props {
   }[];
   active: string;
   onClick: any;
+  data: any;
+  handleVariant: any;
 }
 
 export const ProductAttributes: React.FC<Props> = ({
@@ -21,21 +23,21 @@ export const ProductAttributes: React.FC<Props> = ({
   attributes,
   active,
   onClick,
+  data,
+  handleVariant,
 }) => {
   const { theme } = useContext(colorsContext);
   return (
-    <div className={className}>
+    <div  className={className}>
       <h3 className="text-base md:text-lg  font-semibold mb-2.5 capitalize">
         {title}
       </h3>
       <ul className="colors flex flex-wrap -me-3">
         {/* {attributes?.map(({ id, value, meta }) => ( */}
-        {attributes?.map(({ id, size, quantity }) => (
+        {attributes?.map(({ id, size, quantity, variantprice }) => (
           <li
-            
             style={{
-              borderColor: size === active ?  '#f97316' : theme.borderColor,
-       
+              borderColor: size === active ? "#f97316" : theme.borderColor,
             }}
             key={`${size}-${id}`}
             className={cn(
@@ -44,7 +46,10 @@ export const ProductAttributes: React.FC<Props> = ({
                 "border-pink-500": size === active,
               }
             )}
-            onClick={() => onClick({ [title]: size })}
+            onClick={() => {
+              handleVariant({ variantprice, quantity });
+              onClick({ [title]: size });
+            }}
           >
             {title === "color" ? (
               <span

@@ -74,6 +74,7 @@ const ProductSingleDetails: React.FC = () => {
     additionalInformation: false,
     customerReviews: false,
   });
+  const [variantPrice, setVariantPrice] = useState(0);
 
   const { price, basePrice, discount } = usePrice(
     data && {
@@ -111,7 +112,15 @@ const ProductSingleDetails: React.FC = () => {
       setAddToCartLoader(false);
     }, 600);
 
-    const item = generateCartItem(data?.details, attributes);
+    const item = generateCartItem(
+      {
+        ...data?.details,
+        discount_price: variantPrice
+          ? variantPrice
+          : data?.details?.discount_price,
+      },
+      attributes
+    );
 
     if (
       quantitySelected >= parseInt(data?.details?.product_qty) ||
@@ -141,6 +150,12 @@ const ProductSingleDetails: React.FC = () => {
     });
 
     setQuantitySelected((prev) => prev + 1);
+  }
+
+  function handleVariantData(data: any) {
+    console.log(data);
+    console.log("variant data");
+    setVariantPrice(data?.variantprice);
   }
 
   function handleAttribute(attribute: any) {
@@ -495,7 +510,11 @@ const ProductSingleDetails: React.FC = () => {
               {userName ? (
                 <React.Fragment>
                   <div className="text- font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-                    ${data?.details?.discount_price}.00
+                    $
+                    {variantPrice
+                      ? variantPrice
+                      : data?.details?.discount_price}
+                    .00
                   </div>
 
                   <span className="line-through font-segoe text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl ps-2">
@@ -529,6 +548,8 @@ const ProductSingleDetails: React.FC = () => {
                     // attributes={variation.attributes}
                     active={attributes[variation?.name]}
                     onClick={handleAttribute}
+                    handleVariant={handleVariantData}
+                    data={variation}
                   />
                 );
               })}
