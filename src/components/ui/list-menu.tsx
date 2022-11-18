@@ -4,9 +4,18 @@ import Link from "./link";
 import { useContext } from "react";
 import { colorsContext } from "@contexts/colors.context";
 
-const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
+const ListMenu = ({ dept, data, hasSubMenu, menuIndex, parent, sub }: any) => {
   const { t } = useTranslation("menu");
   const { theme } = useContext(colorsContext);
+
+  const renderLink = () => {
+    let link = "/product/";
+    if (parent) link = link + parent;
+    if (sub) link = `${link}/${sub}`;
+    link = `${link}/${data?.subcategory_slug}`;
+
+    return link;
+  };
 
   return (
     <li
@@ -17,9 +26,7 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
       className=""
     >
       <Link
-        href={`/product/${data?.id ? "product-sub/" : "product_inner/"}${
-          data?.id ? data?.subcategory_slug : data?.subcategory_slug
-        }`}
+        href={renderLink()}
         className="flex items-center justify-between py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading  hover:bg-gradient-to-tr to-orange-500 from-orange-800"
       >
         {t(data.subcategory_name)} {data?.subcategory_id}
@@ -35,15 +42,23 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex }: any) => {
         ) : null}
       </Link>
       {data?.inner?.length ? (
-        <SubMenu dept={dept} data={data.inner} menuIndex={menuIndex} />
+        <SubMenu
+          parent={parent}
+          dept={dept}
+          data={data.inner}
+          menuIndex={menuIndex}
+          sub={data?.subcategory_slug}
+        />
       ) : null}
     </li>
   );
 };
 
-const SubMenu: React.FC<any> = ({ dept, data, menuIndex }) => {
+const SubMenu: React.FC<any> = ({ dept, data, menuIndex, parent, sub }) => {
   const { theme } = useContext(colorsContext);
   dept = dept + 1;
+
+  console.log(data);
 
   return (
     <ul
@@ -64,6 +79,8 @@ const SubMenu: React.FC<any> = ({ dept, data, menuIndex }) => {
             menuName={menuName}
             key={menuName}
             menuIndex={index}
+            parent={parent}
+            sub={sub}
           />
         );
       })}

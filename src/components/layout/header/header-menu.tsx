@@ -99,7 +99,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
             key={item.category_id}
           >
             <Link
-              href={`/product/product-main/${item.category_slug}`}
+              href={`/product/${item.category_slug}`}
               className="inline-flex items-center text-sm xl:text-base px-3 xl:px-4 py-2 font-normal relative "
             >
               {t(item.category_name)}
@@ -140,6 +140,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
                         menuName={menuName}
                         key={menuName}
                         menuIndex={index}
+                        parent={item?.category_slug}
                       />
                     );
                   })}
@@ -161,7 +162,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
             key={item.category_id}
           >
             <Link
-              href={`/product/product-main/${item.category_slug}`}
+              href={`/product/${item.category_slug}`}
               className="inline-flex items-center text-sm xl:text-base  px-3 xl:px-4 py-2 font-normal relative "
             >
               {t(item.category_name)}

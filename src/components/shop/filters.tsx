@@ -26,6 +26,7 @@ export const ShopFilters: React.FC = () => {
 
   const { pathname, query } = router;
   const { t } = useTranslation("common");
+
   return (
     <div
       style={{
@@ -51,27 +52,16 @@ export const ShopFilters: React.FC = () => {
         <div className="flex flex-wrap -m-1.5 pt-2">
           {!isEmpty(query) &&
             Object.values(query)
-              .join(",")
-              .split(",")
+              .join("+" || ",")
+              .split("+" || ",")
               .map((v, idx) => (
-                <FilteredItem
-                  itemKey={
-                    Object.keys(query).find((k) => query[k]?.includes(v))!
-                  }
-                  itemValue={
-                    data?.pages[0]?.filtername
-                      ? data?.pages[0]?.filtername
-                      : data?.pages[0]?.brandname
-                  }
-                  key={idx}
-                />
+                <FilteredItem itemKey={v} itemValue={v} key={idx} />
               ))}
         </div>
       </div>
 
       <CategoryFilter currentCategory={data?.pages[0]?.filtername} />
       <BrandFilter />
-      {/* <ColorFilter /> */}
     </div>
   );
 };

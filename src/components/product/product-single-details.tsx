@@ -153,8 +153,7 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   function handleVariantData(data: any) {
-    console.log(data);
-    console.log("variant data");
+   
     setVariantPrice(data?.variantprice);
   }
 

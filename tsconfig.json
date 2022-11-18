@@ -52,7 +52,7 @@
     "additional.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "[subcat].tsx"  ],
   "exclude": [
     "node_modules"
   ]

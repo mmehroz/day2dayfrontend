@@ -17,6 +17,7 @@ import { userContext } from "@contexts/user.context";
 import { colorsContext } from "@contexts/colors.context";
 import { IoCloudyNight } from "react-icons/io5";
 import { MdNightsStay } from "react-icons/md";
+import { useWindowSize } from "@utils/use-window-size";
 
 const AuthMenu = dynamic(() => import("./auth-menu"), { ssr: false });
 const CartButton = dynamic(() => import("@components/cart/cart-button"), {
@@ -39,7 +40,9 @@ const Header: React.FC = () => {
   const siteHeaderRef = useRef() as DivElementRef;
   addActiveScroll(siteHeaderRef);
   const { name } = useContext(userContext);
-  const { theme, setNightMode, darkTheme, setLightMode } = useContext(colorsContext);
+  const { width } = useWindowSize();
+  const { theme, setNightMode, darkTheme, setLightMode } =
+    useContext(colorsContext);
   function handleLogin() {
     setModalView("LOGIN_VIEW");
     return openModal();
@@ -57,7 +60,7 @@ const Header: React.FC = () => {
     >
       <div className="text-white bg-gradient-to-r from-orange-500  to-pink-500 w-full my-0 fixed top-0 text-center py-2">
         <div class="marquee">
-          <div class="track">
+          <div class={` ${width > 400 ? "" : "track" } `}>
             <div class="content">
               &nbsp;WARNING! Some products contains nicotine. Nicotine is an
               addictive chemical

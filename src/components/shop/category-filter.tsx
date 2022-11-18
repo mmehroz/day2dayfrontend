@@ -18,32 +18,33 @@ export const CategoryFilter = ({ currentCategory }: any) => {
     let subscribe: boolean = false;
     if (subscribe) return;
     let id, postType;
+    console.log(router?.query);
 
     setHref(router?.asPath);
 
     if (
-      router?.query?.product_sub?.includes("+") ||
-      router?.query?.product_main?.includes("+")
+      router?.query?.subcat?.includes("+") ||
+      router?.query?.maincat?.includes("+")
     ) {
       const data =
-        router?.query?.product_sub?.toString()?.split("+") ??
-        router?.query?.product_main?.toString()?.split("+");
+        router?.query?.subcat?.toString()?.split("+") ??
+        router?.query?.maincat?.toString()?.split("+");
       setSelectedCategories(data);
     }
 
-    if (router?.query?.product_main) {
+    if (router?.query?.maincat) {
       postType = "parent";
-      id = router?.query?.product_main;
+      id = router?.query?.maincat;
     }
 
-    if (router?.query?.product_sub) {
+    if (router?.query?.subcat) {
       postType = "child";
-      id = router?.query?.product_sub;
+      id = router?.query?.subcat;
     }
 
-    if (router?.query?.product_inner) {
+    if (router?.query?.innercat) {
       postType = "sub";
-      id = router?.query?.product_inner;
+      id = router?.query?.innercat;
     }
 
     if (router?.query?.product_brand) {
@@ -71,65 +72,112 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   console.log("current category: ", currentCategory);
 
   const handleRoute = (el) => {
+    console.log("current element: ", el);
+
     if (
-      router?.query?.product_sub?.toString()?.includes("+") ||
-      router?.query?.product_main?.toString()?.includes("+")
+      router?.query?.subcat?.toString()?.includes("+") ||
+      router?.query?.maincat?.toString()?.includes("+") ||
+      router?.query?.innercat?.toString()?.includes("+")
     ) {
+      console.log("im here 81");
       let parsedSlug;
       let isDat;
+      let val;
 
-      const val =
-        router?.query?.product_sub?.toString()?.split("+") ??
-        router?.query?.product_main?.toString()?.split("+");
-
-      if (router?.query?.product_sub) {
-        isDat = val.find((vl, i) => vl === el?.subcategory_slug);
+      if (router?.query?.maincat?.toString()?.includes("+")) {
+        val = router?.query?.maincat?.toString()?.split("+");
       }
 
-      if (router?.query?.product_main) {
-        isDat = val.find((vl, i) => vl === el?.category_slug);
+      if (router?.query?.subcat?.toString()?.includes("+")) {
+        val = router?.query?.subcat?.toString()?.split("+");
       }
 
-      if (router?.query?.product_sub) {
-        parsedSlug = val?.filter((pl, i) => pl !== el?.subcategory_slug);
+      if (router?.query?.innercat?.toString()?.includes("+")) {
+        val = router?.query?.innercat?.toString()?.split("+");
       }
 
-      if (router?.query?.product_main) {
+      console.log("value 90: ", val);
+
+      if (router?.query?.maincat && !router?.query?.subcat) {
+        isDat = val?.find((vl, i) => vl === el?.category_slug);
+      }
+
+      if (router?.query?.subcat || router?.query?.innercat) {
+        isDat = val?.find((vl, i) => vl === el?.subcategory_slug);
+      }
+
+      if (router?.query?.maincat) {
         parsedSlug = val?.filter((pl, i) => pl !== el?.category_slug);
       }
 
-      console.log("97: ", isDat);
-      console.log("element: ", el);
+      if (router?.query?.subcat || router?.query?.innercat) {
+        parsedSlug = val?.filter((pl, i) => pl !== el?.subcategory_slug);
+      }
+
+      console.log("isDat: ", isDat);
+      console.log("parsed slug: ", parsedSlug);
 
       if (isDat) {
-        if (router?.query?.product_sub) {
-          router?.push(`/product/product-sub/${parsedSlug?.join("+")}`);
+        console.log("parsed slug 107: ", parsedSlug);
+
+        if (router?.query?.innercat) {
+          router?.push(
+            `/product/${router?.query?.maincat}/${
+              router?.query?.subcat
+            }/${parsedSlug?.join("+")}`
+          );
+
+          return;
         }
 
-        if (router?.query?.product_main) {
-          router?.push(`/product/product-main/${parsedSlug?.join("+")}`);
+        if (router?.query?.subcat) {
+          router?.push(
+            `/product/${router?.query?.maincat}/${parsedSlug?.join("+")}`
+          );
+
+          return;
         }
+
+        if (router?.query?.maincat) {
+          router?.push(`/product/${parsedSlug?.join("+")}`);
+        }
+
+        console.log("parsed slug 107: ", parsedSlug);
+        console.log("data: ", val);
+        console.log("isDat: ", isDat);
+        console.log("category: ", el);
+        return;
+      }
+
+      if (router?.query?.innercat?.includes("+")) {
+        console.log("154");
+        console.log(router?.query);
+
+        router?.push(
+          `/product/${router?.query?.maincat}/${
+            router?.query?.subcat
+          }/${parsedSlug?.join("+")}`
+        );
 
         return;
       }
 
-      if (router?.query?.product_sub) {
+      if (router?.query?.subcat?.includes("+")) {
         router?.push(
-          `/product/product-sub/${parsedSlug?.join("+")}+${
+          `/product/${router?.query?.maincat}/${parsedSlug?.join("+")}+${
             el?.subcategory_slug
           }`
         );
+        console.log("im herere");
+        console.log(parsedSlug);
+        console.log("parsed slug");
+        return;
       }
 
-      if (router?.query?.product_main) {
-        router?.push(
-          `/product/product-main/${parsedSlug?.join("+")}+${el?.category_slug}`
-        );
+      if (router?.query?.maincat?.includes("+")) {
+        router?.push(`/product/${parsedSlug?.join("+")}+${el?.category_slug}`);
       }
 
-      console.log("data: ", val);
-      console.log("isDat: ", isDat);
-      console.log("category: ", el);
       return;
     }
 

@@ -9,6 +9,7 @@ import { useContext } from "react";
 import http from "@framework/utils/http";
 import Cookies from "js-cookie";
 import { userContext } from "@contexts/user.context";
+import { colorsContext } from "@contexts/colors.context";
 
 interface ProductProps {
   product: Product;
@@ -54,6 +55,7 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
   });
 
   const { name } = useContext(userContext);
+  const { theme } = useContext(colorsContext);
 
   function handlePopupView() {
     setModalData({ data: product });
@@ -98,6 +100,9 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
   };
   return (
     <div
+      style={{
+        backgroundColor: theme?.backgroundColorSecondary,
+      }}
       onClick={handlePopupView}
       className={`${classes} cursor-pointer group flex flex-col  rounded-md relative items-center justify-between overflow-hidden`}
     >
@@ -115,15 +120,33 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
           className="transition duration-500 ease-in-out transform group-hover:scale-110 rounded-md"
         />
         <div
+          style={{
+            color: theme?.textColor,
+          }}
           className="absolute flex flex-col md:flex-row  2xl:flex-row md:justify-between md:items-center lg:items-start 2xl:items-center w-full px-4 md:px-5 3xl:px-7 pb-4 md:pb-5 3xl:pb-7"
           title={product?.product_name}
         >
-          <div className="md:pe-2 lg:pe-0 2xl:pe-2 overflow-hidden">
-            <h2 className="text-white font-semibold text-sm md:text-base xl:text-lg mb-1 truncate">
+          <div
+            style={{
+              color: theme?.textColor,
+            }}
+            className="md:pe-2 lg:pe-0 2xl:pe-2 overflow-hidden"
+          >
+            <h2
+              style={{
+                color: theme?.textColor,
+              }}
+              className="font-semibold text-sm md:text-base xl:text-lg mb-1 truncate"
+            >
               {product?.product_name}
             </h2>
 
-            <p className="text-white text-xs xl:text-sm leading-normal xl:leading-relaxed truncate max-w-[250px]">
+            <p
+              style={{
+                color: theme?.textColor,
+              }}
+              className="text-white text-xs xl:text-sm leading-normal xl:leading-relaxed truncate max-w-[250px]"
+            >
               {product?.short_description}
             </p>
           </div>

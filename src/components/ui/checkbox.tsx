@@ -15,7 +15,6 @@ export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
     const { theme, darkTheme } = useContext(colorsContext);
     const [values, setValues] = useState([]);
 
-    console.log("labelKey: ", labelKey);
 
     useEffect(() => {
       if (router?.query?.product_sub?.toString()?.includes("+")) {

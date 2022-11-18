@@ -186,7 +186,6 @@ export default function MobileMenu() {
       <ul className="pt-0.5">
         {data?.map((menu: any, index: number) => {
           const menuName: string = `sidebar-submenu-${dept}-${menuIndex}-${index}`;
-          console.log("data navbar: ", data);
 
           return (
             <>
