@@ -153,7 +153,6 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   function handleVariantData(data: any) {
-   
     setVariantPrice(data?.variantprice);
   }
 
@@ -375,14 +374,29 @@ const ProductSingleDetails: React.FC = () => {
   };
 
   const handleClickMainImage = () => {
+    console.log("handle click main");
     handleHideHeader();
+
+    if (selectedGalleryImage?.startsWith("https")) {
+      setShowFullScreen(selectedGalleryImage);
+      return;
+    }
+
     if (selectedGalleryImage) {
+      console.log(" im here inside this shit");
+      console.log("selected gallery image: ", selectedGalleryImage);
+      console.log(
+        `https://portal.day2daywholesale.com/public/assets/img/products/${selectedGalleryImage}`
+      );
       setShowFullScreen(
         `https://portal.day2daywholesale.com/public/assets/img/products/${selectedGalleryImage}`
       );
       return;
     }
 
+    console.log("im herer 389");
+
+    return;
     if (
       data?.details?.product_thumbnail?.toString()?.includes("shopify") ||
       data?.details?.product_thumbnail?.toString()?.includes("repziocdn")
@@ -425,12 +439,16 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   const renderSelectedImage = (): string => {
+    console.log("selected gallery image");
+    console.log(selectedGalleryImage);
     if (selectedGalleryImage?.includes("https")) {
       return selectedGalleryImage;
     }
 
     return `https://portal.day2daywholesale.com/public/assets/img/products/${selectedGalleryImage}`;
   };
+
+  console.log("selected gallery image: ", selectedGalleryImage);
 
   return (
     <div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start 2xl:pl-52 2xl:px-40">
@@ -447,8 +465,11 @@ const ProductSingleDetails: React.FC = () => {
             <div className="mt-4 flex relative items-center gap-4 ">
               {data?.gallery?.length ? (
                 <div
+                  style={{
+                    backgroundColor: theme.backgroundColorSecondary,
+                  }}
                   onClick={handleScrollLeft}
-                  className="w-14 h-12 rounded-full bg-black  ml-2 flex items-center justify-center  duration-300 transition cursor-pointer"
+                  className="w-14 h-12 rounded-full ml-2 flex items-center justify-center  duration-300 transition cursor-pointer"
                 >
                   <BiLeftArrowAlt size={32} />
                 </div>
@@ -474,8 +495,11 @@ const ProductSingleDetails: React.FC = () => {
               </div>
               {data?.gallery?.length ? (
                 <div
+                  style={{
+                    backgroundColor: theme.backgroundColorSecondary,
+                  }}
                   onClick={handleScrollRight}
-                  className="w-14 h-12 rounded-full bg-black  ml-2 flex items-center justify-center  duration-300 transition cursor-pointer"
+                  className="w-14 h-12 rounded-full  ml-2 flex items-center justify-center  duration-300 transition cursor-pointer"
                 >
                   <BiLeftArrowAlt size={32} className="rotate-180" />
                 </div>

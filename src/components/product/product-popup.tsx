@@ -163,12 +163,17 @@ export default function ProductPopup() {
       }}
       className="rounded-lg "
     >
-      <div className="flex flex-col lg:flex-row w-full md:w-[650px] lg:w-[960px] mx-auto overflow-hidden">
-        <div className="flex-shrink-0 flex items-center justify-center w-full lg:w-430px max-h-500px  overflow-hidden bg-gray-650">
+      <div
+        style={{
+          backgroundColor: theme.backgroundColorSecondary,
+        }}
+        className="flex flex-col lg:flex-row w-full md:w-[650px] lg:w-[960px] mx-auto overflow-hidden"
+      >
+        <div className="flex-shrink-0 flex items-center justify-center w-full lg:w-430px max-h-500px  overflow-hidden ">
           <img
             src={renderImage()}
             alt={product_name}
-            className="lg:object-cover lg:w-full lg:h-full object-cover"
+            className="lg:object-contain lg:w-full lg:h-full object-cover"
           />
         </div>
 
