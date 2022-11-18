@@ -394,9 +394,6 @@ const ProductSingleDetails: React.FC = () => {
       return;
     }
 
-    console.log("im herer 389");
-
-    return;
     if (
       data?.details?.product_thumbnail?.toString()?.includes("shopify") ||
       data?.details?.product_thumbnail?.toString()?.includes("repziocdn")
