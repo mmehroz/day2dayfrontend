@@ -1,5 +1,6 @@
 import BannerCard2 from "@components/common/banner-card-2";
 import { ROUTES } from "@utils/routes";
+import { SwiperSlide } from "swiper/react";
 interface BannerProps {
   data: any;
   className?: string;
