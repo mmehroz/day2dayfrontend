@@ -117,7 +117,7 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
           height={size}
           loading={imgLoading}
           alt={product?.product_name || "Product Image"}
-          className="transition duration-500 ease-in-out transform group-hover:scale-110 rounded-md"
+          className="transition duration-500 object-contain ease-in-out transform group-hover:scale-110 rounded-md"
         />
         <div
           style={{
@@ -145,7 +145,7 @@ const ProductOverlayCardBackup: React.FC<ProductProps> = ({
               style={{
                 color: theme?.textColor,
               }}
-              className="text-white text-xs xl:text-sm leading-normal xl:leading-relaxed truncate max-w-[250px]"
+              className=" text-xs xl:text-sm leading-normal xl:leading-relaxed truncate max-w-[250px]"
             >
               {product?.short_description}
             </p>
