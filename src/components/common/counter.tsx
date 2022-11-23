@@ -1,3 +1,4 @@
+//@ts-nocheck
 import MinusIcon from "@components/icons/minus-icon";
 import PlusIcon from "@components/icons/plus-icon";
 import { colorsContext } from "@contexts/colors.context";

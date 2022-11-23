@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Text from "@components/ui/text";
 import Link from "@components/ui/link";
 import { useTranslation } from "next-i18next";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Scrollbar from "@components/common/scrollbar";
 import { useCart } from "@contexts/cart/cart.context";
 import { motion } from "framer-motion";

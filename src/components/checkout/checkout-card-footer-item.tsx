@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { colorsContext } from "@contexts/colors.context";
 import { useContext } from "react";
 

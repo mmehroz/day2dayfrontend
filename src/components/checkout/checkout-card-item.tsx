@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Item } from "@contexts/cart/cart.utils";
 import { generateCartItemName } from "@utils/generate-cart-item-name";
 import usePrice from "@framework/product/use-price";

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import Link from "@components/ui/link";
 import Text from "@components/ui/text";
 import { FaLink } from "react-icons/fa";

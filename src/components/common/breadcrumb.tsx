@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import ActiveLink from "@components/ui/active-link";
 import useBreadcrumb, { convertBreadcrumbTitle } from "@utils/use-breadcrumb";
