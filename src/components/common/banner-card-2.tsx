@@ -19,7 +19,7 @@ interface BannerProps {
 }
 
 function getImage(deviceWidth: number, imgObj: any) {
-  return deviceWidth < 480 ? imgObj.mobile : imgObj.desktop;
+  return deviceWidth < 480 ? imgObj.desktop : imgObj.desktop;
 }
 
 const BannerCard2: FC<BannerProps> = ({
@@ -29,33 +29,88 @@ const BannerCard2: FC<BannerProps> = ({
   effectActive = false,
   classNameInner,
   href,
+  additionalImage,
+  intervalTrigger,
 }) => {
   const { width } = useWindowSize();
   const { title, image } = banner;
   const selectedImage = getImage(width, image);
   const [showArrows, setShowArrows] = useState(false);
-  const [imageRender, setImageRender] = useState(selectedImage?.url);
+  const [imageRender, setImageRender] = useState({
+    image: selectedImage?.url,
+    index: -1,
+  });
   const [animateImageType, setAnimateImageType] = useState<string | null>(
     "right"
   );
 
   useEffect(() => {
-    console.log("image url 44: ", selectedImage?.url);
-    setImageRender(selectedImage?.url);
+    setImageRender({
+      image: selectedImage?.url,
+      index: -1,
+    });
   }, [selectedImage?.url]);
+
+  useEffect(() => {
+    if (!additionalImage?.length) return;
+    console.log("interval triggering");
+    handleNextImage();
+  }, [intervalTrigger, additionalImage]);
+
   // const myLoader = ({ src }) => {
   // 	return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`
   //   }
 
-  const handleNextImage = () => {
-    setImageRender("public/assets/img/sliders/1746667599147418.jfif");
+  function handleNextImage() {
+    console.log("handle next image calling");
+    const totalAdditionalImages = additionalImage?.length;
+    let index = null;
+
+    index =
+      imageRender?.index + 1 < totalAdditionalImages
+        ? imageRender?.index + 1
+        : imageRender?.index - (totalAdditionalImages - 1);
+
+    if (imageRender?.index === -1 && totalAdditionalImages > 0) {
+      index = 0;
+    }
+
+    setImageRender({
+      image: additionalImage[index],
+      index: index,
+    });
     setAnimateImageType("right");
-  };
+  }
 
   const handlePrevImage = () => {
-    setImageRender("public/assets/img/sliders/1746667635452801.jfif");
+    const totalAdditionalImages = additionalImage?.length;
+    let index = null;
+
+    console.log("image render idex: ", imageRender?.index);
+    console.log("totaladditonallenfth: ", totalAdditionalImages);
+    console.log("index: ", index);
+
+    index =
+      imageRender?.index < totalAdditionalImages
+        ? imageRender?.index === 0
+          ? totalAdditionalImages - 1
+          : imageRender?.index - 1
+        : imageRender?.index - (totalAdditionalImages - 1);
+
+    if (imageRender?.index === -1 && totalAdditionalImages > 0) {
+      index = totalAdditionalImages - 1;
+    }
+
+    console.log("index here: ", index);
+
+    setImageRender({
+      image: additionalImage[index],
+      index: index,
+    });
     setAnimateImageType("left");
   };
+
+  // console.log("additionalImage: ", additionalImage);
 
   return (
     <div
@@ -83,18 +138,22 @@ const BannerCard2: FC<BannerProps> = ({
             </motion.div>
           )}
         </AnimatePresence>
-        {imageRender && (
+        {imageRender?.image && (
           <motion.img
-            src={`https://portal.day2daywholesale.com/${imageRender}`}
+            src={`https://portal.day2daywholesale.com/${imageRender?.image}`}
             width={selectedImage.width}
-            height={selectedImage.height}
+            style={{
+              height: 300,
+              width: selectedImage.width,
+            }}
             alt={title}
             initial={{
               opacity: 0,
               x: animateImageType === "left" ? "100%" : "-100%",
             }}
+            className="object-cover"
             animate={{ opacity: 1, x: "0%" }}
-            key={imageRender}
+            key={imageRender?.image}
             transition={{
               type: "keyframes",
             }}

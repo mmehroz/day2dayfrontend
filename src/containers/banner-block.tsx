@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import BannerCard2 from "@components/common/banner-card-2";
 import { ROUTES } from "@utils/routes";
 import { SwiperSlide } from "swiper/react";
@@ -10,6 +11,19 @@ const BannerBlock: React.FC<BannerProps> = ({
   data,
   className = "mb-12 md:mb-14 xl:mb-16 px-2.5",
 }) => {
+  const [intervalTrigger, setIntervalTrigger] = useState(0);
+  console.log("banner-block data: ", data);
+
+  useEffect(() => {
+    let timeout = setInterval(() => {
+      setIntervalTrigger(intervalTrigger + 1);
+    }, 5000);
+
+    return () => {
+      clearInterval(timeout);
+    };
+  }, [intervalTrigger]);
+
   return (
     <div
       className={`${className} grid grid-cols-2 sm:grid-cols-9 gap-2 md:gap-2.5 max-w-[1920px] mx-auto`}
@@ -17,9 +31,11 @@ const BannerBlock: React.FC<BannerProps> = ({
       {data.map((banner: any) => (
         <BannerCard2
           key={`banner--key${banner.id}`}
-          banner={banner}
+          intervalTrigger={intervalTrigger}
+          banner={banner[0]}
           href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
           effectActive={true}
+          additionalImage={banner["additionImage"]}
           variant="default"
           className={
             banner.type === "medium"

@@ -58,8 +58,11 @@ export default function Home() {
       const res = await Promise.all(promises);
 
       const sorted = res?.map((el, i) => {
+        console.log(el);
+        console.log("sorted element: ", el);
         return {
           ...el?.data?.data[0],
+          additionImage: el?.data?.data[1]?.additionalimages,
           type: i === 0 ? "medium" : "small",
         };
       });
