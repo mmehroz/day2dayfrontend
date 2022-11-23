@@ -64,6 +64,8 @@ export default function Home() {
         };
       });
 
+      console.log("sorted data: ", sorted);
+
       //@ts-ignore
       setBannersBlock(sorted);
     } catch (err) {}

@@ -1,13 +1,13 @@
 import Link from "@components/ui/link";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useWindowSize } from "@utils/use-window-size";
 import cn from "classnames";
 import { LinkProps } from "next/link";
 import { ROUTES } from "@utils/routes";
 import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { IoIosArrowForward } from "react-icons/io";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, animate } from "framer-motion";
 
 interface BannerProps {
   banner: any;
@@ -34,12 +34,27 @@ const BannerCard2: FC<BannerProps> = ({
   const { title, image } = banner;
   const selectedImage = getImage(width, image);
   const [showArrows, setShowArrows] = useState(false);
+  const [imageRender, setImageRender] = useState(selectedImage?.url);
+  const [animateImageType, setAnimateImageType] = useState<string | null>(
+    "right"
+  );
+
+  useEffect(() => {
+    console.log("image url 44: ", selectedImage?.url);
+    setImageRender(selectedImage?.url);
+  }, [selectedImage?.url]);
   // const myLoader = ({ src }) => {
   // 	return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`
   //   }
 
-  const myLoader = ({ src }) => {
-    return `https://portal.day2daywholesale.com/${selectedImage?.url}`;
+  const handleNextImage = () => {
+    setImageRender("public/assets/img/sliders/1746667599147418.jfif");
+    setAnimateImageType("right");
+  };
+
+  const handlePrevImage = () => {
+    setImageRender("public/assets/img/sliders/1746667635452801.jfif");
+    setAnimateImageType("left");
   };
 
   return (
@@ -61,30 +76,39 @@ const BannerCard2: FC<BannerProps> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="w-10 h-10 rounded-full bg-orange-500 text-black flex items-center justify-center absolute z-10 top-[40%] right-4 cursor-pointer  hover:scale-125 duration-200 transition"
+              onClick={handleNextImage}
+              className="w-10 h-10 rounded-full bg-orange-500 text-black flex items-center justify-center absolute z-10 top-[45%] right-4 cursor-pointer  hover:scale-125 duration-200 transition"
             >
               <IoIosArrowForward />
             </motion.div>
           )}
         </AnimatePresence>
-        <Image
-          // loader={myLoader}
-          // src={`${ROUTES.BANNER}/${selectedImage.url}`}
-          // src={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}${selectedImage.url}`}
-          src={`https://portal.day2daywholesale.com/${selectedImage?.url}`}
-          width={selectedImage.width}
-          height={selectedImage.height}
-          alt={title}
-          loader={myLoader}
-          quality={100}
-        />
+        {imageRender && (
+          <motion.img
+            src={`https://portal.day2daywholesale.com/${imageRender}`}
+            width={selectedImage.width}
+            height={selectedImage.height}
+            alt={title}
+            initial={{
+              opacity: 0,
+              x: animateImageType === "left" ? "100%" : "-100%",
+            }}
+            animate={{ opacity: 1, x: "0%" }}
+            key={imageRender}
+            transition={{
+              type: "keyframes",
+            }}
+          />
+        )}
+
         <AnimatePresence>
           {showArrows && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="w-10 h-10 rounded-full bg-orange-500 text-black flex items-center justify-center absolute z-10 top-[40%] left-4 cursor-pointer  hover:scale-125 duration-200 transition rotate-180"
+              onClick={handlePrevImage}
+              className="w-10 h-10 rounded-full bg-orange-500 text-black flex items-center justify-center absolute z-10 top-[45%] left-4 cursor-pointer  hover:scale-125 duration-200 transition rotate-180"
             >
               <IoIosArrowForward />
             </motion.div>
