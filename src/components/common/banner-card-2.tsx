@@ -48,36 +48,36 @@ const BannerCard2: FC<BannerProps> = ({
     "right"
   );
 
-  useEffect(() => {
-    setImageRender({
-      image: selectedImage?.url,
-      index: -1,
-    });
-  }, [selectedImage?.url]);
+  // useEffect(() => {
+  //   setImageRender({
+  //     image: selectedImage?.url,
+  //     index: -1,
+  //   });
+  // }, [selectedImage?.url]);
 
-  useEffect(() => {
-    if (!additionalImage?.length) return;
+  // useEffect(() => {
+  //   if (!additionalImage?.length) return;
 
-    if (componentIndex == 1) {
-      handleNextImage();
-    }
-  }, [componentIndex, additionalImage, intervalTrigger1]);
+  //   if (componentIndex == 1) {
+  //     handleNextImage();
+  //   }
+  // }, [componentIndex, additionalImage, intervalTrigger1]);
 
-  useEffect(() => {
-    if (!additionalImage?.length) return;
-    console.log("interval triggering");
-    if (componentIndex === 0) {
-      handleNextImage();
-    }
-  }, [intervalTrigger, additionalImage, componentIndex]);
+  // useEffect(() => {
+  //   if (!additionalImage?.length) return;
+  //   console.log("interval triggering");
+  //   if (componentIndex === 0) {
+  //     handleNextImage();
+  //   }
+  // }, [intervalTrigger, additionalImage, componentIndex]);
 
-  useEffect(() => {
-    if (!additionalImage?.length) return;
-    console.log("interval triggering");
-    if (componentIndex === 2) {
-      handleNextImage();
-    }
-  }, [intervalTrigger2, additionalImage, componentIndex]);
+  // useEffect(() => {
+  //   if (!additionalImage?.length) return;
+  //   console.log("interval triggering");
+  //   if (componentIndex === 2) {
+  //     handleNextImage();
+  //   }
+  // }, [intervalTrigger2, additionalImage, componentIndex]);
 
   // const myLoader = ({ src }) => {
   // 	return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`
