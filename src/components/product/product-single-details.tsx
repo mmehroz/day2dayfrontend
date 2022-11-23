@@ -169,7 +169,7 @@ const ProductSingleDetails: React.FC = () => {
     return tags?.map((el: string, _i: number) => (
       <Link
         href={`/product/tagproduct/${el?.toLowerCase()?.split(" ")?.join("-")}`}
-        className="inline-block pe-1.5 transition hover:underline hover:text-heading last:pe-0"
+        className="inline-block pe-1.5 transition hover:underline last:pe-0"
       >
         {el}
       </Link>

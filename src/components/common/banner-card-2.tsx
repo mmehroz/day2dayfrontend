@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Link from "@components/ui/link";
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
@@ -31,6 +32,9 @@ const BannerCard2: FC<BannerProps> = ({
   href,
   additionalImage,
   intervalTrigger,
+  intervalTrigger1,
+  intervalTrigger2,
+  index: componentIndex,
 }) => {
   const { width } = useWindowSize();
   const { title, image } = banner;
@@ -53,9 +57,27 @@ const BannerCard2: FC<BannerProps> = ({
 
   useEffect(() => {
     if (!additionalImage?.length) return;
+
+    if (componentIndex == 1) {
+      handleNextImage();
+    }
+  }, [componentIndex, additionalImage, intervalTrigger1]);
+
+  useEffect(() => {
+    if (!additionalImage?.length) return;
     console.log("interval triggering");
-    handleNextImage();
-  }, [intervalTrigger, additionalImage]);
+    if (componentIndex === 0) {
+      handleNextImage();
+    }
+  }, [intervalTrigger, additionalImage, componentIndex]);
+
+  useEffect(() => {
+    if (!additionalImage?.length) return;
+    console.log("interval triggering");
+    if (componentIndex === 2) {
+      handleNextImage();
+    }
+  }, [intervalTrigger2, additionalImage, componentIndex]);
 
   // const myLoader = ({ src }) => {
   // 	return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`

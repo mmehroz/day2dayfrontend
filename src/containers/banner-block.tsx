@@ -12,6 +12,8 @@ const BannerBlock: React.FC<BannerProps> = ({
   className = "mb-12 md:mb-14 xl:mb-16 px-2.5",
 }) => {
   const [intervalTrigger, setIntervalTrigger] = useState(0);
+  const [intervalTrigger1, setIntervalTrigger1] = useState(0);
+  const [intervalTrigger2, setIntervalTrigger2] = useState(0);
   console.log("banner-block data: ", data);
 
   useEffect(() => {
@@ -24,19 +26,42 @@ const BannerBlock: React.FC<BannerProps> = ({
     };
   }, [intervalTrigger]);
 
+  useEffect(() => {
+    let timeout = setInterval(() => {
+      setIntervalTrigger1(intervalTrigger1 + 1);
+    }, 4000);
+
+    return () => {
+      clearInterval(timeout);
+    };
+  }, [intervalTrigger1]);
+
+  useEffect(() => {
+    let timeout = setInterval(() => {
+      setIntervalTrigger2(intervalTrigger2 + 1);
+    }, 3000);
+
+    return () => {
+      clearInterval(timeout);
+    };
+  }, [intervalTrigger2]);
+
   return (
     <div
       className={`${className} grid grid-cols-2 sm:grid-cols-9 gap-2 md:gap-2.5 max-w-[1920px] mx-auto`}
     >
-      {data.map((banner: any) => (
+      {data.map((banner: any, index) => (
         <BannerCard2
           key={`banner--key${banner.id}`}
           intervalTrigger={intervalTrigger}
+          intervalTrigger1={intervalTrigger1}
+          intervalTrigger2={intervalTrigger2}
           banner={banner[0]}
           href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
           effectActive={true}
           additionalImage={banner["additionImage"]}
           variant="default"
+          index={index}
           className={
             banner.type === "medium"
               ? "col-span-full sm:col-span-5"
