@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { useRef, useContext } from "react";
 import SearchIcon from "@components/icons/search-icon";
 import { siteSettings } from "@settings/site-settings";
@@ -59,9 +58,9 @@ const Header: React.FC = () => {
       className="w-full h-16 sm:h-20 lg:h-24 relative z-20"
     >
       <div className="text-white bg-gradient-to-r from-orange-500  to-pink-500 w-full my-0 fixed top-0 text-center py-2">
-        <div class="marquee">
-          <div class={` ${width > 400 ? "" : "track" } `}>
-            <div class="content">
+        <div className="marquee">
+          <div className={` ${width > 400 ? "" : "track" } `}>
+            <div className="content">
               &nbsp;WARNING! Some products contains nicotine. Nicotine is an
               addictive chemical
             </div>
@@ -90,9 +89,8 @@ const Header: React.FC = () => {
           </button>
           <Logo />
           <HeaderMenu
-            // data={site_header.menu}
-            className="hidden lg:flex md:ms-6 xl:ms-10"
-          />
+            data={site_header.menu}
+            className="hidden lg:flex md:ms-6 xl:ms-10"  />
 
           <div className="flex-shrink-0 ms-auto lg:me-5 xl:me-8 2xl:me-10">
             {darkTheme ? (
