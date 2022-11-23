@@ -34,48 +34,48 @@ export default function Home() {
   return (
     <>
       <Container>
-        <HeroWithCategory
+        {/* <HeroWithCategory
           bannerData={heroBanner}
           paginationPosition="left"
           className="hero-slider-pagination-area mb-12 md:mb-14 xl:mb-16"
-        />
+        /> */}
         <BrandBlock sectionHeading="text-top-brands" />
-        <SaleBannerWithProducts
+        {/* <SaleBannerWithProducts
           sectionHeading="text-on-selling-products"
           categorySlug="/search"
           variant="center"
-        />
+        /> */}
         <ProductsFeatured
           variant="flat"
           sectionHeading="text-featured-products"
           limit={8}
         />
-        <BannerBlock
+        {/* <BannerBlock
           data={bannerDataFour}
           className="mb-12 md:mb-14 xl:mb-16 hidden sm:flex"
-        />
-        <BannerBlock
+        /> */}
+        {/* <BannerBlock
           data={bannerDataFourMobile}
           className="mb-12 md:mb-14 xl:mb-16 sm:hidden"
-        />
+        /> */}
         <CategoryBlockIcon
           sectionHeading="text-browse-categories"
           variant="circle"
         />
         <NewArrivalsProductFeed />
-        <BannerCard
+        {/* <BannerCard
           banner={bannerWinter}
           href={`${ROUTES.COLLECTIONS}/${bannerWinter.slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
+        /> */}
         <ProductsFlashSaleCarousel />
         <ProductsTopBlock sectionHeading="text-top-products" />
         <CollectionBlock variant="modern" data={collection} />
-        <BannerCard
+        {/* <BannerCard
           banner={banner}
           href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
+        /> */}
         <TestimonialCarousel sectionHeading="text-testimonial" />
         <Instagram className="mb-12 md:mb-14 xl:mb-16" />
         <SubscriptionWithBg />

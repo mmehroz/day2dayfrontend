@@ -37,7 +37,7 @@ export default function Home() {
 					variant="center"
 				/>
 			</Container>
-			<BannerBlock data={bannerDataOne} />
+			{/* <BannerBlock data={bannerDataOne} /> */}
 			<Container>
 				<BannerWithProducts
 					sectionHeading="text-on-selling-products"
@@ -48,15 +48,15 @@ export default function Home() {
 			<Container>
 				<ProductsFlashSaleBlock date={"2023-03-01T01:02:03"} />
 			</Container>
-			<BannerBlock data={bannerDataTwo} />
+			{/* <BannerBlock data={bannerDataTwo} /> */}
 			<Container>
 				<BrandGridBlock sectionHeading="text-top-brands" />
-				<BannerCard
+				{/* <BannerCard
 					banner={banner}
 					href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
 					className="mb-11 md:mb-12 lg:mb-14 2xl:mb-16"
 					effectActive={true}
-				/>
+				/> */}
 				<NewArrivalsProductFeed />
 				<DownloadApps />
 				<Support />

@@ -33,12 +33,12 @@ import { homeElegantHeroSlider as banners } from '@framework/static/banner';
 export default function Home() {
   return (
     <>
-      <HeroSlider data={banners} variantRounded="default" variant="fullWidth" />
+      {/* <HeroSlider data={banners} variantRounded="default" variant="fullWidth" /> */}
       <Container>
-        <BannerBlock
+        {/* <BannerBlock
           data={bannerDataThree}
           className="mb-12 md:mb-14 xl:mb-16"
-        />
+        /> */}
         <CategoryBlockIcon
           sectionHeading="text-browse-categories"
           variant="modern"
@@ -49,12 +49,12 @@ export default function Home() {
           sectionHeading="text-featured-products"
         />
         <ProductsFlashSaleCarousel />
-        <BannerCard
+        {/* <BannerCard
           key={`banner--key${banner.id}`}
           banner={banner}
           href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
           className="mb-12 md:mb-14 xl:mb-16 pb-0.5 md:pb-0 lg:pb-1 xl:pb-0 md:-mt-2.5"
-        />
+        /> */}
         <BrandGridBlock
           sectionHeading="text-top-brands"
           limit={12}
