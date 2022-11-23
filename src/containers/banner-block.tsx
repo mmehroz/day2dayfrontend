@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useEffect, useState } from "react";
 import BannerCard2 from "@components/common/banner-card-2";
 import { ROUTES } from "@utils/routes";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Container from "@components/ui/container";
 import Layout from "@components/layout/layout";
 import Divider from "@components/ui/divider";

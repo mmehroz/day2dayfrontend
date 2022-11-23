@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useState, useContext } from "react";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import Button from "@components/ui/button";
