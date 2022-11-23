@@ -1,5 +1,4 @@
 //@ts-nocheck
-
 import Link from "@components/ui/link";
 import { FaChevronDown } from "react-icons/fa";
 import MegaMenu from "@components/ui/mega-menu";
@@ -10,6 +9,8 @@ import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import React, { useContext } from "react";
 import http from "@framework/utils/http";
 import { colorsContext } from "@contexts/colors.context";
+import { IoIosArrowDown } from "react-icons/io";
+import { motion, AnimatePresence } from "framer-motion";
 
 const salesData = [
   {
@@ -126,8 +127,23 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
                     color: theme.textColor,
                     backgroundColor: theme.backgroundColorSecondary,
                   }}
-                  className=" text-sm py-5 h-[25rem] overflow-y-scroll  overflow-x-hidden hidescrollbar "
+                  className=" text-sm py-5 h-[26rem] overflow-y-scroll  overflow-x-hidden hidescrollbar "
                 >
+                  <div className="absolute w-full bottom-0 flex justify-center h-[10%] items-center text-white">
+                    {item?.subMenu?.length > 10 ? (
+                      <AnimatePresence>
+                        <motion.div
+                          className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-tr to-orange-800 from-orange-500 animate-pulse"
+                          initial={{ y: "-20%" }}
+                          animate={{ y: "10%" }}
+                          exit={{ y: "-20%" }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                        >
+                          <IoIosArrowDown />
+                        </motion.div>
+                      </AnimatePresence>
+                    ) : null}
+                  </div>
                   {item.subMenu.map((menu: any, index: number) => {
                     const dept: number = 1;
                     const menuName: string = `sidebar-menu-${dept}-${index}`;
