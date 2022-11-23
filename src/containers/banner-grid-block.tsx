@@ -33,8 +33,8 @@ const BannerGridBlock: React.FC<BannerProps> = ({
 			{width < 768 ? (
 				<div>
 					<Carousel breakpoints={breakpoints}>
-						{bannerGrid?.map((banner: any) => (
-							<SwiperSlide key={`banner--key${banner.id}`}>
+						{bannerGrid?.map((banner: any, index) => (
+							<SwiperSlide key={index}>
 								<BannerCard
 									banner={banner}
 									href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
@@ -46,9 +46,9 @@ const BannerGridBlock: React.FC<BannerProps> = ({
 				</div>
 			) : (
 				<div className="md:grid md:grid-cols-2 md:gap-5 xl:gap-7 relative">
-					{bannerGrid.map((banner: any) => (
+					{bannerGrid.map((banner: any, index) => (
 						<BannerCard
-							key={`banner--key${banner.id}`}
+							key={index}
 							banner={banner}
 							href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
 							className={banner.type === "large" ? "col-span-2" : "col-span-1"}

@@ -153,7 +153,7 @@ export default function MobileMenu() {
           </div>
           {activeMenus.includes(menuName) && (
             <Link
-              href={`/product/product-sub/${data?.subcategory_slug}`}
+              href={`/product/${data?.subcategory_slug}`}
               className="w-full text-[15px] p-1"
             >
               <span className="block w-full px-9 font-semibold">

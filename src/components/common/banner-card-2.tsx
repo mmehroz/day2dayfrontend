@@ -20,7 +20,7 @@ interface BannerProps {
 }
 
 function getImage(deviceWidth: number, imgObj: any) {
-  return deviceWidth < 480 ? imgObj.desktop : imgObj.desktop;
+  return 300;
 }
 
 const BannerCard2: FC<BannerProps> = ({
@@ -39,6 +39,7 @@ const BannerCard2: FC<BannerProps> = ({
   const { width } = useWindowSize();
   const { title, image } = banner;
   const selectedImage = getImage(width, image);
+  console.log("selected image: ", selectedImage?.url);
   const [showArrows, setShowArrows] = useState(false);
   const [imageRender, setImageRender] = useState({
     image: selectedImage?.url,
@@ -48,40 +49,36 @@ const BannerCard2: FC<BannerProps> = ({
     "right"
   );
 
-  // useEffect(() => {
-  //   setImageRender({
-  //     image: selectedImage?.url,
-  //     index: -1,
-  //   });
-  // }, [selectedImage?.url]);
+  useEffect(() => {
+    setImageRender({
+      image: selectedImage?.url,
+      index: -1,
+    });
+  }, [selectedImage?.url]);
 
-  // useEffect(() => {
-  //   if (!additionalImage?.length) return;
+  useEffect(() => {
+    if (!additionalImage?.length) return;
 
-  //   if (componentIndex == 1) {
-  //     handleNextImage();
-  //   }
-  // }, [componentIndex, additionalImage, intervalTrigger1]);
+    if (componentIndex == 1) {
+      handleNextImage();
+    }
+  }, [componentIndex, additionalImage, intervalTrigger1]);
 
-  // useEffect(() => {
-  //   if (!additionalImage?.length) return;
-  //   console.log("interval triggering");
-  //   if (componentIndex === 0) {
-  //     handleNextImage();
-  //   }
-  // }, [intervalTrigger, additionalImage, componentIndex]);
+  useEffect(() => {
+    if (!additionalImage?.length) return;
+    console.log("interval triggering");
+    if (componentIndex === 0) {
+      handleNextImage();
+    }
+  }, [intervalTrigger, additionalImage, componentIndex]);
 
-  // useEffect(() => {
-  //   if (!additionalImage?.length) return;
-  //   console.log("interval triggering");
-  //   if (componentIndex === 2) {
-  //     handleNextImage();
-  //   }
-  // }, [intervalTrigger2, additionalImage, componentIndex]);
-
-  // const myLoader = ({ src }) => {
-  // 	return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/${src}`
-  //   }
+  useEffect(() => {
+    if (!additionalImage?.length) return;
+    console.log("interval triggering");
+    if (componentIndex === 2) {
+      handleNextImage();
+    }
+  }, [intervalTrigger2, additionalImage, componentIndex]);
 
   function handleNextImage() {
     console.log("handle next image calling");
@@ -160,7 +157,7 @@ const BannerCard2: FC<BannerProps> = ({
             </motion.div>
           )}
         </AnimatePresence>
-        {/* {imageRender?.image && (
+        {imageRender?.image && (
           <motion.img
             src={`https://portal.day2daywholesale.com/${imageRender?.image}`}
             width={selectedImage.width}
@@ -180,7 +177,7 @@ const BannerCard2: FC<BannerProps> = ({
               type: "keyframes",
             }}
           />
-        )} */}
+        )}
 
         <AnimatePresence>
           {showArrows && (

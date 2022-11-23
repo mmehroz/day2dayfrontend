@@ -52,7 +52,7 @@ const BannerBlock: React.FC<BannerProps> = ({
     >
       {data.map((banner: any, index) => (
         <BannerCard2
-          key={`banner--key${banner.id}`}
+          key={index}
           intervalTrigger={intervalTrigger}
           intervalTrigger1={intervalTrigger1}
           intervalTrigger2={intervalTrigger2}
