@@ -15,7 +15,6 @@ const BannerBlock: React.FC<BannerProps> = ({
   const [intervalTrigger, setIntervalTrigger] = useState(0);
   const [intervalTrigger1, setIntervalTrigger1] = useState(0);
   const [intervalTrigger2, setIntervalTrigger2] = useState(0);
-  console.log("banner-block data: ", data);
 
   useEffect(() => {
     let timeout = setInterval(() => {

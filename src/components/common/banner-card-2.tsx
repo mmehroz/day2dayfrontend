@@ -1,12 +1,7 @@
-//@ts-nocheck
-import Link from "@components/ui/link";
-import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { useWindowSize } from "@utils/use-window-size";
 import cn from "classnames";
 import { LinkProps } from "next/link";
-import { ROUTES } from "@utils/routes";
-import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { IoIosArrowForward } from "react-icons/io";
 import { motion, AnimatePresence, animate } from "framer-motion";
 
@@ -17,6 +12,11 @@ interface BannerProps {
   className?: string;
   classNameInner?: string;
   href: LinkProps["href"];
+  additionalImage: any;
+  intervalTrigger: any;
+  intervalTrigger1: any;
+  intervalTrigger2: any;
+  index: any;
 }
 
 function getImage(deviceWidth: number, imgObj: any) {
@@ -160,7 +160,7 @@ const BannerCard2: FC<BannerProps> = ({
             </motion.div>
           )}
         </AnimatePresence>
-        {imageRender?.image && (
+        {/* {imageRender?.image && (
           <motion.img
             src={`https://portal.day2daywholesale.com/${imageRender?.image}`}
             width={selectedImage.width}
@@ -180,7 +180,7 @@ const BannerCard2: FC<BannerProps> = ({
               type: "keyframes",
             }}
           />
-        )}
+        )} */}
 
         <AnimatePresence>
           {showArrows && (

@@ -88,7 +88,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
   });
 
   return (
-    <nav className={classNames(`headerMenu flex w-full relative`, className)}>
+    <nav  className={classNames(`headerMenu flex w-full relative`, className)}>
       {arr?.map((item: any, i: number) => {
         if (!item?.subMenu?.length) return;
 
@@ -97,7 +97,7 @@ const HeaderMenu: React.FC<MenuProps> = ({ className }) => {
             className={`menuItem group cursor-pointer py-7 ${
               item.subMenu ? "relative" : ""
             }`}
-            key={item.category_id}
+            key={i}
           >
             <Link
               href={`/product/${item.category_slug}`}
