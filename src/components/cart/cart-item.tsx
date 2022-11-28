@@ -37,7 +37,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const myLoader = ({ src }) => {
     if (
       src?.toString()?.includes("shopify") ||
-      src?.toString()?.includes("repziocdn")
+      src?.toString()?.includes("repziocdn") || 
+      src?.toString()?.includes("elementvape") 
     ) {
       return src;
     }

@@ -301,7 +301,8 @@ const ProductSingleDetails: React.FC = () => {
   const renderImage = () => {
     if (
       data?.details?.product_thumbnail?.toString()?.includes("shopify") ||
-      data?.details?.product_thumbnail?.toString()?.includes("repziocdn")
+      data?.details?.product_thumbnail?.toString()?.includes("repziocdn") ||
+      data?.details?.product_thumbnail?.toString()?.includes("elementvape")
     ) {
       return data?.details?.product_thumbnail;
     }
@@ -385,8 +386,6 @@ const ProductSingleDetails: React.FC = () => {
     }
 
     if (selectedGalleryImage) {
-      console.log(" im here inside this shit");
-      console.log("selected gallery image: ", selectedGalleryImage);
       console.log(
         `https://portal.day2daywholesale.com/public/assets/img/products/${selectedGalleryImage}`
       );
@@ -398,6 +397,7 @@ const ProductSingleDetails: React.FC = () => {
 
     if (
       data?.details?.product_thumbnail?.toString()?.includes("shopify") ||
+      data?.details?.product_thumbnail?.toString()?.includes("repziocdn") ||
       data?.details?.product_thumbnail?.toString()?.includes("repziocdn")
     ) {
       setShowFullScreen(data?.details?.product_thumbnail);

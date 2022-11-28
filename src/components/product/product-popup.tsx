@@ -135,7 +135,8 @@ export default function ProductPopup() {
   const renderImage = () => {
     if (
       product_thumbnail?.toString()?.includes("shopify") ||
-      product_thumbnail?.toString()?.includes("repziocdn")
+      product_thumbnail?.toString()?.includes("repziocdn") ||
+      product_thumbnail?.toString()?.includes("elementvape")
     ) {
       return product_thumbnail;
     }

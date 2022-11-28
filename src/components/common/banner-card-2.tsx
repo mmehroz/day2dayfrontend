@@ -160,22 +160,21 @@ const BannerCard2: FC<BannerProps> = ({
         {imageRender?.image && (
           <motion.img
             src={`https://portal.day2daywholesale.com/${imageRender?.image}`}
-            width={selectedImage.width}
             style={{
               height: 300,
-              width: selectedImage.width,
+              widows: 200
             }}
             alt={title}
             initial={{
               opacity: 0,
               x: animateImageType === "left" ? "100%" : "-100%",
             }}
-            className="object-cover"
             animate={{ opacity: 1, x: "0%" }}
             key={imageRender?.image}
             transition={{
               type: "keyframes",
             }}
+            className='object-cover'
           />
         )}
 

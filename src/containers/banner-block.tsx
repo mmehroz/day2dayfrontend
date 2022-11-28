@@ -19,7 +19,7 @@ const BannerBlock: React.FC<BannerProps> = ({
   useEffect(() => {
     let timeout = setInterval(() => {
       setIntervalTrigger(intervalTrigger + 1);
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearInterval(timeout);
@@ -29,7 +29,7 @@ const BannerBlock: React.FC<BannerProps> = ({
   useEffect(() => {
     let timeout = setInterval(() => {
       setIntervalTrigger1(intervalTrigger1 + 1);
-    }, 4000);
+    }, 8000);
 
     return () => {
       clearInterval(timeout);
@@ -39,7 +39,7 @@ const BannerBlock: React.FC<BannerProps> = ({
   useEffect(() => {
     let timeout = setInterval(() => {
       setIntervalTrigger2(intervalTrigger2 + 1);
-    }, 3000);
+    }, 5000);
 
     return () => {
       clearInterval(timeout);
