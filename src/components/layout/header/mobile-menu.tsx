@@ -81,6 +81,8 @@ export default function MobileMenu() {
     menuName,
     menuIndex,
     className = "",
+    parentName,
+    mainCatName,
   }: any): JSX.Element =>
     data.category_name ? (
       <li
@@ -91,7 +93,7 @@ export default function MobileMenu() {
       >
         <div className="flex items-center justify-between relative">
           <Link
-            href={`/product/product-main/${data?.category_slug}`}
+            href={`/product/${parentName}/${data?.category_slug}`}
             className="w-full text-[15px] menu-item relative py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out"
           >
             <span className="block w-full" onClick={closeSidebar}>
@@ -118,6 +120,7 @@ export default function MobileMenu() {
             data={data.subMenu}
             toggle={activeMenus.includes(menuName)}
             menuIndex={menuIndex}
+            parentName={data?.category_slug}
           />
         )}
       </li>
@@ -126,7 +129,11 @@ export default function MobileMenu() {
         <li className={`mb-0.5 ${className}`}>
           <div className="flex items-center justify-between relative  ">
             <Link
-              href={`/product/product-sub/${data?.subcategory_slug}`}
+              href={
+                mainCatName
+                  ? `/product/${mainCatName}/${parentName}/${data?.subcategory_slug}`
+                  : `/product/${parentName}/${data?.subcategory_slug}`
+              }
               className="w-full text-[15px] menu-item relative py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out"
             >
               <span
@@ -153,7 +160,7 @@ export default function MobileMenu() {
           </div>
           {activeMenus.includes(menuName) && (
             <Link
-              href={`/product/${data?.subcategory_slug}`}
+              href={`/product/${parentName}/${data?.subcategory_slug}`}
               className="w-full text-[15px] p-1"
             >
               <span className="block w-full px-9 font-semibold">
@@ -168,6 +175,8 @@ export default function MobileMenu() {
                 data={data.inner}
                 toggle={activeMenus.includes(menuName)}
                 menuIndex={menuIndex}
+                parentName={data?.subcategory_slug}
+                mainCatName={parentName}
               />
             </>
           )}
@@ -175,7 +184,14 @@ export default function MobileMenu() {
       )
     );
 
-  const SubMenu = ({ dept, data, toggle, menuIndex }: any) => {
+  const SubMenu = ({
+    dept,
+    data,
+    toggle,
+    menuIndex,
+    parentName,
+    mainCatName,
+  }: any) => {
     if (!toggle) {
       return null;
     }
@@ -197,6 +213,8 @@ export default function MobileMenu() {
                 key={menuName}
                 menuIndex={index}
                 className={dept > 1 && "ps-4"}
+                parentName={parentName}
+                mainCatName={mainCatName}
               />
             </>
           );
@@ -227,6 +245,7 @@ export default function MobileMenu() {
     });
 
     return arr.map((menu, index) => {
+      console.log("array 230: ", arr);
       const dept: number = 1;
       const menuName: string = `sidebar-menu-${dept}-${index}`;
 
@@ -239,6 +258,7 @@ export default function MobileMenu() {
           key={menuName}
           menuIndex={index}
           className={dept > 1 && "ps-4"}
+          parentName={menu?.category_slug}
         />
       );
     });
