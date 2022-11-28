@@ -62,7 +62,7 @@ const ProductRelatedCard: FC<ProductProps> = ({
       src?.toString()?.includes("repziocdn") ||
       src?.toString()?.includes("elementvape")
     ) {
-      return data?.details?.product_thumbnail;
+      return src;
     }
 
     return `${API_ENDPOINTS.NEXT_PUBLIC_REST_ENDPOINT}/public/assets/img/products/thumb/${src}`;
