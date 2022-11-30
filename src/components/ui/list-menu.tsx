@@ -29,7 +29,7 @@ const ListMenu = ({ dept, data, hasSubMenu, menuIndex, parent, sub }: any) => {
         href={renderLink()}
         className="flex items-center justify-between py-2 ps-5 xl:ps-7 pe-3 xl:pe-3.5 hover:text-heading  hover:bg-gradient-to-tr to-orange-500 from-orange-800"
       >
-        {t(data.subcategory_name)} {data?.subcategory_id}
+        {t(data.subcategory_name)} 
         {data.inner?.length ? (
           <span className="text-sm mt-0.5 shrink-0">
             <IoIosArrowForward
@@ -58,7 +58,6 @@ const SubMenu: React.FC<any> = ({ dept, data, menuIndex, parent, sub }) => {
   const { theme } = useContext(colorsContext);
   dept = dept + 1;
 
-  console.log(data);
 
   return (
     <ul
