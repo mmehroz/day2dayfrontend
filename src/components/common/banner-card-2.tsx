@@ -105,10 +105,6 @@ const BannerCard2: FC<BannerProps> = ({
     const totalAdditionalImages = additionalImage?.length;
     let index = null;
 
-    console.log("image render idex: ", imageRender?.index);
-    console.log("totaladditonallenfth: ", totalAdditionalImages);
-    console.log("index: ", index);
-
     index =
       imageRender?.index < totalAdditionalImages
         ? imageRender?.index === 0
@@ -128,8 +124,6 @@ const BannerCard2: FC<BannerProps> = ({
     });
     setAnimateImageType("left");
   };
-
-  // console.log("additionalImage: ", additionalImage);
 
   return (
     <div
@@ -162,7 +156,7 @@ const BannerCard2: FC<BannerProps> = ({
             src={`https://portal.day2daywholesale.com/${imageRender?.image}`}
             style={{
               height: 300,
-              widows: 200
+              widows: 200,
             }}
             alt={title}
             initial={{
@@ -174,7 +168,7 @@ const BannerCard2: FC<BannerProps> = ({
             transition={{
               type: "keyframes",
             }}
-            className='object-cover'
+            className="object-cover"
           />
         )}
 

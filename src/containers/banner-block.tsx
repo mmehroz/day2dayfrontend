@@ -46,6 +46,8 @@ const BannerBlock: React.FC<BannerProps> = ({
     };
   }, [intervalTrigger2]);
 
+  console.log("data banner: ", data)
+
   return (
     <div
       className={`${className} grid grid-cols-2 sm:grid-cols-9 gap-2 md:gap-2.5 max-w-[1920px] mx-auto`}

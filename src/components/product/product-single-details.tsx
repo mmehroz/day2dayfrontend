@@ -159,6 +159,19 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   function handleAttribute(attribute: any) {
+    const existed = Object.keys(attributes).filter((el, i) => attribute[el]);
+    if (Object.keys(existed)?.length) {
+      const attributesClone = attributes;
+      delete attributesClone[existed];
+      console.log(attributesClone);
+      setAttributes((prev) => ({
+        ...prev,
+        ...attributesClone,
+      }));
+
+      return;
+    }
+
     setAttributes((prev) => ({
       ...prev,
       ...attribute,
