@@ -247,14 +247,7 @@ export default function ProductPopup() {
 
           <div className="pt-2 md:pt-4">
             <div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
-              {/* <Counter
-                quantity={quantity}
-                onIncrement={() => setQuantity((prev) => prev + 1)}
-                onDecrement={() =>
-                  setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-                }
-                disableDecrement={quantity === 1}
-              /> */}
+              
               <Counter
                 quantity={quantity}
                 onIncrement={() => {
@@ -267,17 +260,7 @@ export default function ProductPopup() {
                 }
                 disableDecrement={quantity === 1}
               />
-              {/* <Button
-                onClick={addToCart}
-                variant="flat"
-                className={`w-full h-11 md:h-12 px-1.5 ${
-                  !isSelected && 'bg-gray-690 hover:bg-gray-600'
-                }`}
-                // disabled={!isSelected}
-                loading={addToCartLoader}
-              >
-                {t('text-add-to-cart')}
-              </Button> */}
+            
               <Button
                 onClick={addToCart}
                 variant="slim"
