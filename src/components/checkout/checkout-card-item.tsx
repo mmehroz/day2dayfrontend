@@ -13,6 +13,21 @@ export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
     currencyCode: "USD",
   });
 
+  const renderImage = () => {
+    if (
+      item?.image?.toString()?.includes("shopify") ||
+      item?.image?.toString()?.includes("repziocdn") ||
+      item?.image?.toString()?.includes("elementvape")
+    ) {
+      return item?.image;
+    }
+
+    return (
+      `https://portal.day2daywholesale.com/public/assets/img/products/thumb/${item?.image}` ??
+      placeholderImage
+    );
+  };
+
   return (
     <div
       style={{
@@ -28,11 +43,7 @@ export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
         className="flex  rounded-md  w-16 h-16 flex-shrink-0"
       >
         <img
-          src={
-            item?.image
-              ? `https://portal.day2daywholesale.com/public/assets/img/products/thumb/${item.image}`
-              : "/assets/placeholder/order-product.svg"
-          }
+          src={renderImage()}
           width="64"
           height="64"
           className="object-cover"
@@ -41,9 +52,7 @@ export const CheckoutItem: React.FC<{ item: Item }> = ({ item }) => {
       <h6 className="text-sm ps-3 font-regular">
         {generateCartItemName(item.product_name, item.attributes)}
       </h6>
-      <div className="flex ms-auto text-sm ps-2 flex-shrink-0">
-        {price}
-      </div>
+      <div className="flex ms-auto text-sm ps-2 flex-shrink-0">{price}</div>
     </div>
   );
 };

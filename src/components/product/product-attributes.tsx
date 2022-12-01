@@ -44,7 +44,7 @@ export const ProductAttributes: React.FC<Props> = ({
                   backgroundColor: size,
                 }}
                 key={`${size}-${id}`}
-                className={`w-4 h-4 rounded-full mr-2 ${size === active && "w-6 h-6"}`}
+                className={`w-4 h-4 rounded-full cursor-pointer mr-2 ${size === active && "w-6 h-6"}`}
                 onClick={() => {
                   handleVariant({ variantprice, quantity });
                   onClick({ [title]: size });

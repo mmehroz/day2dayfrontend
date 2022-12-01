@@ -34,11 +34,14 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     currencyCode: "USD",
   });
 
+  console.log(item.attributes);
+  console.log("from cart")
+
   const myLoader = ({ src }) => {
     if (
       src?.toString()?.includes("shopify") ||
-      src?.toString()?.includes("repziocdn") || 
-      src?.toString()?.includes("elementvape") 
+      src?.toString()?.includes("repziocdn") ||
+      src?.toString()?.includes("elementvape")
     ) {
       return src;
     }
@@ -86,7 +89,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           href={`${ROUTES.PRODUCT}/${item?.slug}`}
           className="truncate text-sm  mb-1.5 -mt-1"
         >
-          {generateCartItemName(item?.product_name, item.attributes)}
+          {generateCartItemName(
+            item?.product_name,
+            item.attributes?.Colors?.startsWith("#") ? "" : item?.attributes
+          )}
         </Link>
         {username ? (
           <span className="text-sm text-gray-400 mb-2.5">

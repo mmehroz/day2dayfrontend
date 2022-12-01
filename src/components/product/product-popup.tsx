@@ -169,6 +169,9 @@ export default function ProductPopup() {
     setVariantPrice(data?.variantprice);
   }
 
+  console.log(data?.variants);
+  console.log('variants from database')
+
   return (
     <div
       style={{
@@ -247,7 +250,6 @@ export default function ProductPopup() {
 
           <div className="pt-2 md:pt-4">
             <div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
-              
               <Counter
                 quantity={quantity}
                 onIncrement={() => {
@@ -260,7 +262,7 @@ export default function ProductPopup() {
                 }
                 disableDecrement={quantity === 1}
               />
-            
+
               <Button
                 onClick={addToCart}
                 variant="slim"
