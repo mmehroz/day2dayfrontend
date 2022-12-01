@@ -63,6 +63,7 @@ const ProductSingleDetails: React.FC = () => {
   const [totalScrolled, setTotalScrolled] = useState(0);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState("");
   const [showFullScreen, setShowFullScreen] = useState<string | null>(null);
+  const [variantImage, setVariantImage] = useState(null);
 
   const [valuesReview, setValuesReview] = useState({
     rating: 0,
@@ -155,6 +156,13 @@ const ProductSingleDetails: React.FC = () => {
   }
 
   function handleVariantData(data: any) {
+    if (data?.variantimage) {
+      console.log(data?.variantimage);
+      console.log("handle variation")
+      setVariantImage(
+        `https://portal.day2daywholesale.com/public/assets/img/variantsimages/${data?.variantimage}`
+      );
+    }
     setVariantPrice(data?.variantprice);
   }
 
@@ -312,8 +320,14 @@ const ProductSingleDetails: React.FC = () => {
   const sortvariantsLengths = getSortVariationsLength();
 
   const renderImage = () => {
+    if (variantImage) {
+      console.log("variant image rendering");
+      console.log(variantImage);
+      return variantImage;
+    }
+
     if (
-      data?.details?.product_thumbnail?.toString()?.includes("shopify") ||
+      data?.details?.product_thumbnail?.toString()?.includes("https") ||
       data?.details?.product_thumbnail?.toString()?.includes("repziocdn") ||
       data?.details?.product_thumbnail?.toString()?.includes("elementvape")
     ) {

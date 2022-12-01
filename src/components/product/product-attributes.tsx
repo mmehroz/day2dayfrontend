@@ -35,7 +35,7 @@ export const ProductAttributes: React.FC<Props> = ({
       </h3>
       <ul className="colors flex flex-wrap -me-3 items-center">
         {/* {attributes?.map(({ id, value, meta }) => ( */}
-        {attributes?.map(({ id, size, quantity, variantprice }) => {
+        {attributes?.map(({ id, size, quantity, variantprice, variantimage }) => {
           if (title?.toLowerCase()?.includes("colors")) {
             return (
               <li
@@ -46,7 +46,7 @@ export const ProductAttributes: React.FC<Props> = ({
                 key={`${size}-${id}`}
                 className={`w-4 h-4 rounded-full cursor-pointer mr-2 ${size === active && "w-6 h-6"}`}
                 onClick={() => {
-                  handleVariant({ variantprice, quantity });
+                  handleVariant({ variantprice, quantity, variantimage });
                   onClick({ [title]: size });
                 }}
               ></li>
@@ -66,7 +66,7 @@ export const ProductAttributes: React.FC<Props> = ({
                 }
               )}
               onClick={() => {
-                handleVariant({ variantprice, quantity });
+                handleVariant({ variantprice, quantity, variantimage });
                 onClick({ [title]: size });
               }}
             >

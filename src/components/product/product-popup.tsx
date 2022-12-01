@@ -37,6 +37,7 @@ export default function ProductPopup() {
   const [quantitySelected, setQuantitySelected] = useState(0);
   const { theme } = useContext(colorsContext);
   const [variantPrice, setVariantPrice] = useState(0);
+  const [variantImage, setVariantImage] = useState("");
 
   const { selling_price, purchase_price, discount_price } = usePrice({
     amount: data.sale_price ? data.sale_price : data.selling_price,
@@ -146,6 +147,10 @@ export default function ProductPopup() {
   }
 
   const renderImage = () => {
+    if (variantImage) {
+      return `https://portal.day2daywholesale.com/public/assets/img/variantsimages/${variantImage}`;
+    }
+
     if (
       product_thumbnail?.toString()?.includes("shopify") ||
       product_thumbnail?.toString()?.includes("repziocdn") ||
@@ -166,11 +171,10 @@ export default function ProductPopup() {
   }
 
   function handleVariantData(data) {
+    console.log("variation data: ", data);
+    setVariantImage(data?.variantimage);
     setVariantPrice(data?.variantprice);
   }
-
-  console.log(data?.variants);
-  console.log('variants from database')
 
   return (
     <div
@@ -235,16 +239,20 @@ export default function ProductPopup() {
 
           {data?.variants?.map((variation: any) => {
             return (
-              <ProductAttributes
-                key={`popup-attribute-key${variation.id}`}
-                title={variation?.name}
-                attributes={variation?.attributes}
-                // attributes={variation.attributes}
-                active={attributes[variation?.name]}
-                onClick={handleAttribute}
-                handleVariant={handleVariantData}
-                data={variation}
-              />
+              <>
+                <div>
+                  <ProductAttributes
+                    key={`popup-attribute-key${variation.id}`}
+                    title={variation?.name}
+                    attributes={variation?.attributes}
+                    // attributes={variation.attributes}
+                    active={attributes[variation?.name]}
+                    onClick={handleAttribute}
+                    handleVariant={handleVariantData}
+                    data={variation}
+                  />
+                </div>
+              </>
             );
           })}
 
