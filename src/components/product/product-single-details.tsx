@@ -853,14 +853,3 @@ const ProductSingleDetails: React.FC = () => {
 };
 
 export default ProductSingleDetails;
-
-{
-  /* <div className="relative w-full h-full">
-  <Image
-    className="object-contain"
-    layout="fill"
-    src={showFullScreen}
-    loader={() => showFullScreen}
-  />
-</div>; */
-}

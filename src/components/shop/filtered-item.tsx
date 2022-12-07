@@ -11,10 +11,28 @@ interface Props {
 
 export const FilteredItem = ({ itemKey, itemValue }: Props) => {
   const router = useRouter();
+
   const { theme } = useContext(colorsContext);
 
   function handleClose() {
-    router?.push("/");
+    console.log(router?.query);
+    console.log(itemValue);
+
+    if (router?.query?.innercat) {
+      router.push(
+        `/product/${router?.query?.maincat}/${router?.query?.subcat}`
+      );
+      return;
+    }
+
+    if (router?.query?.subcat) {
+      router.push(`/product/${router?.query?.maincat}`);
+      return;
+    }
+
+    if (router?.query?.maincat) {
+      router?.push("/");
+    }
   }
   return (
     <div

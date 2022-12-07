@@ -50,7 +50,7 @@ const BannerBlock: React.FC<BannerProps> = ({
 
   return (
     <div
-      className={`${className} grid grid-cols-2 sm:grid-cols-9 gap-2 md:gap-2.5 max-w-[1920px] mx-auto`}
+      className={`w-full flex justify-between gap-4 mb-10`}
     >
       {data.map((banner: any, index) => (
         <BannerCard2
@@ -64,11 +64,7 @@ const BannerBlock: React.FC<BannerProps> = ({
           additionalImage={banner["additionImage"]}
           variant="default"
           index={index}
-          className={
-            banner.type === "medium"
-              ? "col-span-full sm:col-span-5"
-              : "col-span-1 sm:col-span-2"
-          }
+         
         />
       ))}
     </div>

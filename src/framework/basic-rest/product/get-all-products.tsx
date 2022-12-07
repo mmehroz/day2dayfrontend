@@ -81,7 +81,7 @@ const fetchProducts = async ({ queryKey }: any) => {
   const { data } = await http.get(route);
 
   return {
-    data: shuffle(data.data),
+    data: data.data,
     paginatorInfo: {
       nextPageUrl: "",
     },

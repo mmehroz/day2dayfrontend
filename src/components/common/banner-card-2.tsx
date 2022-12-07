@@ -25,7 +25,6 @@ function getImage(deviceWidth: number, imgObj: any) {
 
 const BannerCard2: FC<BannerProps> = ({
   banner,
-  className,
   variant = "rounded",
   effectActive = false,
   classNameInner,
@@ -129,12 +128,11 @@ const BannerCard2: FC<BannerProps> = ({
     <div
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
-      className={cn("mx-auto", className)}
     >
       <div
         // href={href}
         className={cn(
-          "h-full group flex justify-center relative overflow-hidden ",
+          "h-full flex justify-center relative overflow-hidden w-[27rem] 2xl:w-[33rem] ",
           classNameInner
         )}
       >
@@ -155,8 +153,8 @@ const BannerCard2: FC<BannerProps> = ({
           <motion.img
             src={`https://portal.day2daywholesale.com/${imageRender?.image}`}
             style={{
-              height: 300,
-              widows: 200,
+              height: 350,
+              widows: 600,
             }}
             alt={title}
             initial={{
@@ -168,7 +166,7 @@ const BannerCard2: FC<BannerProps> = ({
             transition={{
               type: "keyframes",
             }}
-            className="object-cover"
+            className="object-cover rounded-xl w-full"
           />
         )}
 
@@ -186,9 +184,7 @@ const BannerCard2: FC<BannerProps> = ({
           )}
         </AnimatePresence>
 
-        {effectActive && (
-          <div className="absolute top-0 -start-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
-        )}
+        
       </div>
     </div>
   );
