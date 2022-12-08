@@ -69,7 +69,7 @@ const Layout: React.FC = ({ children }) => {
   useEffect(() => {
     if (darkTheme) {
       const nightColor = "#111314";
-      document. body.style.backgroundColor = nightColor;
+      document.body.style.backgroundColor = nightColor;
       return;
     }
 
@@ -240,26 +240,38 @@ const Layout: React.FC = ({ children }) => {
         <div className="w-screen h-screen bg-black/60  absolute z-[999999] overflow-x-hidden flex items-center justify-center p-10 md:p-0  ">
           <div
             id="modal-verify"
-            className="md:absolute w-[25rem] h-[15rem] bg-gray-800 rounded-xl  top-[40%] bottom-0 left-[40%] right-0 flex flex-col py-10 items-center custom-shadow"
+            className="md:absolute w-[40rem] h-[23rem] bg-gray-800 rounded-xl top-[25%] bottom-0 left-[28%] 2xl:left-[32%] 2xl:top-[30%] right-0 flex flex-col py-10 pt-2 px-2 items-center custom-shadow"
           >
-            <h2 className=" text-[1.8rem] font-semibold text-orange-500">
-              Age Verification
+            <div className="w-full bg-gradient-to-tr to-orange-500 from-orange-800 py-4 flex items-center justify-center rounded-md">
+              <h2 className=" text-[1rem] font-semibold text-white uppercase ">
+                Age Verification
+              </h2>
+            </div>
+
+            <Logo />
+
+            <h2 className="font-semibold mt-5 text-md px-10 text-center">
+              The products available on Day2day Wholesale are{" "}
+              <b>
+                age-restricted and intended for adults of legal smoking age
+                only.
+              </b>{" "}
+              <br />
+              By Entering our website, you affirm that you are of legal smoking
+              age in your jurisdiction and you agree to be Age Verified.
             </h2>
-            <h2 className="font-semibold mt-5">
-              Are you atleast 21 years old?
-            </h2>
-            <div className="w-full md:mt-6 mt-10 flex gap-4 px-10 items-center justify-center">
+            <div className="w-full md:mt-6 flex gap-4 px-10 items-center justify-center">
               <button
                 onClick={handleAgree}
-                className="font-semibold rounded-md bg-gradient-to-tr to-orange-500 from-pink-500 px-10 md:py-4 text-white hover:opacity-80 duration-300 transition text-sm md:text-base py-3"
+                className="font-semibold rounded-md bg-gradient-to-tr to-orange-500 from-pink-500 px-10 md:py-4 text-white hover:opacity-80 duration-300 transition text-sm md:text-base py-3 uppercase"
               >
-                Yes
+                Yes, Im of Legal Age
               </button>
               <button
                 onClick={handleDisagree}
-                className="font-semibold rounded-md bg-gradient-to-tr to-red-500 from-pink-500 px-10 md:py-4 text-white hover:opacity-80 duration-300 transition text-sm md:text-base py-3"
+                className="font-semibold rounded-md bg-gradient-to-tr to-red-500 from-pink-500 px-10 md:py-4 text-white hover:opacity-80 duration-300 transition text-sm md:text-base py-3 uppercase "
               >
-                Disagree
+                No I {"Don't"} Agree
               </button>
             </div>
           </div>
