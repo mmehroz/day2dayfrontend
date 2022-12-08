@@ -37,7 +37,7 @@ const IconCard: React.FC<Props> = ({
         style={{
           backgroundColor: theme.backgroundColorSecondary,
         }}
-        href={`product/product-main/${item.category_slug}`}
+        href={`product/${item.category_slug}`}
         className={cn("group flex justify-center flex-col rounded-lg  ", {
           "h-28 sm:h-[8.5rem] md:h-40 xl:h-[11.5rem] 2xl:h-44 3xl:h-60":
             variant === "default",

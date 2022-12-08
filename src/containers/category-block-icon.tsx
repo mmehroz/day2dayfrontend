@@ -112,7 +112,7 @@ const CategoryBlockIcon: React.FC<CategoriesProps> = ({
               <SwiperSlide key={category.id}>
                 <IconCard
                   item={category}
-                  href={`${ROUTES.CATEGORY}/${category.category_slug}`}
+                  href={`product/${category.category_slug}`}
                   effectActive={true}
                   variant={variant}
                 />
