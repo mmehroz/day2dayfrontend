@@ -13,6 +13,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   const [href, setHref] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const { theme } = useContext(colorsContext);
+  const [stateClicked, setStateClicked] = useState(false);
 
   useEffect(() => {
     let subscribe: boolean = false;
@@ -72,8 +73,31 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   console.log("current category: ", currentCategory);
 
   const handleRoute = (el) => {
-    console.log("current element: ", el);
+    // const categoryClicked = localStorage.getItem("categoryClicked");
+    // setStateClicked(true);
 
+    // if (categoryClicked === "0") {
+    //   let path = "/product/";
+
+    //   if (router?.query?.maincat) {
+    //     path = `/product/${router?.query?.maincat}/${el?.subcategory_slug}`;
+    //   }
+
+    //   if (router?.query?.subcat) {
+    //     path = `/product/${router?.query?.maincat}/${router?.query?.subcat}/${el?.subcategory_slug}`;
+    //   }
+
+    //   if (router?.query?.innercat) {
+    //     path = `/product/${router?.query?.maincat}/${router?.query?.subcat}/${router?.query?.innercat}`;
+    //   }
+
+    //   console.log("path: ", path);
+    //   console.log("el: ", el);
+
+    //   localStorage.setItem("categoryClicked", "1");
+    //   router?.push(path);
+    //   return;
+    // }
     if (
       router?.query?.subcat?.toString()?.includes("+") ||
       router?.query?.maincat?.toString()?.includes("+") ||
