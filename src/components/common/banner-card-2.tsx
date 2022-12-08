@@ -158,10 +158,10 @@ const BannerCard2: FC<BannerProps> = ({
             }}
             alt={title}
             initial={{
-              opacity: 0,
+          
               x: animateImageType === "left" ? "100%" : "-100%",
             }}
-            animate={{ opacity: 1, x: "0%" }}
+            animate={{  x: "0%" }}
             key={imageRender?.image}
             transition={{
               type: "keyframes",
