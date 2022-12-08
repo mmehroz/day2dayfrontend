@@ -72,36 +72,22 @@ export const CategoryFilter = ({ currentCategory }: any) => {
 
   console.log("current category: ", currentCategory);
 
-  const handleSubRoute = (el) => {
-    let path = "";
+  const handleRoute = (el) => {
     if (router?.query?.maincat?.toString()?.length) {
-      path = `/product/${router?.query?.maincat}/${el?.subcategory_slug}`;
-    }
+      console.log(router?.query);
+      console.log("router query");
+      if (!router?.query?.subcat) {
+        if (!router?.query?.innercat) {
+          router?.push(
+            `/product/${router?.query?.maincat}/${el?.subcategory_slug}`
+          );
+          return;
+        }
 
-    if (router?.query?.subcat?.toString()?.length) {
-      path = `/product/${router?.query?.maincat}/${router?.query?.subcat}/${el?.subcategory_slug}`;
-
-      if (router?.query?.subcat?.toString()?.includes("+")) {
-        console.log(router?.query?.subcat);
-        console.log("subcat");
-
-        router?.push(
-          `/product/${router?.query?.maincat}/${
-            router?.query?.subcat?.toString()?.split("+")[0]
-          }/${el?.subcategory_slug}`
-        );
         return;
       }
     }
 
-    if (router?.query?.subcat?.toString()?.length) {
-      path = `/product/${router?.query?.maincat}/${router?.query?.subcat}/${el?.subcategory_slug}`;
-    }
-
-    router?.push(path);
-  };
-
-  const handleRoute = (el) => {
     if (
       router?.query?.subcat?.toString()?.includes("+") ||
       router?.query?.maincat?.toString()?.includes("+") ||
@@ -213,47 +199,26 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   };
 
   return (
-    <>
-      <div className="block border-b border-gray-300 pb-7 mb-7">
-        <h3 className=" text-sm md:text-base font-semibold mb-7">
-          {t("text-category")}
-        </h3>
-        <div className="mt-2 flex flex-col space-y-4 h-[10rem] overflow-y-scroll">
-          {categories?.map((el, i) => {
-            return (
-              <CheckBox
-                key={i}
-                label={el?.subcategory_name || el?.category_name}
-                label={el?.subcategory_name || el?.category_name}
-                checked={selectedCategories?.find(
-                  (sl, i) =>
-                    sl === el.subcategory_slug || sl === el.category_slug
-                )}
-                value={el?.subcategory_slug || el?.category_slug}
-                onChange={() => handleRoute(el)}
-              />
-            );
-          })}
-        </div>
+    <div className="block border-b border-gray-300 pb-7 mb-7">
+      <h3 className=" text-sm md:text-base font-semibold mb-7">
+        {t("text-category")}
+      </h3>
+      <div className="mt-2 flex flex-col space-y-4 h-[10rem] overflow-y-scroll">
+        {categories?.map((el, i) => {
+          return (
+            <CheckBox
+              key={i}
+              label={el?.subcategory_name || el?.category_name}
+              label={el?.subcategory_name || el?.category_name}
+              checked={selectedCategories?.find(
+                (sl, i) => sl === el.subcategory_slug || sl === el.category_slug
+              )}
+              value={el?.subcategory_slug || el?.category_slug}
+              onChange={() => handleRoute(el)}
+            />
+          );
+        })}
       </div>
-      <div className="block border-b border-gray-300 pb-7 mb-7">
-        <h3 className=" text-sm md:text-base font-semibold mb-7">
-          {t("Sub Categories")}
-        </h3>
-        <div className="mt-2 flex flex-col space-y-4 h-[10rem] overflow-y-scroll">
-          {categories?.map((el, i) => {
-            return (
-              <CheckBox
-                key={i}
-                label={el?.subcategory_name || el?.category_name}
-                label={el?.subcategory_name || el?.category_name}
-                value={el?.subcategory_slug || el?.category_slug}
-                onChange={() => handleSubRoute(el)}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </>
+    </div>
   );
 };

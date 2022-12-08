@@ -15,9 +15,22 @@ const SearchProduct: React.FC<SearchProductProps> = ({ item }) => {
     currencyCode: "USD",
   });
 
-  const myLoader = ({ src }) => {
-    return `https://portal.day2daywholesale.com/public/assets/img/products/thumb/${item?.product_thumbnail}`;
+  const renderImage = () => {
+    if (
+      item?.product_thumbnail?.toString()?.includes("https") ||
+      item?.product_thumbnail?.toString()?.includes("repziocdn") ||
+      item?.product_thumbnail?.toString()?.includes("elementvape")
+    ) {
+      return item?.product_thumbnail;
+    }
+
+    return (
+      `https://portal.day2daywholesale.com/public/assets/img/products/thumb/${item?.product_thumbnail}` ??
+      placeholderImage
+    );
   };
+
+
   return (
     <Link
       href={`${ROUTES.PRODUCT}/${item?.product_slug}`}
@@ -33,7 +46,7 @@ const SearchProduct: React.FC<SearchProductProps> = ({ item }) => {
           height={96}
           loading="eager"
           alt={item.name || "Product Image"}
-          loader={myLoader}
+          loader={renderImage}
           className="bg-gray-200 object-cover"
         />
       </div>
