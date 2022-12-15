@@ -72,6 +72,7 @@ export const CategoryFilter = ({ currentCategory }: any) => {
       },
     })
       .then((res) => {
+        console.log("subnav: ", res?.data?.subnav);
         setCategories(res?.data?.subnav);
       })
       .catch((err) => {});
@@ -131,6 +132,24 @@ export const CategoryFilter = ({ currentCategory }: any) => {
   }, [router?.query]);
 
   console.log("current category: ", currentCategory);
+
+  function showCategory(): boolean {
+    if (!categories?.length) return false;
+
+    const parseCated = categories?.map((el, i) => {
+      return el?.subcategory_slug || el?.category_slug;
+    });
+
+    const parsedPrevCred = prevCategories?.map((el, i) => {
+      return el?.subcategory_slug || el?.category_slug;
+    });
+
+    if (parsedPrevCred?.sort()?.join(",") === parseCated?.sort()?.join(",")) {
+      return false;
+    }
+
+    return true;
+  }
 
   const handleRoute = (el) => {
     console.log(el);
@@ -306,24 +325,26 @@ export const CategoryFilter = ({ currentCategory }: any) => {
           })}
         </div>
       </div>
-      <div className="block border-b border-gray-300 pb-7 mb-7">
-        <h3 className=" text-sm md:text-base font-semibold mb-7">
-          {t("Sub Category")}
-        </h3>
-        <div className="mt-2 flex flex-col space-y-4 h-[10rem] overflow-y-scroll">
-          {categories?.map((el, i) => {
-            return (
-              <CheckBox
-                key={i}
-                label={el?.subcategory_name || el?.category_name}
-                label={el?.subcategory_name || el?.category_name}
-                value={el?.subcategory_slug || el?.category_slug}
-                onChange={() => handleRoute(el)}
-              />
-            );
-          })}
+      {showCategory() ? (
+        <div className="block border-b border-gray-300 pb-7 mb-7">
+          <h3 className=" text-sm md:text-base font-semibold mb-7">
+            {t("Sub Category")}
+          </h3>
+          <div className="mt-2 flex flex-col space-y-4 h-[10rem] overflow-y-scroll">
+            {categories?.map((el, i) => {
+              return (
+                <CheckBox
+                  key={i}
+                  label={el?.subcategory_name || el?.category_name}
+                  label={el?.subcategory_name || el?.category_name}
+                  value={el?.subcategory_slug || el?.category_slug}
+                  onChange={() => handleRoute(el)}
+                />
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : null}
     </>
   );
 };
