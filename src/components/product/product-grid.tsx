@@ -26,8 +26,6 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
   } = useProductsQuery({ limit: 10, ...query });
 
   useEffect(() => {
-    if (!data?.pages?.length || products?.length) return;
-
     //@ts-ignore
     setProducts(data?.pages[0]?.data);
   }, [data]);
@@ -203,7 +201,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
           render()
         )}
       </div>
-      {data?.pages[0]?.data?.length ? (
+      {Number.isInteger(products?.length / 24) && (
         <div className="w-full mt-40 justify-center flex">
           <Button
             onClick={fetchMore}
@@ -212,7 +210,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
             Load More
           </Button>
         </div>
-      ) : null}
+      )}
 
       <div className="text-center pt-8 xl:pt-14"></div>
     </>
