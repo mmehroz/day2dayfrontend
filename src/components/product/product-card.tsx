@@ -52,7 +52,8 @@ const ProductCard: FC<ProductProps> = ({
     if (
       src?.toString()?.includes("shopify") ||
       src?.toString()?.includes("repziocdn") ||
-      src?.toString()?.includes("elementvape") 
+      src?.toString()?.includes("elementvape") ||
+      src?.toString()?.includes("junipercdn")
     ) {
       return src;
     }
